@@ -17,7 +17,7 @@ public class Sistema {
     private Sistema() {
     }
 
-    //==================  Sis. Partida  ==================//
+    //==================  Sis. Jugador  ==================//
     public Participante login(String u, String p) {
         return sj.login(u, p);
     }
@@ -27,7 +27,4 @@ public class Sistema {
     }
 
     //==================  Sis. Partida  ==================//
-    public void addParticipante(Participante p) {
-        sp.addParticipante(p);
-    }
 }

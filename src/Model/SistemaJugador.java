@@ -6,16 +6,16 @@ class SistemaJugador {
 
     //==================  Attributes  ==================//
     private ArrayList<Jugador> jugadores = new ArrayList();
+    private ArrayList<Participante> participantes = new ArrayList();
 
     //==================  Methods  ==================//
     public Participante login(String user, String pass) {
         for (Jugador j : jugadores) {
-            if (j.getNombre().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
+            if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 
                 //Jugador válido, creo el participante
-                //Participante p = Sistema.getInstance().addParticipante(j);
-                //Sistema.getInstance().avisar(Sistema.Eventos.listaAgendas);
                 Participante p = new Participante();
+                //Sistema.getInstance().avisar(Sistema.Eventos.listaAgendas);
 
                 return p;
             }

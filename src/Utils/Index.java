@@ -2,7 +2,7 @@ package Utils;
 
 import Model.Jugador;
 import Model.Sistema;
-import Views.Login;
+import Views.LoginDialog;
 
 public class Index {
 
@@ -10,9 +10,9 @@ public class Index {
 
         cargarDatos();
 
-        new Login(null, false).setVisible(true);
-        new Login(null, false).setVisible(true);
-        new Login(null, false).setVisible(true);
+        new LoginDialog(null, false).setVisible(true);
+        //new Login(null, false).setVisible(true);
+        //new Login(null, false).setVisible(true);
     }
 
     private static void cargarDatos() {

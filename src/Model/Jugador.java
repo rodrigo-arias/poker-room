@@ -6,12 +6,14 @@ public class Jugador {
     private String usuario;
     private String contrasena;
     private String nombre;
+    private int saldo;
 
     //=================  Constructor  ================//
     public Jugador(String usuario, String contrasena, String nombre) {
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.nombre = nombre;
+        this.saldo = 100;
     }
 
     //==================  Properties  =================//
@@ -22,5 +24,8 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-    private int saldo;
+
+    public String getUsuario() {
+        return usuario;
+    }
 }

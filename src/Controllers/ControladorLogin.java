@@ -20,6 +20,5 @@ public class ControladorLogin {
         } else {
             vista.mostrarPartida(participante);
         }
-
     }
 }

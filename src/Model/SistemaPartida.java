@@ -1,15 +1,12 @@
 package Model;
 
-import java.util.ArrayList;
-
 public class SistemaPartida {
 
     //==================  Attributes  ==================//
-    private ArrayList<Participante> participantes = new ArrayList();
+    private Partida proximaPartida;
 
     //==================  Methods  ==================//
-    public void addParticipante(Participante p) {
-        participantes.add(p);
+    public void crearProximaPartida(int max, int pozo, int base) {
+        this.proximaPartida = new Partida(max, pozo, base);
     }
-
 }
