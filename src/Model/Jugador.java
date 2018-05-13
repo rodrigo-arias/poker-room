@@ -28,4 +28,8 @@ public class Jugador {
     public String getUsuario() {
         return usuario;
     }
+
+    public int getSaldo() {
+        return saldo;
+    }
 }

@@ -129,7 +129,7 @@
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="4f" green="a8" red="cb" type="rgb"/>
+              <Color blue="32" green="26" red="18" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="ProFont for Powerline" size="18" style="1"/>

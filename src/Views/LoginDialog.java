@@ -4,7 +4,6 @@ import Controllers.ControladorLogin;
 import javax.swing.JOptionPane;
 import Controllers.IVistaLogin;
 import Model.Participante;
-import Model.Partida;
 
 public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
 
@@ -67,7 +66,7 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
         panelBottom.add(lblPass);
         lblPass.setBounds(40, 100, 80, 30);
 
-        btnLogin.setBackground(new java.awt.Color(203, 168, 79));
+        btnLogin.setBackground(new java.awt.Color(24, 38, 50));
         btnLogin.setFont(new java.awt.Font("ProFont for Powerline", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(149, 120, 52));
         btnLogin.setText("LOGIN");

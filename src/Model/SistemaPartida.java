@@ -4,9 +4,12 @@ public class SistemaPartida {
 
     //==================  Attributes  ==================//
     private Partida proximaPartida;
+    private int max;
+    private int pozo;
+    private int base;
 
     //==================  Methods  ==================//
-    public void crearProximaPartida(int max, int pozo, int base) {
-        this.proximaPartida = new Partida(max, pozo, base);
+    public void crearProximaPartida() {
+        this.proximaPartida = new Partida(this.max, this.pozo, this.base);
     }
 }

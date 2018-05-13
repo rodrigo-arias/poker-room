@@ -27,4 +27,8 @@ public class Sistema {
     }
 
     //==================  Sis. Partida  ==================//
+    public void crearProximaPartida() {
+        sp.crearProximaPartida();
+    }
+
 }

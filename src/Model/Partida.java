@@ -8,6 +8,7 @@ public class Partida {
     private int max;
     private int pozo;
     private int base;
+    private Mazo mazo;
     private ArrayList<Participante> participantes;
 
     //==================  Constructor  =================//
@@ -15,12 +16,21 @@ public class Partida {
         this.max = max;
         this.pozo = pozo;
         this.base = base;
+        this.mazo = new Mazo();
         this.participantes = new ArrayList();
     }
 
     //==================  Properties  =================//
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public void setBase(int base) {
+        this.base = base;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
     }
 
     //==================  Methods  ==================//

@@ -14,7 +14,8 @@ class SistemaJugador {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 
                 //Jugador válido, creo el participante
-                Participante p = new Participante();
+                //credenciales correctas + no en proxima partida + guita para pagar base de proxima partida
+                Participante p = new Participante(j.getSaldo());
                 //Sistema.getInstance().avisar(Sistema.Eventos.listaAgendas);
 
                 return p;

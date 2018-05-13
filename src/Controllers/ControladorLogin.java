@@ -5,7 +5,7 @@ import Model.Sistema;
 
 public class ControladorLogin {
 
-    private Sistema modelo = Sistema.getInstance();
+    private Sistema sistema = Sistema.getInstance();
     private IVistaLogin vista;
 
     public ControladorLogin(IVistaLogin vista) {
@@ -13,7 +13,7 @@ public class ControladorLogin {
     }
 
     public void login(String u, String p) {
-        Participante participante = modelo.login(u, p);
+        Participante participante = sistema.login(u, p);
 
         if (participante == null) {
             vista.mostrarError("Login incorrecto");

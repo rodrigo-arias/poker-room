@@ -32,6 +32,13 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         tipos = new javax.swing.JComboBox();
         crearContacto = new javax.swing.JButton();
         salir = new javax.swing.JButton();
+        crearContacto1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        nombree1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        nombree2 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nombree3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 0));
@@ -44,22 +51,22 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
 
         jLabel1.setText("Nombre");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 80, 60, 20);
+        jLabel1.setBounds(240, 30, 60, 20);
         getContentPane().add(nombree);
-        nombree.setBounds(80, 80, 170, 30);
+        nombree.setBounds(180, 50, 170, 30);
         getContentPane().add(numero);
-        numero.setBounds(80, 140, 170, 30);
+        numero.setBounds(20, 270, 170, 30);
 
         jLabel2.setText("Numero");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 140, 50, 30);
+        jLabel2.setBounds(80, 240, 50, 30);
 
         jLabel3.setText("Tipo");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 200, 50, 30);
+        jLabel3.setBounds(430, 240, 50, 30);
 
         getContentPane().add(tipos);
-        tipos.setBounds(80, 200, 170, 30);
+        tipos.setBounds(360, 210, 170, 30);
 
         crearContacto.setText("Crear");
         crearContacto.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +75,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             }
         });
         getContentPane().add(crearContacto);
-        crearContacto.setBounds(133, 290, 110, 40);
+        crearContacto.setBounds(520, 350, 110, 40);
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +84,34 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             }
         });
         getContentPane().add(salir);
-        salir.setBounds(403, 360, 120, 30);
+        salir.setBounds(390, 350, 120, 40);
+
+        crearContacto1.setText("Crear");
+        crearContacto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearContacto1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crearContacto1);
+        crearContacto1.setBounds(270, 350, 110, 40);
+
+        jLabel4.setText("Nombre");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(550, 30, 60, 20);
+        getContentPane().add(nombree1);
+        nombree1.setBounds(490, 50, 170, 30);
+
+        jLabel5.setText("Nombre");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(760, 250, 60, 20);
+        getContentPane().add(nombree2);
+        nombree2.setBounds(700, 270, 170, 30);
+
+        jLabel6.setText("Nombre");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(410, 510, 60, 20);
+        getContentPane().add(nombree3);
+        nombree3.setBounds(350, 530, 170, 30);
 
         setSize(new java.awt.Dimension(900, 622));
         setLocationRelativeTo(null);
@@ -98,12 +132,23 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         salir();
     }//GEN-LAST:event_formWindowClosing
 
+    private void crearContacto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearContacto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearContacto1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton crearContacto;
+    private javax.swing.JButton crearContacto1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField nombree;
+    private javax.swing.JTextField nombree1;
+    private javax.swing.JTextField nombree2;
+    private javax.swing.JTextField nombree3;
     private javax.swing.JTextField numero;
     private javax.swing.JButton salir;
     private javax.swing.JComboBox tipos;
