@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Participante;
+import Model.Partida;
 import Model.Sistema;
 
 public class ControladorLogin {
@@ -18,7 +19,9 @@ public class ControladorLogin {
         if (participante == null) {
             vista.mostrarError("Login incorrecto");
         } else {
-            vista.mostrarPartida(participante);
+            Partida partida = Sistema.getInstance().getProximaPartida();
+            partida.agregarParticipante(participante);
+            vista.mostrarPartida(partida, participante);
         }
     }
 }

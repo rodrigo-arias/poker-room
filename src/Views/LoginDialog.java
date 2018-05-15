@@ -4,6 +4,7 @@ import Controllers.ControladorLogin;
 import javax.swing.JOptionPane;
 import Controllers.IVistaLogin;
 import Model.Participante;
+import Model.Partida;
 
 public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
 
@@ -20,6 +21,7 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
     private void initComponents() {
 
         lblBackground = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
         panelBottom = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         fieldNombre = new javax.swing.JTextField();
@@ -126,6 +128,7 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
     private javax.swing.JTextField fieldNombre;
     private javax.swing.JPasswordField fieldPass;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPass;
@@ -145,8 +148,9 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
     }
 
     @Override
-    public void mostrarPartida(Participante p) {
+    public void mostrarPartida(Partida partida, Participante participante) {
         dispose();
-        new PartidaDialog(null, false, p).setVisible(true);
+        new PartidaDialog(null, false, partida, participante).setVisible(true);
+        partida.avisar(Partida.Eventos.actualizarParticipantes);
     }
 }

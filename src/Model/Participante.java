@@ -6,6 +6,7 @@ public class Participante {
 
     //==================  Attributes  ==================//
     private ArrayList<Carta> cartas;
+    private String nombre;
     private int saldo;
 
     //==================  Properties  =================//
@@ -26,7 +27,8 @@ public class Participante {
     }
 
     //==================  Constructor  ==================//
-    public Participante(int saldo) {
+    public Participante(String nombre, int saldo) {
+        this.nombre = nombre;
         this.cartas = new ArrayList(5);
         this.saldo = saldo;
     }

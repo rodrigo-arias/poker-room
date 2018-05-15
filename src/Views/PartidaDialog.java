@@ -6,17 +6,18 @@ import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.JOptionPane;
 import Model.Participante;
+import Model.Partida;
 
 public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida {
 
     private ControladorPartida controlador;
     //private String nombree = "";
 
-    public PartidaDialog(java.awt.Frame parent, boolean modal, Participante p) {
+    public PartidaDialog(java.awt.Frame parent, boolean modal, Partida partida, Participante participante) {
         super(parent, modal);
         initComponents();
 
-        controlador = new ControladorPartida(p, this);
+        controlador = new ControladorPartida(partida, participante, this);
 
     }
 
@@ -182,6 +183,11 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     public void error(String msg) {
         JOptionPane.showMessageDialog(this, msg);
 
+    }
+
+    @Override
+    public void actualizarParticipantes() {
+        JOptionPane.showMessageDialog(this, "Actualizar participantes");
     }
 
 //    @Override

@@ -11,16 +11,21 @@ public class Index {
         cargarDatos();
 
         new LoginDialog(null, false).setVisible(true);
-        //new Login(null, false).setVisible(true);
-        //new Login(null, false).setVisible(true);
+        new LoginDialog(null, false).setVisible(true);
+
     }
 
     private static void cargarDatos() {
         Sistema model = Sistema.getInstance();
 
-        model.addJugador(new Jugador("a", "a", "Ana"));
-        model.addJugador(new Jugador("b", "b", "Beatriz"));
-        model.addJugador(new Jugador("c", "c", "Carlos"));
+        model.setBase(1);
+        model.setMax(2);
+        model.setPozo(3);
+        model.crearProximaPartida();
+
+        model.agregarJugador(new Jugador("a", "a", "Ana"));
+        model.agregarJugador(new Jugador("b", "b", "Beatriz"));
+        model.agregarJugador(new Jugador("c", "c", "Carlos"));
     }
 
 }

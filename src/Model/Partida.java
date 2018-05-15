@@ -1,8 +1,9 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Partida {
+public class Partida extends Observable {
 
     //==================  Attributes  ==================//
     private int max;
@@ -10,6 +11,10 @@ public class Partida {
     private int base;
     private Mazo mazo;
     private ArrayList<Participante> participantes;
+
+    public enum Eventos {
+        actualizarParticipantes;
+    }
 
     //==================  Constructor  =================//
     public Partida(int max, int pozo, int base) {
@@ -34,7 +39,13 @@ public class Partida {
     }
 
     //==================  Methods  ==================//
-    public void addParticipante(Participante p) {
+    public void agregarParticipante(Participante p) {
         participantes.add(p);
     }
+
+    public void avisar(Eventos evento) {
+        setChanged();
+        notifyObservers(evento);
+    }
+
 }
