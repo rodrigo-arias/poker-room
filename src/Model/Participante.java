@@ -26,6 +26,12 @@ public class Participante {
         this.saldo = saldo;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+    
+    
+
     //==================  Constructor  ==================//
     public Participante(String nombre, int saldo) {
         this.nombre = nombre;

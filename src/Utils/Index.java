@@ -3,11 +3,12 @@ package Utils;
 import Model.Admin;
 import Model.Jugador;
 import Model.Sistema;
-import Views.Launcher;
+import Views.LoginDialog;
 
 public class Index {
 
     public static void main(String[] args) {
+
         cargarDatos();
         new Launcher(null, false).setVisible(true);
     }
