@@ -18,12 +18,21 @@ public class Sistema {
     }
 
     //==================  Sis. Jugador  ==================//
-    public Participante login(String u, String p) {
-        return sj.login(u, p);
+    public Participante loginJugador(String u, String p) {
+        return sj.loginJugador(u, p);
     }
 
     public void agregarJugador(Jugador j) {
         sj.agregarJugador(j);
+    }
+
+    //===================  Sis. Admin  ===================//
+    public Admin loginAdmin(String user, String pass) {
+        return sa.loginAdmin(user, pass);
+    }
+
+    public void agregarAdmin(Admin a) {
+        sa.agregarAdmin(a);
     }
 
     //==================  Sis. Partida  ==================//

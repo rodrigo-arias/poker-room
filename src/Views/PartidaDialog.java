@@ -172,7 +172,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     }*/
     private void salir() {
         dispose();
-        new LoginDialog(null, false).setVisible(true);
+        new LoginJugador(null, false).setVisible(true);
     }
 
 //    @Override

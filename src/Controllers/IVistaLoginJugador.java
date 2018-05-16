@@ -3,7 +3,7 @@ package Controllers;
 import Model.Participante;
 import Model.Partida;
 
-public interface IVistaLogin {
+public interface IVistaLoginJugador {
 
     public void mostrarError(String msg);
 

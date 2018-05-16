@@ -4,17 +4,17 @@ import Model.Participante;
 import Model.Partida;
 import Model.Sistema;
 
-public class ControladorLogin {
+public class ControladorLoginJugador {
 
     private Sistema sistema = Sistema.getInstance();
-    private IVistaLogin vista;
+    private IVistaLoginJugador vista;
 
-    public ControladorLogin(IVistaLogin vista) {
+    public ControladorLoginJugador(IVistaLoginJugador vista) {
         this.vista = vista;
     }
 
     public void login(String u, String p) {
-        Participante participante = sistema.login(u, p);
+        Participante participante = sistema.loginJugador(u, p);
 
         if (participante == null) {
             vista.mostrarError("Login incorrecto");

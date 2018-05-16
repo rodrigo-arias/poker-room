@@ -8,7 +8,7 @@ class SistemaJugador {
     private ArrayList<Jugador> jugadores = new ArrayList();
 
     //==================  Methods  ==================//
-    public Participante login(String user, String pass) {
+    public Participante loginJugador(String user, String pass) {
         for (Jugador j : jugadores) {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 

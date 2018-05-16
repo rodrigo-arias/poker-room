@@ -1,19 +1,17 @@
 package Views;
 
-import Controllers.ControladorLogin;
+import Controllers.ControladorLoginAdmin;
+import Controllers.IVistaLoginAdmin;
 import javax.swing.JOptionPane;
-import Controllers.IVistaLogin;
-import Model.Participante;
-import Model.Partida;
 
-public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
+public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin {
 
-    private ControladorLogin controlador;
+    private ControladorLoginAdmin controlador;
 
-    public LoginDialog(java.awt.Frame parent, boolean modal) {
+    public LoginAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorLogin(this);
+        controlador = new ControladorLoginAdmin(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,7 +48,7 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
         lblNombre.setFont(new java.awt.Font("ProFont for Powerline", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(153, 153, 153));
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblNombre.setText("USUARIO");
+        lblNombre.setText("ADMIN");
         panelBottom.add(lblNombre);
         lblNombre.setBounds(40, 30, 80, 30);
 
@@ -97,11 +95,11 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
         getContentPane().add(panelBottom);
         panelBottom.setBounds(0, 120, 400, 280);
 
-        panelTop.setBackground(new java.awt.Color(103, 38, 20));
+        panelTop.setBackground(new java.awt.Color(19, 103, 27));
         panelTop.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("POKERFACE", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(235, 73, 59));
+        jLabel1.setForeground(new java.awt.Color(143, 235, 59));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("POKER MOONS");
         panelTop.add(jLabel1);
@@ -110,8 +108,7 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
         getContentPane().add(panelTop);
         panelTop.setBounds(0, 0, 400, 120);
 
-        setSize(new java.awt.Dimension(400, 422));
-        setLocationRelativeTo(null);
+        setBounds(0, 0, 400, 422);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -148,9 +145,8 @@ public class LoginDialog extends javax.swing.JDialog implements IVistaLogin {
     }
 
     @Override
-    public void mostrarPartida(Partida partida, Participante participante) {
+    public void mostrarPanel() {
+        //muestra panel de administración
         dispose();
-        new PartidaDialog(null, false, partida, participante).setVisible(true);
-        partida.avisar(Partida.Eventos.actualizarParticipantes);
     }
 }
