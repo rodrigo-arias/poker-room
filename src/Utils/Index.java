@@ -3,7 +3,7 @@ package Utils;
 import Model.Admin;
 import Model.Jugador;
 import Model.Sistema;
-import Views.LoginDialog;
+import Views.Launcher;
 
 public class Index {
 
