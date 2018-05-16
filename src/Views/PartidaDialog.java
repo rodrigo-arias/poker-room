@@ -7,39 +7,74 @@ import java.util.Observable;
 import javax.swing.JOptionPane;
 import Model.Participante;
 import Model.Partida;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida {
-
+    
     private ControladorPartida controlador;
+    private String nombreUsuario = "";
+    private int contadorParticipante = 1;
     //private String nombree = "";
 
+    //Clase para Imagenes
+    public class Imagen extends javax.swing.JPanel {
+        private String path;
+        private int width;
+        private int height;
+        
+        public Imagen(int width, int height, String path) {
+            
+            this.width = width;
+            this.height = height;
+            this.path = path;
+            this.setSize(this.width, this.height); //se selecciona el tamaño del panel
+        }
+        //Se crea un método cuyo parámetro debe ser un objeto Graphics
+        public void paint(Graphics grafico) {
+            Dimension height = getSize();
+            //Se selecciona la imagen que tenemos en el paquete de la //ruta del programa
+            ImageIcon Img = new ImageIcon(getClass().getResource(this.path));
+            //se dibuja la imagen que tenemos en el paquete Images //dentro de un panel
+            grafico.drawImage(Img.getImage(), 0, 0, height.width, height.height, null);
+            setOpaque(false);
+            super.paintComponent(grafico);
+        }
+    }
+    
     public PartidaDialog(java.awt.Frame parent, boolean modal, Partida partida, Participante participante) {
         super(parent, modal);
         initComponents();
-
+        this.nombreUsuario = participante.getNombre();
+        this.setTitle("Sesion Poker Moons de "+this.nombreUsuario);
         controlador = new ControladorPartida(partida, participante, this);
-
+        
+        this.txtUser1.setText(this.nombreUsuario);
+        int pos = partida.getParticipantes().size() - 1;
+        this.setTitle("Poker Moons - Partida de " + partida.getParticipantes().get(pos).getNombre());
+        
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        nombree = new javax.swing.JTextField();
-        numero = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tipos = new javax.swing.JComboBox();
         crearContacto = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         crearContacto1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        nombree1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        nombree2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        nombree3 = new javax.swing.JTextField();
+        panel_user1 = new javax.swing.JPanel();
+        panelCartas_user1 = new javax.swing.JPanel();
+        carta1_user1 = new javax.swing.JButton();
+        carta2_user1 = new javax.swing.JButton();
+        carta3_user1 = new javax.swing.JButton();
+        carta4_user1 = new javax.swing.JButton();
+        carta5_user1 = new javax.swing.JButton();
+        txtUser1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 0));
@@ -50,24 +85,12 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         });
         getContentPane().setLayout(null);
 
-        jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(240, 30, 60, 20);
-        getContentPane().add(nombree);
-        nombree.setBounds(180, 50, 170, 30);
-        getContentPane().add(numero);
-        numero.setBounds(20, 270, 170, 30);
-
-        jLabel2.setText("Numero");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(80, 240, 50, 30);
-
         jLabel3.setText("Tipo");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(430, 240, 50, 30);
+        jLabel3.setBounds(430, 210, 50, 30);
 
         getContentPane().add(tipos);
-        tipos.setBounds(360, 210, 170, 30);
+        tipos.setBounds(360, 240, 170, 30);
 
         crearContacto.setText("Crear");
         crearContacto.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +99,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             }
         });
         getContentPane().add(crearContacto);
-        crearContacto.setBounds(520, 350, 110, 40);
+        crearContacto.setBounds(530, 320, 110, 40);
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +108,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             }
         });
         getContentPane().add(salir);
-        salir.setBounds(390, 350, 120, 40);
+        salir.setBounds(400, 320, 120, 40);
 
         crearContacto1.setText("Crear");
         crearContacto1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,30 +117,25 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             }
         });
         getContentPane().add(crearContacto1);
-        crearContacto1.setBounds(270, 350, 110, 40);
+        crearContacto1.setBounds(280, 320, 110, 40);
 
-        jLabel4.setText("Nombre");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(550, 30, 60, 20);
-        getContentPane().add(nombree1);
-        nombree1.setBounds(490, 50, 170, 30);
+        panelCartas_user1.add(carta1_user1);
+        panelCartas_user1.add(carta2_user1);
+        panelCartas_user1.add(carta3_user1);
+        panelCartas_user1.add(carta4_user1);
+        panelCartas_user1.add(carta5_user1);
 
-        jLabel5.setText("Nombre");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(760, 250, 60, 20);
-        getContentPane().add(nombree2);
-        nombree2.setBounds(700, 270, 170, 30);
+        panel_user1.add(panelCartas_user1);
+        panel_user1.add(txtUser1);
 
-        jLabel6.setText("Nombre");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(410, 510, 60, 20);
-        getContentPane().add(nombree3);
-        nombree3.setBounds(350, 530, 170, 30);
+        getContentPane().add(panel_user1);
+        panel_user1.setBounds(320, 400, 200, 160);
 
         setSize(new java.awt.Dimension(900, 622));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void crearContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearContactoActionPerformed
         // TODO add your handling code here:
         //crearContacto();
@@ -138,21 +156,19 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     }//GEN-LAST:event_crearContacto1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton carta1_user1;
+    private javax.swing.JButton carta2_user1;
+    private javax.swing.JButton carta3_user1;
+    private javax.swing.JButton carta4_user1;
+    private javax.swing.JButton carta5_user1;
     private javax.swing.JButton crearContacto;
     private javax.swing.JButton crearContacto1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField nombree;
-    private javax.swing.JTextField nombree1;
-    private javax.swing.JTextField nombree2;
-    private javax.swing.JTextField nombree3;
-    private javax.swing.JTextField numero;
+    private javax.swing.JPanel panelCartas_user1;
+    private javax.swing.JPanel panel_user1;
     private javax.swing.JButton salir;
     private javax.swing.JComboBox tipos;
+    private javax.swing.JLabel txtUser1;
     // End of variables declaration//GEN-END:variables
 
 //    private void crearContacto() {
@@ -186,8 +202,22 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     }
 
     @Override
-    public void actualizarParticipantes() {
-        JOptionPane.showMessageDialog(this, "Actualizar participantes");
+    public void actualizarParticipantes(Partida laPartida) {     
+        int cantParticipantes = 5 - laPartida.getParticipantes().size();
+        if(cantParticipantes == 0) {
+          JOptionPane.showMessageDialog(this, "Ingreso un nuevo participante a la partida. Va a comenzar la partida");
+          this.controlador.repartirCartas();
+        } else
+            JOptionPane.showMessageDialog(this, "Ingreso un nuevo participante a la partida. Faltan: "+cantParticipantes);
+    
+        this.contadorParticipante =  this.contadorParticipante + 1;
+        
+        /*Imagen img = new Imagen(this.img_userActual.getWidth(), this.img_userActual.getHeight(), "/Assets/imgUser.png");
+        this.img_userActual.add(img);
+        this.img_userActual.repaint();    
+        int pos = laPartida.getParticipantes().size() - 1;
+        this.setTitle("Poker Moons - Partida de " + laPartida.getParticipantes().get(pos).getNombre());*/
+                
     }
 
 //    @Override
@@ -212,4 +242,6 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
 //            tipos.addItem(t);
 //        }
 //    }
+    
+    
 }

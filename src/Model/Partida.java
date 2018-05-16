@@ -38,6 +38,11 @@ public class Partida extends Observable {
         this.mazo = mazo;
     }
 
+    public ArrayList<Participante> getParticipantes() {
+        return participantes;
+    }
+    
+    
     //==================  Methods  ==================//
     public void agregarParticipante(Participante p) {
         participantes.add(p);

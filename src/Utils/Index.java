@@ -12,6 +12,9 @@ public class Index {
 
         new LoginDialog(null, false).setVisible(true);
         new LoginDialog(null, false).setVisible(true);
+        new LoginDialog(null, false).setVisible(true);
+        new LoginDialog(null, false).setVisible(true);
+        new LoginDialog(null, false).setVisible(true);
 
     }
 
@@ -26,6 +29,9 @@ public class Index {
         model.agregarJugador(new Jugador("a", "a", "Ana"));
         model.agregarJugador(new Jugador("b", "b", "Beatriz"));
         model.agregarJugador(new Jugador("c", "c", "Carlos"));
+        model.agregarJugador(new Jugador("j", "j", "Juan"));
+        model.agregarJugador(new Jugador("m", "m", "Martin"));
+        model.agregarJugador(new Jugador("s", "s", "Santiago"));
     }
 
 }
