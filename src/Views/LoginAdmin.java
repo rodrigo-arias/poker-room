@@ -103,7 +103,7 @@ public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("POKER MOONS");
         panelTop.add(jLabel1);
-        jLabel1.setBounds(30, 30, 350, 70);
+        jLabel1.setBounds(20, 30, 350, 70);
 
         getContentPane().add(panelTop);
         panelTop.setBounds(0, 0, 400, 120);
@@ -145,8 +145,7 @@ public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin 
     }
 
     @Override
-    public void mostrarPanel() {
-        //muestra panel de administración
+    public void salir() {
         dispose();
     }
 }

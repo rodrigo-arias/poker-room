@@ -18,8 +18,8 @@ public class Sistema {
     }
 
     //==================  Sis. Jugador  ==================//
-    public Participante loginJugador(String u, String p) {
-        return sj.loginJugador(u, p);
+    public Participante loginJugador(String user, String pass) {
+        return sj.loginJugador(user, pass);
     }
 
     public void agregarJugador(Jugador j) {
@@ -44,12 +44,8 @@ public class Sistema {
         return sp.getProximaPartida();
     }
 
-    public void setMax(int max) {
-        sp.setMax(max);
-    }
-
-    public void setPozo(int pozo) {
-        sp.setPozo(pozo);
+    public void setTam(int tam) {
+        sp.setTam(tam);
     }
 
     public void setBase(int base) {

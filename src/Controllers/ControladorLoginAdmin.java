@@ -18,12 +18,8 @@ public class ControladorLoginAdmin {
         if (admin == null) {
             vista.mostrarError("Login incorrecto");
         } else {
-            //vista admin
-            mostrarPanel();
+            vista.salir();
+            //new PanelDialog(null, false).setVisible(true);
         }
-    }
-
-    private void mostrarPanel() {
-        vista.mostrarPanel();
     }
 }

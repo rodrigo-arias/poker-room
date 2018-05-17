@@ -1,10 +1,10 @@
 package Controllers;
 
-import Model.Partida;
+import Model.Participante;
 
 public interface IVistaPartida {
 
-    public void error(String msg);
+    public void mostrarError(String msg);
 
-    public void actualizarParticipantes(Partida partida);
+    public void actualizarParticipantes(Participante ppte);
 }

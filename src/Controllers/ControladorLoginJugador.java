@@ -3,6 +3,7 @@ package Controllers;
 import Model.Participante;
 import Model.Partida;
 import Model.Sistema;
+import Views.PartidaDialog;
 
 public class ControladorLoginJugador {
 
@@ -13,15 +14,16 @@ public class ControladorLoginJugador {
         this.vista = vista;
     }
 
-    public void login(String u, String p) {
-        Participante participante = sistema.loginJugador(u, p);
+    public void login(String user, String pass) {
+        Participante ppte = sistema.loginJugador(user, pass);
 
-        if (participante == null) {
+        if (ppte == null) {
             vista.mostrarError("Login incorrecto");
         } else {
-            Partida partida = Sistema.getInstance().getProximaPartida();
-            partida.agregarParticipante(participante);
-            vista.mostrarPartida(partida, participante);
+            vista.salir();
+            // Create partida interface and update participantes
+            new PartidaDialog(null, false, ppte).setVisible(true);
+            ppte.getPartida().avisar(Partida.Eventos.actualizarParticipantes);
         }
     }
 }

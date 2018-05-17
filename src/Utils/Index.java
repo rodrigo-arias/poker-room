@@ -8,7 +8,6 @@ import Views.Launcher;
 public class Index {
 
     public static void main(String[] args) {
-
         cargarDatos();
         new Launcher(null, false).setVisible(true);
     }
@@ -16,18 +15,15 @@ public class Index {
     private static void cargarDatos() {
         Sistema model = Sistema.getInstance();
 
-        model.setBase(1);
-        model.setMax(2);
-        model.setPozo(3);
+        model.setBase(10);
+        model.setTam(3);
         model.crearProximaPartida();
 
-        model.agregarJugador(new Jugador("a", "a", "Ana"));
-        model.agregarJugador(new Jugador("b", "b", "Beatriz"));
-        model.agregarJugador(new Jugador("c", "c", "Carlos"));
+        model.agregarJugador(new Jugador("a", "a", "Ana", 100));
+        model.agregarJugador(new Jugador("b", "b", "Beatriz", 100));
+        model.agregarJugador(new Jugador("c", "c", "Carlos", 100));
 
         model.agregarAdmin(new Admin("d", "d", "Rodrigo"));
         model.agregarAdmin(new Admin("e", "e", "Nicolas"));
-
     }
-
 }

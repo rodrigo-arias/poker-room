@@ -6,36 +6,26 @@ public class Participante {
 
     //==================  Attributes  ==================//
     private ArrayList<Carta> cartas;
-    private String nombre;
-    private int saldo;
+    Jugador jugador;
+    Partida partida;
 
     //==================  Properties  =================//
     public ArrayList<Carta> getCartas() {
         return cartas;
     }
 
-    public void setCartas(ArrayList<Carta> cartas) {
-        this.cartas = cartas;
+    public Jugador getJugador() {
+        return jugador;
     }
 
-    public int getSaldo() {
-        return saldo;
+    public Partida getPartida() {
+        return partida;
     }
-
-    public void setSaldo(int saldo) {
-        this.saldo = saldo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-    
-    
 
     //==================  Constructor  ==================//
-    public Participante(String nombre, int saldo) {
-        this.nombre = nombre;
+    public Participante(Jugador jugador, Partida partida) {
         this.cartas = new ArrayList(5);
-        this.saldo = saldo;
+        this.jugador = jugador;
+        this.partida = partida;
     }
 }

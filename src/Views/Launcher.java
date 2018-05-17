@@ -13,7 +13,7 @@ public class Launcher extends javax.swing.JDialog {
 
         btnLoginJugador = new javax.swing.JToggleButton();
         btnLoginAdmin = new javax.swing.JToggleButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -36,10 +36,10 @@ public class Launcher extends javax.swing.JDialog {
         getContentPane().add(btnLoginAdmin);
         btnLoginAdmin.setBounds(40, 130, 160, 32);
 
-        jLabel1.setFont(new java.awt.Font("POKERFACE", 0, 36)); // NOI18N
-        jLabel1.setText("DEV PANEL");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 30, 200, 30);
+        lblTitulo.setFont(new java.awt.Font("POKERFACE", 0, 36)); // NOI18N
+        lblTitulo.setText("DEV PANEL");
+        getContentPane().add(lblTitulo);
+        lblTitulo.setBounds(30, 30, 200, 30);
 
         setBounds(0, 0, 250, 222);
     }// </editor-fold>//GEN-END:initComponents
@@ -94,6 +94,6 @@ public class Launcher extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnLoginAdmin;
     private javax.swing.JToggleButton btnLoginJugador;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

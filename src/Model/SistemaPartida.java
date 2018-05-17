@@ -4,26 +4,21 @@ public class SistemaPartida {
 
     //==================  Attributes  ==================//
     private Partida proximaPartida;
-    private int max;
-    private int pozo;
-    private int base;
+    private int defaultTam;
+    private int defaultBase;
 
     //==================  Properties  ==================//
-    public void setMax(int max) {
-        this.max = max;
-    }
-
-    public void setPozo(int pozo) {
-        this.pozo = pozo;
+    public void setTam(int tam) {
+        this.defaultTam = tam;
     }
 
     public void setBase(int base) {
-        this.base = base;
+        this.defaultBase = base;
     }
 
     //==================  Methods  ==================//
     public void crearProximaPartida() {
-        this.proximaPartida = new Partida(this.max, this.pozo, this.base);
+        this.proximaPartida = new Partida(this.defaultTam, this.defaultBase);
     }
 
     public Partida getProximaPartida() {

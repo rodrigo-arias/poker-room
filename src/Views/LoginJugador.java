@@ -2,8 +2,6 @@ package Views;
 
 import Controllers.ControladorLoginJugador;
 import javax.swing.JOptionPane;
-import Model.Participante;
-import Model.Partida;
 import Controllers.IVistaLoginJugador;
 
 public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJugador {
@@ -24,10 +22,10 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
         jSpinner1 = new javax.swing.JSpinner();
         panelBottom = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
-        fieldNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         lblPass = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        fieldPass = new javax.swing.JPasswordField();
+        txtPass = new javax.swing.JPasswordField();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -54,12 +52,12 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
         panelBottom.add(lblNombre);
         lblNombre.setBounds(40, 30, 80, 30);
 
-        fieldNombre.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        fieldNombre.setForeground(new java.awt.Color(69, 73, 74));
-        fieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        fieldNombre.setBorder(null);
-        panelBottom.add(fieldNombre);
-        fieldNombre.setBounds(40, 60, 300, 30);
+        txtNombre.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(69, 73, 74));
+        txtNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNombre.setBorder(null);
+        panelBottom.add(txtNombre);
+        txtNombre.setBounds(40, 60, 300, 30);
 
         lblPass.setFont(new java.awt.Font("ProFont for Powerline", 1, 14)); // NOI18N
         lblPass.setForeground(new java.awt.Color(153, 153, 153));
@@ -81,18 +79,18 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
         panelBottom.add(btnLogin);
         btnLogin.setBounds(40, 180, 160, 30);
 
-        fieldPass.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        fieldPass.setForeground(new java.awt.Color(69, 73, 74));
-        fieldPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        fieldPass.setBorder(null);
-        fieldPass.addActionListener(new java.awt.event.ActionListener() {
+        txtPass.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtPass.setForeground(new java.awt.Color(69, 73, 74));
+        txtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtPass.setBorder(null);
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldPassActionPerformed(evt);
+                txtPassActionPerformed(evt);
             }
         });
-        panelBottom.add(fieldPass);
-        fieldPass.setBounds(40, 130, 300, 30);
-        fieldPass.getAccessibleContext().setAccessibleDescription("");
+        panelBottom.add(txtPass);
+        txtPass.setBounds(40, 130, 300, 30);
+        txtPass.getAccessibleContext().setAccessibleDescription("");
 
         getContentPane().add(panelBottom);
         panelBottom.setBounds(0, 120, 400, 280);
@@ -105,7 +103,7 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("POKER MOONS");
         panelTop.add(jLabel1);
-        jLabel1.setBounds(30, 30, 350, 70);
+        jLabel1.setBounds(20, 30, 350, 70);
 
         getContentPane().add(panelTop);
         panelTop.setBounds(0, 0, 400, 120);
@@ -115,18 +113,15 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
         login();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void fieldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPassActionPerformed
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPassActionPerformed
+    }//GEN-LAST:event_txtPassActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JTextField fieldNombre;
-    private javax.swing.JPasswordField fieldPass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblBackground;
@@ -134,12 +129,14 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
     private javax.swing.JLabel lblPass;
     private javax.swing.JPanel panelBottom;
     private javax.swing.JPanel panelTop;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-        String u = fieldNombre.getText();
-        String p = new String(fieldPass.getPassword());
-        controlador.login(u, p);
+        String user = txtNombre.getText();
+        String pass = new String(txtPass.getPassword());
+        controlador.login(user, pass);
     }
 
     @Override
@@ -148,9 +145,7 @@ public class LoginJugador extends javax.swing.JDialog implements IVistaLoginJuga
     }
 
     @Override
-    public void mostrarPartida(Partida partida, Participante participante) {
+    public void salir() {
         dispose();
-        new PartidaDialog(null, false, partida, participante).setVisible(true);
-        partida.avisar(Partida.Eventos.actualizarParticipantes);
     }
 }

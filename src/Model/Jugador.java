@@ -9,11 +9,11 @@ public class Jugador {
     private int saldo;
 
     //=================  Constructor  ================//
-    public Jugador(String usuario, String contrasena, String nombre) {
+    public Jugador(String usuario, String contrasena, String nombre, int saldo) {
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.nombre = nombre;
-        this.saldo = 100;
+        this.saldo = saldo;
     }
 
     //==================  Properties  =================//

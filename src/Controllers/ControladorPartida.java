@@ -7,30 +7,21 @@ import java.util.Observer;
 
 public class ControladorPartida implements Observer {
 
-    private Partida partida;
     private IVistaPartida vista;
+    private Participante participante;
 
     //==================  Constructor  ==================//
-    public ControladorPartida(Partida partida, Participante participante, IVistaPartida vista) {
-        this.partida = partida;
+    public ControladorPartida(Participante participante, IVistaPartida vista) {
         this.vista = vista;
-        partida.addObserver(this);
+        this.participante = participante;
+        participante.getPartida().addObserver(this);
     }
 
     //==================  Properties  =================//
-    public Partida getPartida() {
-        return partida;
-    }
-
-    
     @Override
     public void update(Observable o, Object evento) {
         if (evento.equals(Partida.Eventos.actualizarParticipantes)) {
-            vista.actualizarParticipantes(partida);
+            vista.actualizarParticipantes(participante);
         }
-    }
-    
-    public void repartirCartas() {
-        
     }
 }

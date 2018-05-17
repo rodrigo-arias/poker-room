@@ -9,18 +9,21 @@ class SistemaJugador {
 
     //==================  Methods  ==================//
     public Participante loginJugador(String user, String pass) {
+        Participante retorno = null;
+
         for (Jugador j : jugadores) {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 
-                //Jugador válido, creo el participante
-                //credenciales correctas + no en proxima partida + guita para pagar base de proxima partida
-                Participante p = new Participante(j.getNombre(), j.getSaldo());
-                //Sistema.getInstance().avisar(Sistema.Eventos.listaAgendas);
+                Partida p = Sistema.getInstance().getProximaPartida();
 
-                return p;
+                if (!p.getJugadores().contains(j) && j.getSaldo() >= p.getBase()) {
+                    //Jugador válido, creo el participante y agrego el jugador a la próxima partida
+                    p.agregarJugador(j);
+                    retorno = new Participante(j, p);
+                }
             }
         }
-        return null;
+        return retorno;
     }
 
     public void agregarJugador(Jugador j) {
