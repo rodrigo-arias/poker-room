@@ -7,4 +7,6 @@ public interface IVistaPartida {
     public void mostrarError(String msg);
 
     public void actualizarParticipantes(Participante ppte);
+
+    public void actualizarParticipantesListado(Participante participante);
 }

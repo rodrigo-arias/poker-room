@@ -13,7 +13,8 @@ public class Partida extends Observable {
     private ArrayList<Jugador> jugadores;
 
     public enum Eventos {
-        actualizarParticipantes;
+        actualizarParticipantes,
+        actualizarParticipantesListado;
     }
 
     //==================  Constructor  =================//
@@ -58,6 +59,15 @@ public class Partida extends Observable {
     public void avisar(Eventos evento) {
         setChanged();
         notifyObservers(evento);
+    }
+    
+    public void salirPartida(Participante participante) {
+        for (int i = 0; i < this.jugadores.size(); i++) {
+            if(this.jugadores.get(i).getUsuario() == participante.getJugador().getUsuario()) {
+                this.jugadores.remove(participante.getJugador());
+                this.avisar(Eventos.actualizarParticipantesListado);
+            }
+        }
     }
 
 }

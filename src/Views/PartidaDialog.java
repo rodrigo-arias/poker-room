@@ -6,6 +6,10 @@ import javax.swing.JOptionPane;
 import Model.Participante;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida {
@@ -42,6 +46,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     public PartidaDialog(java.awt.Frame parent, boolean modal, Participante participante) {
         super(parent, modal);
         initComponents();
+        this.panelJuego.setVisible(false);
         controlador = new ControladorPartida(participante, this);
 
         String nombre = participante.getJugador().getNombre();
@@ -58,10 +63,14 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     private void initComponents() {
 
         lblNombre = new javax.swing.JLabel();
-        btnTipos = new javax.swing.JComboBox();
-        btnPagar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        panelJuego = new javax.swing.JPanel();
+        lblTituloListaParticipantes = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listParticipantes = new javax.swing.JList();
         btnApostar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
+        btnTipos = new javax.swing.JComboBox();
         panelUser = new javax.swing.JPanel();
         panelCartas = new javax.swing.JPanel();
         btnCarta1 = new javax.swing.JButton();
@@ -70,6 +79,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         btnCarta4 = new javax.swing.JButton();
         btnCarta5 = new javax.swing.JButton();
         txtUser1 = new javax.swing.JLabel();
+        lblPrePartida = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,30 +91,17 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         });
         getContentPane().setLayout(null);
 
+        lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblNombre);
-        lblNombre.setBounds(150, 10, 100, 30);
+        lblNombre.setBounds(60, 10, 290, 30);
 
-        getContentPane().add(btnTipos);
-        btnTipos.setBounds(120, 120, 170, 30);
+        lblTituloListaParticipantes.setText("Participantes");
+        panelJuego.add(lblTituloListaParticipantes);
 
-        btnPagar.setText("Pagar");
-        btnPagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPagar);
-        btnPagar.setBounds(270, 50, 100, 40);
+        jScrollPane1.setViewportView(listParticipantes);
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(150, 50, 100, 40);
+        panelJuego.add(jScrollPane1);
 
         btnApostar.setText("Apostar");
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,8 +109,25 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
                 btnApostarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnApostar);
-        btnApostar.setBounds(30, 50, 100, 40);
+        panelJuego.add(btnApostar);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        panelJuego.add(btnSalir);
+
+        btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+        panelJuego.add(btnPagar);
+
+        panelJuego.add(btnTipos);
 
         panelCartas.add(btnCarta1);
         panelCartas.add(btnCarta2);
@@ -124,15 +138,22 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         panelUser.add(panelCartas);
         panelUser.add(txtUser1);
 
-        getContentPane().add(panelUser);
-        panelUser.setBounds(110, 200, 200, 60);
+        panelJuego.add(panelUser);
+
+        getContentPane().add(panelJuego);
+        panelJuego.setBounds(0, 120, 400, 220);
+
+        lblPrePartida.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblPrePartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblPrePartida);
+        lblPrePartida.setBounds(20, 74, 340, 40);
 
         lblBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table.png"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 400, 300);
+        lblBackground.setBounds(0, 0, 400, 380);
 
-        setSize(new java.awt.Dimension(400, 322));
+        setSize(new java.awt.Dimension(421, 426));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,14 +183,20 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox btnTipos;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPrePartida;
+    private javax.swing.JLabel lblTituloListaParticipantes;
+    private javax.swing.JList listParticipantes;
     private javax.swing.JPanel panelCartas;
+    private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelUser;
     private javax.swing.JLabel txtUser1;
     // End of variables declaration//GEN-END:variables
 
     private void salir() {
+        this.controlador.salirPartida();
         dispose();
     }
 
@@ -185,9 +212,11 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         int jug = p.getPartida().getJugadores().size();
 
         if (tam - jug > 0) {
-            JOptionPane.showMessageDialog(this, "Faltan " + (tam - jug) + " de " + tam + " jugadores");
+            this.lblPrePartida.setText("Faltan " + (tam - jug) + " de " + tam + " jugadores");            
         } else {
+            this.actualizarParticipantesListado(p);
             JOptionPane.showMessageDialog(this, "La partida va a comenzar...");
+            this.comenzarPartida();
         }
 
         /*Imagen img = new Imagen(this.img_userActual.getWidth(), this.img_userActual.getHeight(), "/Assets/imgUser.png");
@@ -196,9 +225,21 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         int pos = laPartida.getParticipantes().size() - 1;
         this.setTitle("Poker Moons - Partida de " + laPartida.getParticipantes().get(pos).getNombre());*/
     }
+    
+    @Override
+    public void actualizarParticipantesListado(Participante participante) {
+        this.listParticipantes.removeAll();
+        this.listParticipantes.setListData(participante.getPartida().getJugadores().toArray());
+    }
+    
+    public void comenzarPartida() {        
+        this.panelJuego.setVisible(true);
+        this.lblPrePartida.setVisible(false);
+    }
 
 //    @Override
 //    public void mostrarCantidadContactos(int cantidad) {
 //        setTitle(nombreD + " - " + cantidad + " contacto(s)");
 //    }
+
 }
