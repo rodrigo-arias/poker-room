@@ -50,6 +50,10 @@ public class Partida extends Observable {
         return tam;
     }
 
+    public int getPozo() {
+        return pozo;
+    }
+
     //==================  Methods  ==================//
     public void agregarJugador(Jugador j) {
         jugadores.add(j);

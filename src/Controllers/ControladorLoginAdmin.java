@@ -1,7 +1,10 @@
 package Controllers;
 
 import Model.Admin;
+import Model.Partida;
 import Model.Sistema;
+import Views.Monitor;
+import java.util.ArrayList;
 
 public class ControladorLoginAdmin {
 
@@ -19,7 +22,9 @@ public class ControladorLoginAdmin {
             vista.mostrarError("Login incorrecto");
         } else {
             vista.salir();
-            //new PanelDialog(null, false).setVisible(true);
+            ArrayList<Partida> partidas = sistema.getPartidas();
+            // Create monitor interface
+            new Monitor(partidas).setVisible(true);
         }
     }
 }

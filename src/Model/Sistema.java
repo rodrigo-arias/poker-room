@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Sistema {
 
     //==================  Attributes  ==================//
@@ -50,6 +52,10 @@ public class Sistema {
 
     public void setBase(int base) {
         sp.setBase(base);
+    }
+
+    public ArrayList<Partida> getPartidas() {
+        return sp.getPartidas();
     }
 
 }

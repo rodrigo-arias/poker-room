@@ -2,6 +2,7 @@ package Views;
 
 import Controllers.ControladorLoginAdmin;
 import Controllers.IVistaLoginAdmin;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin {
@@ -76,6 +77,11 @@ public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin 
                 btnLoginActionPerformed(evt);
             }
         });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
+            }
+        });
         panelBottom.add(btnLogin);
         btnLogin.setBounds(40, 180, 160, 30);
 
@@ -119,6 +125,12 @@ public class LoginAdmin extends javax.swing.JDialog implements IVistaLoginAdmin 
     private void fieldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPassActionPerformed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
