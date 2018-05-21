@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 public class Sistema {
 
@@ -56,6 +57,30 @@ public class Sistema {
 
     public ArrayList<Partida> getPartidas() {
         return sp.getPartidas();
+    }
+
+    public ArrayList<Partida> getPartidasActivas() {
+        return sp.getPartidasActivas();
+    }
+
+    public void observarPartidas(Observer o) {
+        sp.observarPartidas(o);
+    }
+
+    public void observarPartida(Partida p, Observer o) {
+        sp.observarPartida(p, o);
+    }
+
+    public int actualizarDefaultBase(int base) {
+        return sp.actualizarDefaultBase(base);
+    }
+
+    public int actualizarDefaultTam(int tam) {
+        return sp.actualizarDefaultTam(tam);
+    }
+
+    public Partida getPartidaId(int id) {
+        return sp.getPartidaId(id);
     }
 
 }

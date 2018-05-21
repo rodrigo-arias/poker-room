@@ -32,4 +32,16 @@ public class Jugador {
     public int getSaldo() {
         return saldo;
     }
+
+    public int getTotalApostado() {
+        return 0;
+    }
+
+    public int getSaldoInicial() {
+        return 0;
+    }
+
+    public int getTotalGanado() {
+        return 0;
+    }
 }

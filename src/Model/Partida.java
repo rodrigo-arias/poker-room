@@ -1,31 +1,49 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Observable;
 
 public class Partida extends Observable {
 
     //==================  Attributes  ==================//
+    private int id;
     private int tam;
     private int pozo;
     private int base;
+    private LocalDateTime inicio;
     private Mazo mazo;
     private ArrayList<Jugador> jugadores;
+    private ArrayList<Mano> manos;
+    private boolean activa;
 
     public enum Eventos {
-        actualizarParticipantes;
+        participanteNuevo,
+        partidaIniciada;
     }
 
     //==================  Constructor  =================//
-    public Partida(int tam, int base) {
+    public Partida(int id, int tam, int base) {
+        this.id = id;
         this.tam = tam;
         this.pozo = 0;
         this.base = base;
+        this.inicio = null;
         this.mazo = new Mazo();
         this.jugadores = new ArrayList();
+        this.manos = new ArrayList();
+        this.activa = false;
     }
 
     //==================  Properties  =================//
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setTam(int tam) {
         this.tam = tam;
     }
@@ -54,9 +72,31 @@ public class Partida extends Observable {
         return pozo;
     }
 
+    public LocalDateTime getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(LocalDateTime inicio) {
+        this.inicio = inicio;
+    }
+
+    public ArrayList<Mano> getManos() {
+        return manos;
+    }
+
+    public boolean isActiva() {
+        return activa;
+    }
+
     //==================  Methods  ==================//
     public void agregarJugador(Jugador j) {
         jugadores.add(j);
+    }
+
+    public void iniciar() {
+        this.inicio = LocalDateTime.now();
+        this.activa = true;
+        avisar(Eventos.partidaIniciada);
     }
 
     public void avisar(Eventos evento) {
@@ -64,4 +104,7 @@ public class Partida extends Observable {
         notifyObservers(evento);
     }
 
+    public int getTotalApostado() {
+        return 0;
+    }
 }

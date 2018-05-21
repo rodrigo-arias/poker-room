@@ -16,9 +16,17 @@ class SistemaJugador {
 
                 Partida p = Sistema.getInstance().getProximaPartida();
 
-                if (!p.getJugadores().contains(j) && j.getSaldo() >= p.getBase()) {
-                    //Jugador válido, creo el participante y agrego el jugador a la próxima partida
+                // No se encuentra en la prox. partida, y tiene saldo de apuesta base x cant. de jugadores
+                if (!p.getJugadores().contains(j) && j.getSaldo() >= p.getBase() * p.getTam()) {
+
+                    // Jugador válido, creo el participante y agrego el jugador a la próxima partida
                     p.agregarJugador(j);
+
+                    // Si se completaron los jugadores, creo una nueva próxima partida
+                    if (p.getJugadores().size() == p.getTam()) {
+                        p.iniciar();
+                        Sistema.getInstance().crearProximaPartida();
+                    }
                     retorno = new Participante(j, p);
                 }
             }
