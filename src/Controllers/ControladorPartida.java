@@ -1,7 +1,9 @@
 package Controllers;
 
+import Model.Carta;
 import Model.Participante;
 import Model.Partida;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,5 +36,10 @@ public class ControladorPartida implements Observer {
 
     public void salirPartida() {
         this.participante.getPartida().salirPartida(this.participante);
+    }
+    
+    public ArrayList<Carta> iniciarPartida() {
+        this.participante.getPartida().repartirCartas(this.participante);
+        return this.participante.getCartas();
     }
 }

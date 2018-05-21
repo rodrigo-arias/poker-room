@@ -22,6 +22,13 @@ public class Participante {
         return partida;
     }
 
+    public void setCartas(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+        for (int i = 0; i < cartas.size(); i++) {
+        }
+    }    
+    
+
     //==================  Constructor  ==================//
     public Participante(Jugador jugador, Partida partida) {
         this.cartas = new ArrayList(5);

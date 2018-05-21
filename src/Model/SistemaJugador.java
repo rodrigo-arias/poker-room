@@ -19,7 +19,7 @@ class SistemaJugador {
                 if (!p.getJugadores().contains(j) && j.getSaldo() >= p.getBase()) {
                     //Jugador válido, creo el participante y agrego el jugador a la próxima partida
                     p.agregarJugador(j);
-                    retorno = new Participante(j, p);
+                    retorno = new Participante(j, p);                    
                 }
             }
         }

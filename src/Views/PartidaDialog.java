@@ -2,14 +2,17 @@ package Views;
 
 import Controllers.ControladorPartida;
 import Controllers.IVistaPartida;
+import Model.Carta;
 import javax.swing.JOptionPane;
 import Model.Participante;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida {
@@ -141,7 +144,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         panelJuego.add(panelUser);
 
         getContentPane().add(panelJuego);
-        panelJuego.setBounds(0, 120, 400, 220);
+        panelJuego.setBounds(0, 120, 580, 280);
 
         lblPrePartida.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblPrePartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -151,9 +154,9 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         lblBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table.png"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 400, 380);
+        lblBackground.setBounds(0, 0, 580, 380);
 
-        setSize(new java.awt.Dimension(421, 426));
+        setSize(new java.awt.Dimension(601, 441));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -235,6 +238,13 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     public void comenzarPartida() {        
         this.panelJuego.setVisible(true);
         this.lblPrePartida.setVisible(false);
+        ArrayList<Carta> cartas = this.controlador.iniciarPartida();
+        
+        this.btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(0).getSource())));
+        this.btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(1).getSource())));
+        this.btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(2).getSource())));
+        this.btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(3).getSource())));
+        this.btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(4).getSource())));
     }
 
 //    @Override

@@ -69,5 +69,17 @@ public class Partida extends Observable {
             }
         }
     }
+    
+    public boolean repartirCartas(Participante participante) {
+        boolean ret = false;
+        this.mazo.embarajar();
+        
+        //for (int i = 0; i < this.jugadores.size(); i++) {
+            //repartir cartas
+            participante.setCartas(this.mazo.getCartas(5));
+        //}
+        
+        return ret;
+    }
 
 }

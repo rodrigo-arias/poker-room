@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class SistemaPartida {
 
     //==================  Attributes  ==================//
@@ -24,4 +26,6 @@ public class SistemaPartida {
     public Partida getProximaPartida() {
         return proximaPartida;
     }
+    
+    
 }
