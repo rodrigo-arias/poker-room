@@ -76,11 +76,11 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         btnTipos = new javax.swing.JComboBox();
         panelUser = new javax.swing.JPanel();
         panelCartas = new javax.swing.JPanel();
-        btnCarta1 = new javax.swing.JButton();
-        btnCarta2 = new javax.swing.JButton();
-        btnCarta3 = new javax.swing.JButton();
-        btnCarta4 = new javax.swing.JButton();
-        btnCarta5 = new javax.swing.JButton();
+        panel_carta1 = new javax.swing.JPanel();
+        panel_carta2 = new javax.swing.JPanel();
+        panel_carta3 = new javax.swing.JPanel();
+        panel_carta4 = new javax.swing.JPanel();
+        panel_carta5 = new javax.swing.JPanel();
         txtUser1 = new javax.swing.JLabel();
         lblPrePartida = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
@@ -97,7 +97,7 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblNombre);
-        lblNombre.setBounds(60, 10, 290, 30);
+        lblNombre.setBounds(290, 10, 290, 30);
 
         lblTituloListaParticipantes.setText("Participantes");
         panelJuego.add(lblTituloListaParticipantes);
@@ -132,19 +132,110 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
 
         panelJuego.add(btnTipos);
 
-        panelCartas.add(btnCarta1);
-        panelCartas.add(btnCarta2);
-        panelCartas.add(btnCarta3);
-        panelCartas.add(btnCarta4);
-        panelCartas.add(btnCarta5);
+        panelUser.setPreferredSize(new java.awt.Dimension(771, 2000));
 
-        panelUser.add(panelCartas);
-        panelUser.add(txtUser1);
+        javax.swing.GroupLayout panel_carta1Layout = new javax.swing.GroupLayout(panel_carta1);
+        panel_carta1.setLayout(panel_carta1Layout);
+        panel_carta1Layout.setHorizontalGroup(
+            panel_carta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 138, Short.MAX_VALUE)
+        );
+        panel_carta1Layout.setVerticalGroup(
+            panel_carta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_carta2Layout = new javax.swing.GroupLayout(panel_carta2);
+        panel_carta2.setLayout(panel_carta2Layout);
+        panel_carta2Layout.setHorizontalGroup(
+            panel_carta2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 146, Short.MAX_VALUE)
+        );
+        panel_carta2Layout.setVerticalGroup(
+            panel_carta2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 127, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_carta3Layout = new javax.swing.GroupLayout(panel_carta3);
+        panel_carta3.setLayout(panel_carta3Layout);
+        panel_carta3Layout.setHorizontalGroup(
+            panel_carta3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 151, Short.MAX_VALUE)
+        );
+        panel_carta3Layout.setVerticalGroup(
+            panel_carta3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_carta4Layout = new javax.swing.GroupLayout(panel_carta4);
+        panel_carta4.setLayout(panel_carta4Layout);
+        panel_carta4Layout.setHorizontalGroup(
+            panel_carta4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 147, Short.MAX_VALUE)
+        );
+        panel_carta4Layout.setVerticalGroup(
+            panel_carta4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_carta5Layout = new javax.swing.GroupLayout(panel_carta5);
+        panel_carta5.setLayout(panel_carta5Layout);
+        panel_carta5Layout.setHorizontalGroup(
+            panel_carta5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 145, Short.MAX_VALUE)
+        );
+        panel_carta5Layout.setVerticalGroup(
+            panel_carta5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelCartasLayout = new javax.swing.GroupLayout(panelCartas);
+        panelCartas.setLayout(panelCartasLayout);
+        panelCartasLayout.setHorizontalGroup(
+            panelCartasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCartasLayout.createSequentialGroup()
+                .addComponent(panel_carta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(panel_carta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_carta3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_carta4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_carta5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        panelCartasLayout.setVerticalGroup(
+            panelCartasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCartasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCartasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_carta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_carta3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_carta4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_carta5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_carta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelUserLayout = new javax.swing.GroupLayout(panelUser);
+        panelUser.setLayout(panelUserLayout);
+        panelUserLayout.setHorizontalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCartas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelUserLayout.setVerticalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelCartas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1840, Short.MAX_VALUE))
+        );
 
         panelJuego.add(panelUser);
 
         getContentPane().add(panelJuego);
-        panelJuego.setBounds(0, 120, 580, 280);
+        panelJuego.setBounds(0, 120, 930, 280);
 
         lblPrePartida.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblPrePartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,9 +245,9 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         lblBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table.png"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 580, 380);
+        lblBackground.setBounds(0, 0, 940, 390);
 
-        setSize(new java.awt.Dimension(601, 441));
+        setSize(new java.awt.Dimension(951, 453));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,11 +269,6 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
-    private javax.swing.JButton btnCarta1;
-    private javax.swing.JButton btnCarta2;
-    private javax.swing.JButton btnCarta3;
-    private javax.swing.JButton btnCarta4;
-    private javax.swing.JButton btnCarta5;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox btnTipos;
@@ -195,6 +281,11 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
     private javax.swing.JPanel panelCartas;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelUser;
+    private javax.swing.JPanel panel_carta1;
+    private javax.swing.JPanel panel_carta2;
+    private javax.swing.JPanel panel_carta3;
+    private javax.swing.JPanel panel_carta4;
+    private javax.swing.JPanel panel_carta5;
     private javax.swing.JLabel txtUser1;
     // End of variables declaration//GEN-END:variables
 
@@ -221,12 +312,6 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
             JOptionPane.showMessageDialog(this, "La partida va a comenzar...");
             this.comenzarPartida();
         }
-
-        /*Imagen img = new Imagen(this.img_userActual.getWidth(), this.img_userActual.getHeight(), "/Assets/imgUser.png");
-        this.img_userActual.add(img);
-        this.img_userActual.repaint();
-        int pos = laPartida.getParticipantes().size() - 1;
-        this.setTitle("Poker Moons - Partida de " + laPartida.getParticipantes().get(pos).getNombre());*/
     }
     
     @Override
@@ -239,12 +324,13 @@ public class PartidaDialog extends javax.swing.JDialog implements IVistaPartida 
         this.panelJuego.setVisible(true);
         this.lblPrePartida.setVisible(false);
         ArrayList<Carta> cartas = this.controlador.iniciarPartida();
+       
+        this.panel_carta1.add(new Imagen(160, 110, cartas.get(0).getSource())).repaint();
+        this.panel_carta2.add(new Imagen(160, 110, cartas.get(1).getSource())).repaint();
+        this.panel_carta3.add(new Imagen(160, 110, cartas.get(2).getSource())).repaint();
+        this.panel_carta4.add(new Imagen(160, 110, cartas.get(3).getSource())).repaint();
+        this.panel_carta5.add(new Imagen(160, 110, cartas.get(4).getSource())).repaint();
         
-        this.btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(0).getSource())));
-        this.btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(1).getSource())));
-        this.btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(2).getSource())));
-        this.btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(3).getSource())));
-        this.btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Cartas/"+cartas.get(4).getSource())));
     }
 
 //    @Override

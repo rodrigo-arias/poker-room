@@ -26,6 +26,10 @@ public class SistemaPartida {
     public Partida getProximaPartida() {
         return proximaPartida;
     }
+
+    public Mazo getMazo() {
+        return proximaPartida.getMazo();
+    }
     
     
 }

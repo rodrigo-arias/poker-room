@@ -51,6 +51,12 @@ public class Partida extends Observable {
         return tam;
     }
 
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    
+    
     //==================  Methods  ==================//
     public void agregarJugador(Jugador j) {
         jugadores.add(j);

@@ -12,7 +12,6 @@ public class Mazo {
     //==================  Constructor  ==================//
     public Mazo() {
         this.cartas = new ArrayList<Carta>(52);
-        this.cargarCartas();
     }
     
     public ArrayList<Carta> getCartas(int cant) {
@@ -24,14 +23,18 @@ public class Mazo {
         return cartas;
     }
     
-    private void cargarCartas() {
-        String sDirectorio = "C:\\Users\\nhg16\\Desktop\\DDA\\poker-moons\\src\\Assets\\Cartas";
+    public void agregarCarta(Carta nuevaCarta) {
+        if(!this.cartas.contains(nuevaCarta)) this.cartas.add(nuevaCarta);
+    }
+    
+    /*private void cargarCartas() {
+        String sDirectorio = ".\\Assets\\Cartas";
         File f = new File(sDirectorio);
         File[] imagenes = f.listFiles();
         for (int i = 0; i < imagenes.length; i++) {
-            this.cartas.add(new Carta(i, imagenes[i].getName()));            
+            this.cartas.add(new Carta(i, imagenes[i].getAbsolutePath()));            
         }
-    }
+    }*/
     
     public void embarajar() {
         Collections.shuffle(this.cartas);

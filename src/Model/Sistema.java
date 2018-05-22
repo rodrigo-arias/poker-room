@@ -53,6 +53,11 @@ public class Sistema {
     public void setBase(int base) {
         sp.setBase(base);
     }
+
+    public Mazo getMazo() {
+        return sp.getMazo();
+    }
+    
     
 
 }
