@@ -3,79 +3,61 @@ package Views;
 import Controllers.ControladorJugadorPartida;
 import javax.swing.JOptionPane;
 import Model.Participante;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
 import Controllers.IVistaJugadorPartida;
+import Model.Jugador;
 
 public class JugadorPartida extends javax.swing.JDialog implements IVistaJugadorPartida {
 
     private ControladorJugadorPartida controlador;
+    private Participante participante;
 
-    public JugadorPartida(java.awt.Frame parent, boolean modal, Participante participante) {
+    public JugadorPartida(java.awt.Frame parent, boolean modal, Participante ppte) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorJugadorPartida(participante, this);
+        controlador = new ControladorJugadorPartida(ppte, this);
+        participante = ppte;
 
-        String nombre = participante.getJugador().getNombre();
-        this.setTitle("Poker Moons - " + nombre);
+        Jugador j = ppte.getJugador();
 
-        this.lblNombre.setText(nombre);
-        int pos = participante.getPartida().getJugadores().size() - 1;
-        this.setTitle("Poker Moons - Partida de " + participante.getPartida().getJugadores().get(pos).getNombre());
+        this.setTitle("Poker Moons - Partida de " + participante.getJugador().getNombre());
 
+        lblJugador1.setText(j.getNombre());
+        lblSaldo1.setText("$" + Integer.toString(j.getSaldo()));
     }
 
     @Override
     public void iniciarPartida() {
-        JOptionPane.showMessageDialog(this, "La partida va a comenzar...");
-    }
-
-    public class Imagen extends javax.swing.JPanel {
-
-        private String path;
-        private int width;
-        private int height;
-
-        public Imagen(int width, int height, String path) {
-
-            this.width = width;
-            this.height = height;
-            this.path = path;
-            this.setSize(this.width, this.height); //se selecciona el tamaño del panel
-        }
-
-        //Se crea un método cuyo parámetro debe ser un objeto Graphics
-        @Override
-        public void paint(Graphics grafico) {
-            Dimension alto = getSize();
-            //Se selecciona la imagen que tenemos en el paquete de la //ruta del programa
-            ImageIcon Img = new ImageIcon(getClass().getResource(this.path));
-            //se dibuja la imagen que tenemos en el paquete Images //dentro de un panel
-            grafico.drawImage(Img.getImage(), 0, 0, alto.width, alto.height, null);
-            setOpaque(false);
-            super.paintComponent(grafico);
-        }
+        cambiarVisibilidad(true);
+        lblMensaje.setText("");
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNombre = new javax.swing.JLabel();
-        btnTipos = new javax.swing.JComboBox();
-        btnPagar = new javax.swing.JButton();
+        panelBack = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         btnApostar = new javax.swing.JButton();
-        panelUser = new javax.swing.JPanel();
-        panelCartas = new javax.swing.JPanel();
-        btnCarta1 = new javax.swing.JButton();
-        btnCarta2 = new javax.swing.JButton();
-        btnCarta3 = new javax.swing.JButton();
-        btnCarta4 = new javax.swing.JButton();
-        btnCarta5 = new javax.swing.JButton();
-        txtUser1 = new javax.swing.JLabel();
-        lblBackground = new javax.swing.JLabel();
+        btnPasar = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
+        lblCarta1 = new javax.swing.JLabel();
+        lblCarta2 = new javax.swing.JLabel();
+        lblCarta3 = new javax.swing.JLabel();
+        lblCarta4 = new javax.swing.JLabel();
+        lblCarta5 = new javax.swing.JLabel();
+        lblPozo = new javax.swing.JLabel();
+        lblSaldo1 = new javax.swing.JLabel();
+        lblJugador1 = new javax.swing.JLabel();
+        lblSaldo2 = new javax.swing.JLabel();
+        lblJugador2 = new javax.swing.JLabel();
+        lblSaldo3 = new javax.swing.JLabel();
+        lblJugador3 = new javax.swing.JLabel();
+        lblSaldo4 = new javax.swing.JLabel();
+        lblJugador4 = new javax.swing.JLabel();
+        lblSaldo5 = new javax.swing.JLabel();
+        lblJugador5 = new javax.swing.JLabel();
+        lblBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 0));
@@ -84,23 +66,8 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
                 formWindowClosing(evt);
             }
         });
-        getContentPane().setLayout(null);
 
-        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lblNombre);
-        lblNombre.setBounds(150, 10, 100, 30);
-
-        getContentPane().add(btnTipos);
-        btnTipos.setBounds(120, 120, 170, 30);
-
-        btnPagar.setText("Pagar");
-        btnPagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPagar);
-        btnPagar.setBounds(270, 50, 100, 40);
+        panelBack.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -108,8 +75,16 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(150, 50, 100, 40);
+        panelBack.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 100, 30));
+
+        btnPagar.setText("Pagar");
+        btnPagar.setEnabled(false);
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+        panelBack.add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, 100, 30));
 
         btnApostar.setText("Apostar");
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,27 +92,133 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
                 btnApostarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnApostar);
-        btnApostar.setBounds(30, 50, 100, 40);
+        panelBack.add(btnApostar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 100, 30));
 
-        panelCartas.add(btnCarta1);
-        panelCartas.add(btnCarta2);
-        panelCartas.add(btnCarta3);
-        panelCartas.add(btnCarta4);
-        panelCartas.add(btnCarta5);
+        btnPasar.setText("Pasar");
+        btnPasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarActionPerformed(evt);
+            }
+        });
+        panelBack.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 100, 30));
 
-        panelUser.add(panelCartas);
-        panelUser.add(txtUser1);
+        lblMensaje.setBackground(new java.awt.Color(255, 255, 255));
+        lblMensaje.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(255, 255, 255));
+        lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelBack.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 440, 22));
 
-        getContentPane().add(panelUser);
-        panelUser.setBounds(110, 200, 200, 60);
+        lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/2_of_diamonds.jpg"))); // NOI18N
+        lblCarta1.setText("jLabel1");
+        lblCarta1.setPreferredSize(new java.awt.Dimension(110, 160));
+        panelBack.add(lblCarta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 83, 121));
 
-        lblBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table.png"))); // NOI18N
-        getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 400, 300);
+        lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/queen_of_diamonds.jpg"))); // NOI18N
+        lblCarta2.setText("jLabel1");
+        lblCarta2.setPreferredSize(new java.awt.Dimension(110, 160));
+        panelBack.add(lblCarta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 83, 121));
 
-        setSize(new java.awt.Dimension(400, 322));
+        lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/ace_of_hearts.jpg"))); // NOI18N
+        lblCarta3.setText("jLabel1");
+        lblCarta3.setPreferredSize(new java.awt.Dimension(110, 160));
+        panelBack.add(lblCarta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 83, 121));
+
+        lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/10_of_spades.jpg"))); // NOI18N
+        lblCarta4.setText("jLabel1");
+        lblCarta4.setPreferredSize(new java.awt.Dimension(110, 160));
+        panelBack.add(lblCarta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 83, 121));
+
+        lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/2_of_clubs.jpg"))); // NOI18N
+        lblCarta5.setText("jLabel1");
+        lblCarta5.setPreferredSize(new java.awt.Dimension(110, 160));
+        panelBack.add(lblCarta5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 83, 121));
+
+        lblPozo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        lblPozo.setForeground(new java.awt.Color(204, 204, 0));
+        lblPozo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPozo.setText("Pozo $750");
+        panelBack.add(lblPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 400, -1));
+
+        lblSaldo1.setBackground(new java.awt.Color(255, 255, 255));
+        lblSaldo1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblSaldo1.setForeground(new java.awt.Color(204, 204, 0));
+        lblSaldo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaldo1.setText("$200");
+        panelBack.add(lblSaldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 100, -1));
+
+        lblJugador1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblJugador1.setForeground(new java.awt.Color(204, 204, 0));
+        lblJugador1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJugador1.setText("Rodrigo");
+        panelBack.add(lblJugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 100, -1));
+
+        lblSaldo2.setBackground(new java.awt.Color(255, 255, 255));
+        lblSaldo2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblSaldo2.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaldo2.setText("$200");
+        panelBack.add(lblSaldo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 100, -1));
+
+        lblJugador2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblJugador2.setForeground(new java.awt.Color(255, 255, 255));
+        lblJugador2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJugador2.setText("Jugador 2");
+        panelBack.add(lblJugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 100, -1));
+
+        lblSaldo3.setBackground(new java.awt.Color(255, 255, 255));
+        lblSaldo3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblSaldo3.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaldo3.setText("$200");
+        panelBack.add(lblSaldo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 100, -1));
+
+        lblJugador3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblJugador3.setForeground(new java.awt.Color(255, 255, 255));
+        lblJugador3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJugador3.setText("Jugador 3");
+        panelBack.add(lblJugador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
+
+        lblSaldo4.setBackground(new java.awt.Color(255, 255, 255));
+        lblSaldo4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblSaldo4.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaldo4.setText("$200");
+        panelBack.add(lblSaldo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 100, -1));
+
+        lblJugador4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblJugador4.setForeground(new java.awt.Color(255, 255, 255));
+        lblJugador4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJugador4.setText("Jugador 4");
+        panelBack.add(lblJugador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 100, -1));
+
+        lblSaldo5.setBackground(new java.awt.Color(255, 255, 255));
+        lblSaldo5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblSaldo5.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaldo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaldo5.setText("$200");
+        panelBack.add(lblSaldo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 100, -1));
+
+        lblJugador5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblJugador5.setForeground(new java.awt.Color(255, 255, 255));
+        lblJugador5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJugador5.setText("Jugador 5");
+        panelBack.add(lblJugador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 100, -1));
+
+        lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table-blue.png"))); // NOI18N
+        panelBack.add(lblBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 410));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        setSize(new java.awt.Dimension(790, 432));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,25 +238,62 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
 
     }//GEN-LAST:event_btnApostarActionPerformed
 
+    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPasarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
-    private javax.swing.JButton btnCarta1;
-    private javax.swing.JButton btnCarta2;
-    private javax.swing.JButton btnCarta3;
-    private javax.swing.JButton btnCarta4;
-    private javax.swing.JButton btnCarta5;
     private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox btnTipos;
-    private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblNombre;
-    private javax.swing.JPanel panelCartas;
-    private javax.swing.JPanel panelUser;
-    private javax.swing.JLabel txtUser1;
+    private javax.swing.JLabel lblBack;
+    private javax.swing.JLabel lblCarta1;
+    private javax.swing.JLabel lblCarta2;
+    private javax.swing.JLabel lblCarta3;
+    private javax.swing.JLabel lblCarta4;
+    private javax.swing.JLabel lblCarta5;
+    private javax.swing.JLabel lblJugador1;
+    private javax.swing.JLabel lblJugador2;
+    private javax.swing.JLabel lblJugador3;
+    private javax.swing.JLabel lblJugador4;
+    private javax.swing.JLabel lblJugador5;
+    private javax.swing.JLabel lblMensaje;
+    private javax.swing.JLabel lblPozo;
+    private javax.swing.JLabel lblSaldo1;
+    private javax.swing.JLabel lblSaldo2;
+    private javax.swing.JLabel lblSaldo3;
+    private javax.swing.JLabel lblSaldo4;
+    private javax.swing.JLabel lblSaldo5;
+    private javax.swing.JPanel panelBack;
     // End of variables declaration//GEN-END:variables
 
     private void salir() {
         dispose();
+    }
+
+    public void cambiarVisibilidad(boolean state) {
+        btnApostar.setVisible(state);
+        btnPagar.setVisible(state);
+        btnPasar.setVisible(state);
+        btnSalir.setVisible(state);
+        lblCarta1.setVisible(state);
+        lblCarta2.setVisible(state);
+        lblCarta3.setVisible(state);
+        lblCarta4.setVisible(state);
+        lblCarta5.setVisible(state);
+        lblJugador1.setVisible(state);
+        lblJugador2.setVisible(state);
+        lblJugador3.setVisible(state);
+        lblJugador4.setVisible(state);
+        lblJugador5.setVisible(state);
+        lblMensaje.setVisible(state);
+        lblPozo.setVisible(state);
+        lblSaldo1.setVisible(state);
+        lblSaldo2.setVisible(state);
+        lblSaldo3.setVisible(state);
+        lblSaldo4.setVisible(state);
+        lblSaldo5.setVisible(state);
     }
 
     @Override
@@ -190,18 +308,9 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         int jug = p.getPartida().getJugadores().size();
 
         if (tam - jug > 0) {
-            JOptionPane.showMessageDialog(this, "Faltan " + (tam - jug) + " de " + tam + " jugadores");
+            cambiarVisibilidad(false);
+            lblMensaje.setVisible(true);
+            lblMensaje.setText("Esperando inicio del juego, faltan " + (tam - jug) + " de " + tam + " jugadores");
         }
-
-        /*Imagen img = new Imagen(this.img_userActual.getWidth(), this.img_userActual.getHeight(), "/Assets/imgUser.png");
-        this.img_userActual.add(img);
-        this.img_userActual.repaint();
-        int pos = laPartida.getParticipantes().size() - 1;
-        this.setTitle("Poker Moons - Partida de " + laPartida.getParticipantes().get(pos).getNombre());*/
     }
-
-//    @Override
-//    public void mostrarCantidadContactos(int cantidad) {
-//        setTitle(nombreD + " - " + cantidad + " contacto(s)");
-//    }
 }

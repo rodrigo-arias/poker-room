@@ -19,11 +19,11 @@ public class Index {
         model.setTam(3);
         model.crearProximaPartida();
 
-        model.agregarJugador(new Jugador("a", "a", "Ana", 100));
+        model.agregarJugador(new Jugador("a", "a", "Ana", 350));
         model.agregarJugador(new Jugador("b", "b", "Beatriz", 100));
-        model.agregarJugador(new Jugador("c", "c", "Carlos", 100));
-        model.agregarJugador(new Jugador("d", "d", "Daniel", 100));
-        model.agregarJugador(new Jugador("e", "e", "Esteban", 100));
+        model.agregarJugador(new Jugador("c", "c", "Carlos", 200));
+        model.agregarJugador(new Jugador("d", "d", "Daniel", 50));
+        model.agregarJugador(new Jugador("e", "e", "Esteban", 150));
 
         model.agregarAdmin(new Admin("r", "r", "Rodrigo"));
         model.agregarAdmin(new Admin("n", "n", "Nicolas"));
