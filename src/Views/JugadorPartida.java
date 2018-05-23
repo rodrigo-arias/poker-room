@@ -4,7 +4,10 @@ import Controllers.ControladorJugadorPartida;
 import javax.swing.JOptionPane;
 import Model.Participante;
 import Controllers.IVistaJugadorPartida;
+import Model.Carta;
 import Model.Jugador;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
 public class JugadorPartida extends javax.swing.JDialog implements IVistaJugadorPartida {
 
@@ -18,13 +21,13 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
 
         mensajeEspera(p);
         actualizarJugadores(p);
+        actualizarCartas(p);
     }
 
     @Override
     public void iniciarPartida(Participante p) {
         cambiarVisibilidad(true);
         lblMensaje.setText("");
-
     }
 
     @SuppressWarnings("unchecked")
@@ -104,28 +107,18 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelBack.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 440, 22));
 
-        lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/2_of_diamonds.jpg"))); // NOI18N
-        lblCarta1.setText("jLabel1");
         lblCarta1.setPreferredSize(new java.awt.Dimension(110, 160));
         panelBack.add(lblCarta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 83, 121));
 
-        lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/queen_of_diamonds.jpg"))); // NOI18N
-        lblCarta2.setText("jLabel1");
         lblCarta2.setPreferredSize(new java.awt.Dimension(110, 160));
         panelBack.add(lblCarta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 83, 121));
 
-        lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/ace_of_hearts.jpg"))); // NOI18N
-        lblCarta3.setText("jLabel1");
         lblCarta3.setPreferredSize(new java.awt.Dimension(110, 160));
         panelBack.add(lblCarta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 83, 121));
 
-        lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/10_of_spades.jpg"))); // NOI18N
-        lblCarta4.setText("jLabel1");
         lblCarta4.setPreferredSize(new java.awt.Dimension(110, 160));
         panelBack.add(lblCarta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 83, 121));
 
-        lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cartas/2_of_clubs.jpg"))); // NOI18N
-        lblCarta5.setText("jLabel1");
         lblCarta5.setPreferredSize(new java.awt.Dimension(110, 160));
         panelBack.add(lblCarta5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 83, 121));
 
@@ -321,6 +314,41 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
                         lblSaldo5.setText(saldo);
                 }
                 num++;
+            }
+        }
+    }
+
+    @Override
+    public void actualizarCartas(Participante p) {
+        if (p.getCartas().size() == 5) {
+
+            int pos = 1;
+
+            for (Carta c : p.getCartas()) {
+
+                switch (pos) {
+                    case 1:
+                        URL url1 = JugadorPartida.class.getResource(c.getSource());
+                        lblCarta1.setIcon(new ImageIcon(url1));
+                        break;
+                    case 2:
+                        URL url2 = JugadorPartida.class.getResource(c.getSource());
+                        lblCarta2.setIcon(new ImageIcon(url2));
+                        break;
+                    case 3:
+                        URL url3 = JugadorPartida.class.getResource(c.getSource());
+                        lblCarta3.setIcon(new ImageIcon(url3));
+                        break;
+                    case 4:
+                        URL url4 = JugadorPartida.class.getResource(c.getSource());
+                        lblCarta4.setIcon(new ImageIcon(url4));
+                        break;
+                    case 5:
+                        URL url5 = JugadorPartida.class.getResource(c.getSource());
+                        lblCarta5.setIcon(new ImageIcon(url5));
+                        break;
+                }
+                pos++;
             }
         }
     }

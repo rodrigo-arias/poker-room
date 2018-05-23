@@ -47,7 +47,7 @@ public class Launcher extends javax.swing.JDialog {
         btnLoginJugador.setBackground(new java.awt.Color(0, 183, 254));
         btnLoginJugador.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnLoginJugador.setForeground(new java.awt.Color(255, 255, 255));
-        btnLoginJugador.setText("Login Jugador");
+        btnLoginJugador.setText("Aplicación para Jugador");
         btnLoginJugador.setBorder(null);
         btnLoginJugador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -66,7 +66,7 @@ public class Launcher extends javax.swing.JDialog {
         btnLoginAdmin.setBackground(new java.awt.Color(231, 66, 124));
         btnLoginAdmin.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnLoginAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLoginAdmin.setText("Login Admin");
+        btnLoginAdmin.setText("Aplicación para Admin");
         btnLoginAdmin.setBorder(null);
         btnLoginAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -88,7 +88,7 @@ public class Launcher extends javax.swing.JDialog {
         btnSalir.setBackground(new java.awt.Color(255, 47, 57));
         btnSalir.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Cerrar Aplicación");
+        btnSalir.setText("Finalizar Aplicación");
         btnSalir.setBorder(null);
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

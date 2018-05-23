@@ -18,7 +18,19 @@ class SistemaAdmin {
         return null;
     }
 
-    public void agregarAdmin(Admin a) {
-        administradores.add(a);
+    public boolean registrarAdmin(Admin a) {
+
+        if (!administradores.contains(a)) {
+            for (Admin adm : administradores) {
+                if (adm.equals(a)) {
+                    return false;
+                }
+            }
+            // Si el admin no fue registrado y no hay otro con el mismo usuario
+            administradores.add(a);
+            return true;
+        }
+        return false;
     }
+
 }

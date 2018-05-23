@@ -1,10 +1,8 @@
 package Controllers;
 
 import Model.Admin;
-import Model.Partida;
 import Model.Sistema;
 import Views.AdminPanel;
-import java.util.ArrayList;
 
 public class ControladorAdminLogin {
 
@@ -22,8 +20,7 @@ public class ControladorAdminLogin {
             vista.mostrarError("Usuario o contraseña incorrectos");
         } else {
             vista.salir();
-            ArrayList<Partida> partidas = sistema.getPartidas();
-            // Create monitor interface
+            // Creación de interfaz de administrador
             new AdminPanel(null, false).setVisible(true);
         }
     }

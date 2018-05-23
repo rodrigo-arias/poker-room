@@ -35,14 +35,14 @@ public class SistemaPartida extends Observable {
     public void crearProximaPartida() {
         this.proximaPartida = new Partida(this.lastId + 1, this.defaultTam, this.defaultBase);
         lastId++;
-        agregarPartida(proximaPartida);
+        registrarPartida(proximaPartida);
     }
 
     public Partida getProximaPartida() {
         return proximaPartida;
     }
 
-    public void agregarPartida(Partida p) {
+    public void registrarPartida(Partida p) {
         partidas.add(p);
         avisar(Eventos.partidaNueva);
     }

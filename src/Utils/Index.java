@@ -13,19 +13,22 @@ public class Index {
     }
 
     private static void cargarDatos() {
-        Sistema model = Sistema.getInstance();
+        Sistema s = Sistema.getInstance();
 
-        model.setBase(10);
-        model.setTam(3);
-        model.crearProximaPartida();
+        //===================  Partidas  ===================//
+        s.setBase(10);
+        s.setTam(2);
+        s.crearProximaPartida();
 
-        model.agregarJugador(new Jugador("a", "a", "Ana", 350));
-        model.agregarJugador(new Jugador("b", "b", "Beatriz", 100));
-        model.agregarJugador(new Jugador("c", "c", "Carlos", 200));
-        model.agregarJugador(new Jugador("d", "d", "Daniel", 50));
-        model.agregarJugador(new Jugador("e", "e", "Esteban", 150));
+        //==================  Jugadores  ==================//
+        s.registrarJugador(new Jugador("a", "a", "Ana", 350));
+        s.registrarJugador(new Jugador("b", "b", "Beatriz", 100));
+        s.registrarJugador(new Jugador("c", "c", "Carlos", 200));
+        s.registrarJugador(new Jugador("d", "d", "Daniel", 50));
+        s.registrarJugador(new Jugador("e", "e", "Esteban", 150));
 
-        model.agregarAdmin(new Admin("r", "r", "Rodrigo"));
-        model.agregarAdmin(new Admin("n", "n", "Nicolas"));
+        //===================  Admins  ====================//
+        s.registrarAdmin(new Admin("r", "r", "Rodrigo"));
+        s.registrarAdmin(new Admin("n", "n", "Nicolas"));
     }
 }

@@ -21,21 +21,21 @@ public class Sistema {
     }
 
     //==================  Sis. Jugador  ==================//
+    public boolean registrarJugador(Jugador j) {
+        return sj.registrarJugador(j);
+    }
+
     public Participante loginJugador(String user, String pass) {
         return sj.loginJugador(user, pass);
     }
 
-    public void agregarJugador(Jugador j) {
-        sj.agregarJugador(j);
+    //===================  Sis. Admin  ===================//
+    public boolean registrarAdmin(Admin a) {
+        return sa.registrarAdmin(a);
     }
 
-    //===================  Sis. Admin  ===================//
     public Admin loginAdmin(String user, String pass) {
         return sa.loginAdmin(user, pass);
-    }
-
-    public void agregarAdmin(Admin a) {
-        sa.agregarAdmin(a);
     }
 
     //==================  Sis. Partida  ==================//
@@ -47,28 +47,12 @@ public class Sistema {
         return sp.getProximaPartida();
     }
 
-    public void setTam(int tam) {
-        sp.setTam(tam);
-    }
-
     public void setBase(int base) {
         sp.setBase(base);
     }
 
-    public ArrayList<Partida> getPartidas() {
-        return sp.getPartidas();
-    }
-
-    public ArrayList<Partida> getPartidasActivas() {
-        return sp.getPartidasActivas();
-    }
-
-    public void observarPartidas(Observer o) {
-        sp.observarPartidas(o);
-    }
-
-    public void observarPartida(Partida p, Observer o) {
-        sp.observarPartida(p, o);
+    public void setTam(int tam) {
+        sp.setTam(tam);
     }
 
     public int actualizarDefaultBase(int base) {
@@ -79,8 +63,27 @@ public class Sistema {
         return sp.actualizarDefaultTam(tam);
     }
 
+    //----------------------------------------------------//
+    public ArrayList<Partida> getPartidas() {
+        return sp.getPartidas();
+    }
+
+    public ArrayList<Partida> getPartidasActivas() {
+        return sp.getPartidasActivas();
+    }
+
     public Partida getPartidaId(int id) {
         return sp.getPartidaId(id);
     }
+    //----------------------------------------------------//
+
+    public void observarPartidas(Observer o) {
+        sp.observarPartidas(o);
+    }
+
+    public void observarPartida(Partida p, Observer o) {
+        sp.observarPartida(p, o);
+    }
+    //----------------------------------------------------//
 
 }

@@ -1,8 +1,10 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Participante {
+public class Participante implements Observer {
 
     //==================  Attributes  ==================//
     private ArrayList<Carta> cartas;
@@ -22,10 +24,26 @@ public class Participante {
         return partida;
     }
 
+    public void setCartas(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+    }
+
     //==================  Constructor  ==================//
     public Participante(Jugador jugador, Partida partida) {
         this.cartas = new ArrayList(5);
         this.jugador = jugador;
         this.partida = partida;
+
+        // Observa la partida que está jugando
+        this.partida.addObserver(this);
+    }
+
+    //==================  Methods  ==================//
+    @Override
+    public void update(Observable o, Object evento) {
+        if (evento.equals(Partida.Eventos.repartirCartas)) {
+            // Solicita sus 5 cartas
+            this.partida.repartirCartas(this);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class ControladorJugadorLogin {
             vista.mostrarError("Usuario o contraseña incorrectos");
         } else {
             vista.salir();
-            // Create partida interface
+            // Creación de interfaz de jugador
             new JugadorPartida(null, false, ppte).setVisible(true);
         }
     }

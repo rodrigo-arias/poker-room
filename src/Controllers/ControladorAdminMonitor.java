@@ -20,7 +20,6 @@ public class ControladorAdminMonitor implements Observer {
     }
 
     public Boolean guardar(int id, int tam, int base) {
-        //return Sistema.getInstance().actualizarPartida(id, tam, base);
         return false;
     }
 

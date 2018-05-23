@@ -15,20 +15,24 @@ class SistemaJugador {
 
                 Partida p = Sistema.getInstance().getProximaPartida();
 
-                // No se encuentra en la prox. partida, y tiene saldo de apuesta base x cant. de jugadores
-                if (!p.getJugadores().contains(j) && j.getSaldo() >= p.getBase() * p.getTam()) {
-
-                    // Jugador válido, creo el participante y agrego el jugador a la próxima partida
-                    p.agregarJugador(j);
-
-                    return new Participante(j, p);
-                }
+                return p.agregarJugador(j);
             }
         }
         return null;
     }
 
-    public void agregarJugador(Jugador j) {
-        jugadores.add(j);
+    public boolean registrarJugador(Jugador j) {
+
+        if (!jugadores.contains(j)) {
+            for (Jugador jug : jugadores) {
+                if (jug.equals(j)) {
+                    return false;
+                }
+            }
+            // Si el jugador no fue registrado y no hay otro con el mismo usuario
+            jugadores.add(j);
+            return true;
+        }
+        return false;
     }
 }

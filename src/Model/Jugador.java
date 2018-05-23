@@ -49,9 +49,14 @@ public class Jugador {
         this.saldo = saldo;
     }
 
+    //==================  Methods  ==================//
     @Override
     public boolean equals(Object o) {
         Jugador j = (Jugador) o;
         return j.getUsuario().equalsIgnoreCase(usuario);
+    }
+
+    public void pagarIngreso(int base) {
+        this.saldo = this.getSaldo() - base;
     }
 }

@@ -1,11 +1,8 @@
 package Model;
 
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
 
 public class TableMonitor extends AbstractTableModel {
@@ -53,15 +50,6 @@ public class TableMonitor extends AbstractTableModel {
         return null;
     }
 
-//    public String getNombreJugador(Partida p, int i) {
-//        int jugando = p.getJugadores().size();
-//
-//        if (jugando > i) {
-//            return p.getJugadores().get(i).getNombre();
-//        } else {
-//            return null;
-//        }
-//    }
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
