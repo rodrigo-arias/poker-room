@@ -22,11 +22,11 @@ public class ControladorJugadorPartida implements Observer {
     @Override
     public void update(Observable o, Object evento) {
         if (evento.equals(Partida.Eventos.participanteNuevo)) {
-            vista.actualizarParticipantes(participante);
+            vista.actualizarJugadores(participante);
         }
 
         if (evento.equals(Partida.Eventos.partidaIniciada)) {
-            vista.iniciarPartida();
+            vista.iniciarPartida(participante);
         }
     }
 }

@@ -9,7 +9,6 @@ class SistemaJugador {
 
     //==================  Methods  ==================//
     public Participante loginJugador(String user, String pass) {
-        Participante retorno = null;
 
         for (Jugador j : jugadores) {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
@@ -22,16 +21,11 @@ class SistemaJugador {
                     // Jugador válido, creo el participante y agrego el jugador a la próxima partida
                     p.agregarJugador(j);
 
-                    // Si se completaron los jugadores, creo una nueva próxima partida
-                    if (p.getJugadores().size() == p.getTam()) {
-                        p.iniciar();
-                        Sistema.getInstance().crearProximaPartida();
-                    }
-                    retorno = new Participante(j, p);
+                    return new Participante(j, p);
                 }
             }
         }
-        return retorno;
+        return null;
     }
 
     public void agregarJugador(Jugador j) {

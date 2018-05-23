@@ -44,4 +44,14 @@ public class Jugador {
     public int getTotalGanado() {
         return 0;
     }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Jugador j = (Jugador) o;
+        return j.getUsuario().equalsIgnoreCase(usuario);
+    }
 }

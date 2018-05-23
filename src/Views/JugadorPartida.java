@@ -9,26 +9,22 @@ import Model.Jugador;
 public class JugadorPartida extends javax.swing.JDialog implements IVistaJugadorPartida {
 
     private ControladorJugadorPartida controlador;
-    private Participante participante;
 
-    public JugadorPartida(java.awt.Frame parent, boolean modal, Participante ppte) {
+    public JugadorPartida(java.awt.Frame parent, boolean modal, Participante p) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorJugadorPartida(ppte, this);
-        participante = ppte;
+        controlador = new ControladorJugadorPartida(p, this);
+        this.setTitle("Poker Moons - Partida de " + p.getJugador().getNombre());
 
-        Jugador j = ppte.getJugador();
-
-        this.setTitle("Poker Moons - Partida de " + participante.getJugador().getNombre());
-
-        lblJugador1.setText(j.getNombre());
-        lblSaldo1.setText("$" + Integer.toString(j.getSaldo()));
+        mensajeEspera(p);
+        actualizarJugadores(p);
     }
 
     @Override
-    public void iniciarPartida() {
+    public void iniciarPartida(Participante p) {
         cambiarVisibilidad(true);
         lblMensaje.setText("");
+
     }
 
     @SuppressWarnings("unchecked")
@@ -136,73 +132,63 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         lblPozo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lblPozo.setForeground(new java.awt.Color(204, 204, 0));
         lblPozo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPozo.setText("Pozo $750");
-        panelBack.add(lblPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 400, -1));
+        panelBack.add(lblPozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 400, 19));
 
         lblSaldo1.setBackground(new java.awt.Color(255, 255, 255));
         lblSaldo1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblSaldo1.setForeground(new java.awt.Color(204, 204, 0));
         lblSaldo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSaldo1.setText("$200");
-        panelBack.add(lblSaldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 100, -1));
+        lblSaldo1.setToolTipText("");
+        panelBack.add(lblSaldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 100, 17));
 
         lblJugador1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblJugador1.setForeground(new java.awt.Color(204, 204, 0));
         lblJugador1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador1.setText("Rodrigo");
-        panelBack.add(lblJugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 100, -1));
+        panelBack.add(lblJugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 100, 15));
 
         lblSaldo2.setBackground(new java.awt.Color(255, 255, 255));
         lblSaldo2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblSaldo2.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSaldo2.setText("$200");
-        panelBack.add(lblSaldo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 100, -1));
+        panelBack.add(lblSaldo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 100, 17));
 
         lblJugador2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblJugador2.setForeground(new java.awt.Color(255, 255, 255));
         lblJugador2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador2.setText("Jugador 2");
-        panelBack.add(lblJugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 100, -1));
+        panelBack.add(lblJugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 100, 15));
 
         lblSaldo3.setBackground(new java.awt.Color(255, 255, 255));
         lblSaldo3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblSaldo3.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSaldo3.setText("$200");
-        panelBack.add(lblSaldo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 100, -1));
+        panelBack.add(lblSaldo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 100, 17));
 
         lblJugador3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblJugador3.setForeground(new java.awt.Color(255, 255, 255));
         lblJugador3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador3.setText("Jugador 3");
-        panelBack.add(lblJugador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
+        panelBack.add(lblJugador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, 15));
 
         lblSaldo4.setBackground(new java.awt.Color(255, 255, 255));
         lblSaldo4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblSaldo4.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSaldo4.setText("$200");
-        panelBack.add(lblSaldo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 100, -1));
+        panelBack.add(lblSaldo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 100, 17));
 
         lblJugador4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblJugador4.setForeground(new java.awt.Color(255, 255, 255));
         lblJugador4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador4.setText("Jugador 4");
-        panelBack.add(lblJugador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 100, -1));
+        panelBack.add(lblJugador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 100, 15));
 
         lblSaldo5.setBackground(new java.awt.Color(255, 255, 255));
         lblSaldo5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblSaldo5.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSaldo5.setText("$200");
-        panelBack.add(lblSaldo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 100, -1));
+        panelBack.add(lblSaldo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 100, 17));
 
         lblJugador5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblJugador5.setForeground(new java.awt.Color(255, 255, 255));
         lblJugador5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJugador5.setText("Jugador 5");
-        panelBack.add(lblJugador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 100, -1));
+        panelBack.add(lblJugador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 100, 15));
 
         lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/table-blue.png"))); // NOI18N
         panelBack.add(lblBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 410));
@@ -287,7 +273,6 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         lblJugador3.setVisible(state);
         lblJugador4.setVisible(state);
         lblJugador5.setVisible(state);
-        lblMensaje.setVisible(state);
         lblPozo.setVisible(state);
         lblSaldo1.setVisible(state);
         lblSaldo2.setVisible(state);
@@ -302,14 +287,50 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     }
 
     @Override
-    public void actualizarParticipantes(Participante p) {
+    public void actualizarJugadores(Participante p) {
+        int num = 2;
 
+        // Actualizo datos del jugador y el pozo
+        lblJugador1.setText(p.getJugador().getNombre());
+        lblSaldo1.setText("$" + Integer.toString(p.getJugador().getSaldo()));
+        lblPozo.setText("Pozo: $" + Integer.toString(p.getPartida().getPozo()));
+
+        // Actualizo los datos del resto de los jugadores
+        for (Jugador j : p.getPartida().getJugadores()) {
+
+            if (!j.equals(p.getJugador())) {
+
+                String nombre = j.getNombre();
+                String saldo = "$" + Integer.toString(j.getSaldo());
+
+                switch (num) {
+                    case 2:
+                        lblJugador2.setText(nombre);
+                        lblSaldo2.setText(saldo);
+                        break;
+                    case 3:
+                        lblJugador3.setText(nombre);
+                        lblSaldo3.setText(saldo);
+                        break;
+                    case 4:
+                        lblJugador4.setText(nombre);
+                        lblSaldo4.setText(saldo);
+                        break;
+                    case 5:
+                        lblJugador5.setText(nombre);
+                        lblSaldo5.setText(saldo);
+                }
+                num++;
+            }
+        }
+    }
+
+    public void mensajeEspera(Participante p) {
         int tam = p.getPartida().getTam();
         int jug = p.getPartida().getJugadores().size();
 
         if (tam - jug > 0) {
             cambiarVisibilidad(false);
-            lblMensaje.setVisible(true);
             lblMensaje.setText("Esperando inicio del juego, faltan " + (tam - jug) + " de " + tam + " jugadores");
         }
     }

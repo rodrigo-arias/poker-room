@@ -91,6 +91,17 @@ public class Partida extends Observable {
     //==================  Methods  ==================//
     public void agregarJugador(Jugador j) {
         jugadores.add(j);
+
+        // Paga apuesta base y se conforma el pozo
+        j.setSaldo(j.getSaldo() - this.base);
+        this.pozo += base;
+        avisar(Eventos.participanteNuevo);
+
+        if (this.jugadores.size() == this.tam) {
+            // Se completaron los participante, creo una nueva partida e inicio la actual
+            Sistema.getInstance().crearProximaPartida();
+            this.iniciar();
+        }
     }
 
     public void iniciar() {

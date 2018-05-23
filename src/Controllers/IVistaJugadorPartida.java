@@ -6,7 +6,7 @@ public interface IVistaJugadorPartida {
 
     public void mostrarError(String msg);
 
-    public void actualizarParticipantes(Participante ppte);
+    public void actualizarJugadores(Participante ppte);
 
-    public void iniciarPartida();
+    public void iniciarPartida(Participante ppte);
 }

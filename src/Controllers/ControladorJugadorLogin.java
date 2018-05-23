@@ -1,7 +1,6 @@
 package Controllers;
 
 import Model.Participante;
-import Model.Partida;
 import Model.Sistema;
 import Views.JugadorPartida;
 
@@ -21,9 +20,8 @@ public class ControladorJugadorLogin {
             vista.mostrarError("Usuario o contraseña incorrectos");
         } else {
             vista.salir();
-            // Create partida interface and update participantes
+            // Create partida interface
             new JugadorPartida(null, false, ppte).setVisible(true);
-            ppte.getPartida().avisar(Partida.Eventos.participanteNuevo);
         }
     }
 }
