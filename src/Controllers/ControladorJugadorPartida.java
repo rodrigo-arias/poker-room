@@ -55,21 +55,33 @@ public class ControladorJugadorPartida implements Observer {
         }
 
         if (evento.equals(Partida.Eventos.finalizoMano)) {
-            vista.actualizarMano(participante);
+            if (participante.getPartida().getJugadores().contains(participante.getJugador())) {
+                vista.actualizarMano(participante);
+            }
+        }
+
+        if (evento.equals(Partida.Eventos.saldoInsuficiente)) {
+            if (!participante.getPartida().getJugadores().contains(participante.getJugador())) {
+                vista.mostrarSaldoInsuficiente();
+            }
         }
     }
 
     public void salir() {
-        participante.getPartida().quitarJugador(participante.getJugador());
+        participante.getPartida().quitarJugador(participante);
     }
 
     public void apostar(int apuesta) {
-        if (!participante.getPartida().accion(participante.getJugador(), Mano.Accion.aposto, apuesta)) {
+        if (!participante.getPartida().accion(participante, Mano.Accion.aposto, apuesta)) {
             vista.mostrarError("No puedes apostar esa cantidad");
         }
     }
 
     public void pasar() {
-        participante.getPartida().accion(participante.getJugador(), Mano.Accion.paso, 0);
+        participante.getPartida().accion(participante, Mano.Accion.paso, 0);
+    }
+
+    public void pagar() {
+        participante.getPartida().accion(participante, Mano.Accion.pago, 0);
     }
 }

@@ -23,7 +23,8 @@ public class Partida extends Observable {
         inicioPartida,
         finalizoPartida,
         inicioMano,
-        finalizoMano;
+        finalizoMano,
+        saldoInsuficiente;
     }
 
     //==================  Constructor  =================//
@@ -117,13 +118,13 @@ public class Partida extends Observable {
         return p;
     }
 
-    public void quitarJugador(Jugador j) {
-        if (this.jugadores.contains(j)) {
-            jugadores.remove(j);
+    public void quitarJugador(Participante p) {
+        if (this.jugadores.contains(p.getJugador())) {
+            jugadores.remove(p.getJugador());
             avisar(Eventos.cambiaronParticipantes);
 
             // Aviso a la mano que se retiro un jugador
-            accion(j, Accion.salio, 0);
+            accion(p, Accion.salio, 0);
 
             if (this.jugadores.size() == 1) {
                 // Queda un solo jugador, se termina la partida
@@ -136,13 +137,12 @@ public class Partida extends Observable {
         this.inicio = LocalDateTime.now();
         this.activa = true;
 
-        crearMano(this.getJugadores());
+        crearMano();
         avisar(Eventos.inicioPartida);
     }
 
     private void finalizar() {
         this.activa = false;
-        this.manoActual.setGanador(this.getJugadores().get(0));
         avisar(Eventos.finalizoPartida);
     }
 
@@ -159,8 +159,8 @@ public class Partida extends Observable {
         manoActual.repartirCartas(p);
     }
 
-    public void crearMano(ArrayList<Jugador> jugando) {
-        this.manoActual = new Mano(jugando);
+    public void crearMano() {
+        this.manoActual = new Mano();
         this.manos.add(manoActual);
 
         avisar(Eventos.inicioMano);
@@ -177,28 +177,48 @@ public class Partida extends Observable {
         return max;
     }
 
-    public boolean accion(Jugador j, Mano.Accion accion, int apuesta) {
+    public boolean accion(Participante p, Mano.Accion accion, int apuesta) {
 
         // Si aposto, le quito al saldo el valor de la apuesta
         if (accion == Mano.Accion.aposto) {
             if (apuesta <= apuestaMaxima()) {
-                j.restarSaldo(apuesta);
+                p.jugador.restarSaldo(apuesta);
             } else {
                 return false;
             }
         }
 
-        boolean ganador = this.manoActual.accion(j, accion, apuesta);
+        // Paga el valor de la apuesta actual
+        if (accion == Mano.Accion.pago) {
+            p.jugador.restarSaldo(manoActual.getApuesta().getValor());
+        }
 
-        // Si hay ganador actualizo el pozo
-        if (ganador) {
+        boolean finalizo = this.manoActual.accion(p, accion, apuesta);
+
+        if (finalizo) {
+            // Si hay un ganador actualizo el pozo y el saldo del ganador
             if (this.manoActual.getGanador() != null) {
-                this.manoActual.getGanador().sumarSaldo(this.manoActual.getPozo() + this.pozo);
+                this.manoActual.getGanador().getJugador().sumarSaldo(this.manoActual.getPozo() + this.pozo);
                 this.pozo = 0;
+            } else {
+                this.pozo += this.manoActual.getPozo();
             }
-            avisar(Eventos.finalizoMano);
+            finalizoManoActual();
         }
 
         return true;
+    }
+
+    public void finalizoManoActual() {
+
+        // Quito a los jugadores que no tienen saldo suficiente;
+        for (Jugador j : this.jugadores) {
+            if (j.getSaldo() < this.getBase()) {
+                jugadores.remove(j);
+                avisar(Eventos.saldoInsuficiente);
+            }
+        }
+
+        avisar(Eventos.finalizoMano);
     }
 }

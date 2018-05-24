@@ -46,9 +46,20 @@ public class Participante implements Observer {
         }
 
         if (evento.equals(Partida.Eventos.inicioMano)) {
-            // Solicita sus 5 cartas
-            //this.partida.getManoActual().addObserver(this);
+            // Participa y solicita sus 5 cartas
+            this.partida.getManoActual().participar(this);
             this.partida.repartirCartas(this);
         }
+    }
+
+    public Carta mejorCarta() {
+        Carta mejor = this.cartas.get(0);
+
+        for (int i = 1; i < cartas.size(); i++) {
+            if (mejor.compareTo(cartas.get(i)) > 0) {
+                mejor = this.cartas.get(i);
+            }
+        }
+        return mejor;
     }
 }

@@ -2,21 +2,21 @@ package Model;
 
 public class Apuesta {
 
-    private Jugador apostador;
+    private Participante apostador;
     private int valor;
 
     //==================  Constructor  ==================//
-    public Apuesta(Jugador apostador, int valor) {
+    public Apuesta(Participante apostador, int valor) {
         this.apostador = apostador;
         this.valor = valor;
     }
 
     //==================  Properties  =================//s
-    public Jugador getApostador() {
+    public Participante getApostador() {
         return apostador;
     }
 
-    public void setApostador(Jugador apostador) {
+    public void setApostador(Participante apostador) {
         this.apostador = apostador;
     }
 
