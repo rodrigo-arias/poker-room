@@ -23,4 +23,6 @@ public interface IVistaJugadorPartida {
     public void mostrarSaldoInsuficiente();
 
     public void otraMano(Participante participante);
+
+    public void mostrarPago(Participante participante);
 }

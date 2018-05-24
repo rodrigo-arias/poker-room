@@ -18,6 +18,7 @@ public class Partida extends Observable {
     private boolean activa;
     private Mano manoActual;
     private int respuestas;
+    ArrayList<Integer> saldosIniciales = new ArrayList<>();
 
     public enum Eventos {
         cambiaronParticipantes,
@@ -95,6 +96,10 @@ public class Partida extends Observable {
         return activa;
     }
 
+    public ArrayList<Integer> getSaldosIniciales() {
+        return saldosIniciales;
+    }
+
     //==================  Methods  ==================//
     public Participante agregarJugador(Jugador j) {
         Participante p = null;
@@ -105,6 +110,7 @@ public class Partida extends Observable {
             // Jugador válido, creo el participante y agrego el jugador a la próxima partida
             p = new Participante(j, this);
             jugadores.add(j);
+            this.saldosIniciales.add(j.getSaldo());
 
             if (this.jugadores.size() == this.tam) {
                 // Se completaron los participante, creo una nueva partida e inicio la actual
@@ -149,7 +155,13 @@ public class Partida extends Observable {
     }
 
     public int getTotalApostado() {
-        return 0;
+        int total = 0;
+        for (Mano m : manos) {
+            if (m.getApuesta() != null) {
+                total += m.getApuesta().getValor();
+            }
+        }
+        return total;
     }
 
     public void participar(Participante p) {
@@ -192,11 +204,6 @@ public class Partida extends Observable {
             }
         }
 
-        // Paga el valor de la apuesta actual
-        if (accion == Mano.Accion.pago) {
-            p.jugador.restarSaldo(manoActual.getApuesta().getValor());
-        }
-
         boolean finalizo = this.manoActual.accion(p, accion, apuesta);
 
         if (finalizo) {
@@ -217,7 +224,7 @@ public class Partida extends Observable {
 
         // Quito a los jugadores que no tienen saldo suficiente;
         for (Jugador j : this.jugadores) {
-            if (j.getSaldo() < this.getBase()) {
+            if (j.getSaldo() <= this.getBase()) {
                 jugadores.remove(j);
                 avisar(Eventos.saldoInsuficiente);
             }
@@ -239,5 +246,61 @@ public class Partida extends Observable {
                 this.finalizar();
             }
         }
+    }
+
+    public int getTotalApostado(Jugador j) {
+        int totalApostado = 0;
+        for (Mano m : this.manos) {
+
+            ArrayList<Participante> pagaron = m.getPagaron();
+
+            for (Participante p : pagaron) {
+                if (p.getJugador().equals(j)) {
+                    totalApostado += m.getApuesta().getValor();
+                }
+            }
+        }
+        return totalApostado;
+    }
+
+    public int getTotalGanado(Jugador j, Partida p) {
+        int totalGanado = 0;
+        boolean aposto = false;
+
+        // Me fijo si fue uno de los que apostó
+        for (Mano m : this.manos) {
+            ArrayList<Participante> pagaron = m.getPagaron();
+
+            for (Participante ppte : pagaron) {
+                if (ppte.getJugador().equals(j)) {
+                    aposto = true;
+                }
+            }
+
+            // Si apostó
+            if (aposto) {
+                int apuesta = m.getApuesta().getValor();
+
+                // Si no ganó la banca
+                if (m.getGanador() != null) {
+
+                    // Si ganó él
+                    if (m.getGanador().getJugador().equals(j)) {
+                        totalGanado += apuesta;
+                        totalGanado += (p.base * (p.getJugadores().size() - 1));
+                    } else {
+                        totalGanado -= apuesta;
+                        totalGanado -= p.base;
+                    }
+                } else {
+                    totalGanado -= apuesta;
+                    totalGanado -= p.base;
+                }
+            } else {
+                totalGanado -= p.base;
+            }
+            aposto = false;
+        }
+        return totalGanado;
     }
 }

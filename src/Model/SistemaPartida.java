@@ -71,6 +71,10 @@ public class SistemaPartida extends Observable {
         p.addObserver(o);
     }
 
+    public void observarNuevaPartida(Observer o) {
+        this.partidas.get(partidas.size() - 1).addObserver(o);
+    }
+
     public void observarManoActual(Partida p, Observer o) {
         p.getManoActual().addObserver(o);
     }

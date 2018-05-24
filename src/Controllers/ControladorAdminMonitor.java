@@ -19,15 +19,15 @@ public class ControladorAdminMonitor implements Observer {
         Sistema.getInstance().observarPartidas(this);
     }
 
-    public Boolean guardar(int id, int tam, int base) {
-        return false;
-    }
-
     @Override
     public void update(Observable o, Object evento) {
         if (evento.equals(Partida.Eventos.cambiaronParticipantes)
-                || evento.equals(SistemaPartida.Eventos.partidaNueva)
                 || evento.equals(SistemaPartida.Eventos.partidaActualizada)) {
+            vista.actualizar();
+        }
+
+        if (evento.equals(SistemaPartida.Eventos.partidaNueva)) {
+            Sistema.getInstance().observarNuevaPartida(this);
             vista.actualizar();
         }
     }

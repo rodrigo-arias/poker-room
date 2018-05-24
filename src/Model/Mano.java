@@ -25,7 +25,8 @@ public class Mano extends Observable {
     public enum Eventos {
         cartasRepartidas,
         hayApuesta,
-        hayGanador;
+        hayGanador,
+        alguienPago;
     }
 
     //==================  Constructor  ==================//
@@ -98,8 +99,7 @@ public class Mano extends Observable {
                 respuesta++;
                 break;
             case pago:
-                this.pagaron.add(p);
-                this.pozo += this.apuesta.getValor();
+                alguienPago(p, apuesta);
                 respuesta++;
                 break;
         }
@@ -151,6 +151,15 @@ public class Mano extends Observable {
 
     public void agregarParticipante(Participante p) {
         this.jugando.add(p);
+    }
+
+    private void alguienPago(Participante p, int valor) {
+        this.pagaron.add(p);
+        this.pozo += this.apuesta.getValor();
+
+        // Paga el valor de la apuesta actual
+        p.jugador.restarSaldo(this.getApuesta().getValor());
+        avisar(Eventos.alguienPago);
     }
 
 }

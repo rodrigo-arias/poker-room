@@ -50,6 +50,10 @@ public class ControladorJugadorPartida implements Observer {
             vista.mostrarApuesta(participante);
         }
 
+        if (evento.equals(Mano.Eventos.alguienPago)) {
+            vista.mostrarPago(participante);
+        }
+
         if (evento.equals(Mano.Eventos.hayGanador)) {
             vista.mostrarGanador(participante);
         }

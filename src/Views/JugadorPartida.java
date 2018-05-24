@@ -318,7 +318,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         // Actualizo los datos del resto de los jugadores
         for (Jugador j : p.getPartida().getJugadores()) {
 
-            if (j.getSaldo() < apuestaMax) {
+            if (j.getSaldo() < apuestaMax && j.getSaldo() != 0) {
                 apuestaMax = j.getSaldo();
             }
 
@@ -538,5 +538,11 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         mostrarPozo(p.getPartida().getPozo());
         mostrarBotones(true);
         btnPagar.setEnabled(false);
+    }
+
+    @Override
+    public void mostrarPago(Participante p) {
+        actualizarParticipantes(p);
+        mostrarPozo(p.getPartida().getPozo() + p.getPartida().getManoActual().getPozo());
     }
 }

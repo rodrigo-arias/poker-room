@@ -1,5 +1,6 @@
 package Model;
 
+import Controllers.ControladorAdminMonitor;
 import Controllers.ControladorJugadorPartida;
 import java.util.ArrayList;
 import java.util.Observer;
@@ -82,8 +83,12 @@ public class Sistema {
         sp.observarPartidas(o);
     }
 
+    public void observarNuevaPartida(Observer o) {
+        sp.observarNuevaPartida(o);
+    }
+
+    //----------------------------------------------------//
     public void observarPartida(Partida p, Observer o) {
         sp.observarPartida(p, o);
     }
-    //----------------------------------------------------//
 }

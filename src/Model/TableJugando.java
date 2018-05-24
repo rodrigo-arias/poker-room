@@ -35,19 +35,26 @@ public class TableJugando extends AbstractTableModel {
 
         if (this.partida != null && this.partida.getJugadores().size() > 0) {
 
-            Jugador jugador = this.partida.getJugadores().get(rowIndex);
+            Jugador j = this.partida.getJugadores().get(rowIndex);
+
+            // Get valores
+            int id = rowIndex + 1;
+            String nombre = j.getNombre();
+            int totalApostado = this.partida.getTotalApostado(j);
+            int saldoInicial = this.partida.getSaldosIniciales().get(rowIndex);
+            int totalGanado = this.partida.getTotalGanado(j, this.partida);
 
             switch (columnIndex) {
                 case 0:
-                    return rowIndex + 1;
+                    return id;
                 case 1:
-                    return jugador.getNombre();
+                    return nombre;
                 case 2:
-                    return jugador.getTotalApostado();
+                    return totalApostado;
                 case 3:
-                    return jugador.getSaldoInicial();
+                    return saldoInicial;
                 case 4:
-                    return jugador.getTotalGanado();
+                    return totalGanado;
             }
         }
         return null;
