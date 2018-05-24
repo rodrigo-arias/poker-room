@@ -25,7 +25,7 @@ public class ControladorAdminMonitor implements Observer {
 
     @Override
     public void update(Observable o, Object evento) {
-        if (evento.equals(Partida.Eventos.participanteNuevo)
+        if (evento.equals(Partida.Eventos.cambiaronParticipantes)
                 || evento.equals(SistemaPartida.Eventos.partidaNueva)
                 || evento.equals(SistemaPartida.Eventos.partidaActualizada)) {
             vista.actualizar();

@@ -56,7 +56,11 @@ public class Jugador {
         return j.getUsuario().equalsIgnoreCase(usuario);
     }
 
-    public void pagarIngreso(int base) {
-        this.saldo = this.getSaldo() - base;
+    public void restarSaldo(int base) {
+        this.saldo = this.saldo - base;
+    }
+
+    void sumarSaldo(int pozo) {
+        this.saldo = this.saldo + pozo;
     }
 }

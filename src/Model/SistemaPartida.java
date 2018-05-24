@@ -71,6 +71,10 @@ public class SistemaPartida extends Observable {
         p.addObserver(o);
     }
 
+    public void observarManoActual(Partida p, Observer o) {
+        p.getManoActual().addObserver(o);
+    }
+
     public int actualizarDefaultBase(int base) {
         int retorno = 1;
 

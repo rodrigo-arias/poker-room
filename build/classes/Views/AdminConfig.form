@@ -59,7 +59,7 @@
                       </Group>
                       <Component id="lblTitle" min="-2" pref="206" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="fieldTam" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Component id="spinnerTam" min="-2" pref="83" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTam" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -81,7 +81,7 @@
                   <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="fieldTam" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinnerTam" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblTam" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
             <Property name="text" type="java.lang.String" value="Configuraci&#xf3;n de Partidas"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="fieldTam">
+        <Component class="javax.swing.JSpinner" name="spinnerTam">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="2" maximum="5" minimum="2" numberType="java.lang.Integer" stepSize="1" type="number"/>

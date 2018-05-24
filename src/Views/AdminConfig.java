@@ -20,7 +20,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
         btnBase.setBorder(null);
         btnBase.setOpaque(true);
 
-        fieldTam.setValue(proxPartida.getTam());
+        spinnerTam.setValue(proxPartida.getTam());
         fieldBase.setText(Integer.toString(proxPartida.getBase()));
     }
 
@@ -30,7 +30,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
 
         panelBack = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        fieldTam = new javax.swing.JSpinner();
+        spinnerTam = new javax.swing.JSpinner();
         lblTam = new javax.swing.JLabel();
         fieldBase = new javax.swing.JTextField();
         lblBase = new javax.swing.JLabel();
@@ -52,7 +52,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Configuración de Partidas");
 
-        fieldTam.setModel(new javax.swing.SpinnerNumberModel(2, 2, 5, 1));
+        spinnerTam.setModel(new javax.swing.SpinnerNumberModel(2, 2, 5, 1));
 
         lblTam.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblTam.setForeground(new java.awt.Color(153, 153, 153));
@@ -102,7 +102,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
                         .addComponent(btnBase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelBackLayout.createSequentialGroup()
-                        .addComponent(fieldTam, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinnerTam, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTam))
                     .addComponent(btnTam, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +119,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
                 .addComponent(lblTitle)
                 .addGap(34, 34, 34)
                 .addGroup(panelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldTam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerTam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTam))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnTam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +181,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
     }//GEN-LAST:event_formWindowClosed
 
     private void btnTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamActionPerformed
-        int tam = (Integer) fieldTam.getValue();
+        int tam = (Integer) spinnerTam.getValue();
         int ret = controlador.actualizarTam(tam);
 
         if (ret == 1) {
@@ -195,12 +195,12 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
     private javax.swing.JToggleButton btnBase;
     private javax.swing.JToggleButton btnTam;
     private javax.swing.JTextField fieldBase;
-    private javax.swing.JSpinner fieldTam;
     private javax.swing.JLabel lblBase;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblTam;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel panelBack;
+    private javax.swing.JSpinner spinnerTam;
     // End of variables declaration//GEN-END:variables
 
     public boolean esInteger(String input) {
@@ -243,7 +243,7 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
     public void actualizar() {
         Partida proxPartida = Sistema.getInstance().getProximaPartida();
 
-        fieldTam.setValue(proxPartida.getTam());
+        spinnerTam.setValue(proxPartida.getTam());
         fieldBase.setText(Integer.toString(proxPartida.getBase()));
     }
 }
