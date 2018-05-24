@@ -56,7 +56,7 @@ public class ControladorJugadorPartida implements Observer {
 
         if (evento.equals(Partida.Eventos.finalizoMano)) {
             if (participante.getPartida().getJugadores().contains(participante.getJugador())) {
-                vista.actualizarMano(participante);
+                vista.finalizarMano(participante);
             }
         }
 
@@ -64,6 +64,10 @@ public class ControladorJugadorPartida implements Observer {
             if (!participante.getPartida().getJugadores().contains(participante.getJugador())) {
                 vista.mostrarSaldoInsuficiente();
             }
+        }
+
+        if (evento.equals(Partida.Eventos.otraMano)) {
+            vista.otraMano(participante);
         }
     }
 
@@ -83,5 +87,9 @@ public class ControladorJugadorPartida implements Observer {
 
     public void pagar() {
         participante.getPartida().accion(participante, Mano.Accion.pago, 0);
+    }
+
+    public void jugarOtraMano() {
+        participante.getPartida().jugarOtraMano();
     }
 }

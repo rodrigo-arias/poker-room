@@ -211,7 +211,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         lblMensaje.setText("Pagaste, espera el resultado");
         controlador.pagar();
-        deshabilitarBotones(false);
+        mostrarBotones(false);
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -225,7 +225,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         int apuesta = (Integer) spinnerApuesta.getValue();
         controlador.apostar(apuesta);
-        deshabilitarBotones(false);
+        mostrarBotones(false);
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
@@ -266,7 +266,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         dispose();
     }
 
-    public void deshabilitarBotones(boolean state) {
+    public void mostrarBotones(boolean state) {
         btnApostar.setEnabled(state);
         btnPagar.setEnabled(state);
         btnPasar.setEnabled(state);
@@ -497,19 +497,46 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     }
 
     @Override
-    public void actualizarMano(Participante p) {
+    public void finalizarMano(Participante p) {
         limpiarDatos();
 
         // Actualizar datos del jugador actual
         String nomActual = p.getJugador().getNombre();
         String saldoActual = "$" + Integer.toString(p.getJugador().getSaldo());
 
-        new JugadorRetry(null, true).setVisible(true);
+        String[] options = {"Jugar", "Salir"};
+
+        int retry = JOptionPane.showOptionDialog(
+                null,
+                "La mano terminó, ¿quieres jugar de nuevo " + nomActual + "?",
+                "Poker Moons",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (retry == JOptionPane.YES_OPTION) {
+            controlador.jugarOtraMano();
+        } else {
+            controlador.jugarOtraMano();
+            salir();
+        }
     }
 
     @Override
     public void mostrarSaldoInsuficiente() {
         JOptionPane.showMessageDialog(this, "Saldo insuficiente");
         salir();
+    }
+
+    @Override
+    public void otraMano(Participante p) {
+        cambiarVisibilidad(true);
+        lblMensaje.setText("");
+        actualizarParticipantes(p);
+        mostrarPozo(p.getPartida().getPozo());
+        mostrarBotones(true);
+        btnPagar.setEnabled(false);
     }
 }

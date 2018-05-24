@@ -42,13 +42,7 @@ public class Participante implements Observer {
     @Override
     public void update(Observable o, Object evento) {
         if (evento.equals(Partida.Eventos.inicioMano)) {
-            this.partida.getManoActual().addObserver(this);
-        }
-
-        if (evento.equals(Partida.Eventos.inicioMano)) {
-            // Participa y solicita sus 5 cartas
-            this.partida.getManoActual().participar(this);
-            this.partida.repartirCartas(this);
+            this.partida.participar(this);
         }
     }
 

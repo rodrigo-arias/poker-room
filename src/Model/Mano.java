@@ -149,7 +149,7 @@ public class Mano extends Observable {
         avisar(Eventos.hayApuesta);
     }
 
-    public void participar(Participante p) {
+    public void agregarParticipante(Participante p) {
         this.jugando.add(p);
     }
 

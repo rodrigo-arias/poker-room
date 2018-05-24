@@ -18,7 +18,9 @@ public interface IVistaJugadorPartida {
 
     public void mostrarGanador(Participante participante);
 
-    public void actualizarMano(Participante participante);
+    public void finalizarMano(Participante participante);
 
     public void mostrarSaldoInsuficiente();
+
+    public void otraMano(Participante participante);
 }

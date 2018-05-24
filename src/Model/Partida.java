@@ -17,6 +17,7 @@ public class Partida extends Observable {
     private ArrayList<Mano> manos;
     private boolean activa;
     private Mano manoActual;
+    private int respuestas;
 
     public enum Eventos {
         cambiaronParticipantes,
@@ -24,7 +25,8 @@ public class Partida extends Observable {
         finalizoPartida,
         inicioMano,
         finalizoMano,
-        saldoInsuficiente;
+        saldoInsuficiente,
+        otraMano;
     }
 
     //==================  Constructor  =================//
@@ -104,11 +106,6 @@ public class Partida extends Observable {
             p = new Participante(j, this);
             jugadores.add(j);
 
-            // Paga apuesta base y se conforma el pozo
-            j.restarSaldo(base);
-            this.pozo += base;
-            avisar(Eventos.cambiaronParticipantes);
-
             if (this.jugadores.size() == this.tam) {
                 // Se completaron los participante, creo una nueva partida e inicio la actual
                 Sistema.getInstance().crearProximaPartida();
@@ -155,8 +152,15 @@ public class Partida extends Observable {
         return 0;
     }
 
-    public void repartirCartas(Participante p) {
+    public void participar(Participante p) {
+        // Se agrega a la partida y se le reparten las cartas
+        this.manoActual.agregarParticipante(p);
         manoActual.repartirCartas(p);
+
+        // Paga apuesta base y se conforma el pozo
+        p.getJugador().restarSaldo(base);
+        this.pozo += base;
+        avisar(Eventos.cambiaronParticipantes);
     }
 
     public void crearMano() {
@@ -219,6 +223,21 @@ public class Partida extends Observable {
             }
         }
 
+        this.respuestas = 0;
         avisar(Eventos.finalizoMano);
+    }
+
+    public void jugarOtraMano() {
+        respuestas++;
+
+        // Si ya todos respondieron
+        if (respuestas == this.getJugadores().size()) {
+            if (respuestas > 1) {
+                crearMano();
+                avisar(Eventos.otraMano);
+            } else {
+                this.finalizar();
+            }
+        }
     }
 }
