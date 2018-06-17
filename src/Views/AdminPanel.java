@@ -2,6 +2,7 @@ package Views;
 
 import Controllers.ControladorAdminPanel;
 import Controllers.IVistaAdminPanel;
+import Model.Admin;
 import java.awt.Color;
 
 public class AdminPanel extends javax.swing.JDialog implements IVistaAdminPanel {
@@ -10,11 +11,11 @@ public class AdminPanel extends javax.swing.JDialog implements IVistaAdminPanel 
     private Color lightPink = new Color(231, 66, 124);
     private Color pink = new Color(186, 43, 98);
 
-    public AdminPanel(java.awt.Frame parent, boolean modal) {
+    public AdminPanel(java.awt.Frame parent, boolean modal, Admin admin) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorAdminPanel(this);
-        this.setTitle("Poker Moons");
+        controlador = new ControladorAdminPanel(admin, this);
+        this.setTitle("Admin - " + admin.getNombre());
 
         btnConfig.setBorder(null);
         btnConfig.setOpaque(true);
@@ -32,6 +33,11 @@ public class AdminPanel extends javax.swing.JDialog implements IVistaAdminPanel 
         btnMonitor = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelBack.setBackground(new java.awt.Color(42, 42, 49));
 
@@ -147,6 +153,11 @@ public class AdminPanel extends javax.swing.JDialog implements IVistaAdminPanel 
         btnConfig.setBackground(lightPink);
     }//GEN-LAST:event_btnConfigMouseExited
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controlador.salir();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnConfig;
     private javax.swing.JToggleButton btnMonitor;
@@ -156,6 +167,7 @@ public class AdminPanel extends javax.swing.JDialog implements IVistaAdminPanel 
 
     @Override
     public void salir() {
+        controlador.salir();
         dispose();
     }
 }

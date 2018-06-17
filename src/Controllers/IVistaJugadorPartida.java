@@ -4,25 +4,25 @@ import Model.Participante;
 
 public interface IVistaJugadorPartida {
 
-    public void mostrarError(String msg);
+    public void partidaIniciar(Participante ppte);
 
-    public void actualizarParticipantes(Participante ppte);
+    public void partidaFinalizar(Participante participante);
 
-    public void actualizarCartas(Participante p);
+    public void manoIniciar(Participante participante);
 
-    public void iniciarPartida(Participante ppte);
+    public void manoFinalizar(Participante participante);
 
-    public void finalizarPartida(Participante participante);
+    public void updateParticipantes(Participante ppte);
 
-    public void mostrarApuesta(Participante participante);
+    public void updateCartas(Participante p);
 
-    public void mostrarGanador(Participante participante);
+    public void showApuesta(Participante participante);
 
-    public void finalizarMano(Participante participante);
+    public void showGanador(Participante participante);
 
-    public void mostrarSaldoInsuficiente();
+    public void showSaldoInsuficiente();
 
-    public void otraMano(Participante participante);
+    public void showPago(Participante participante);
 
-    public void mostrarPago(Participante participante);
+    public void showMessage(String msg);
 }

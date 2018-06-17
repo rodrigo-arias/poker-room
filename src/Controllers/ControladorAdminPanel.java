@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.Admin;
 import Model.Partida;
 import Model.Sistema;
 import Views.AdminConfig;
@@ -10,9 +11,11 @@ public class ControladorAdminPanel {
 
     private Sistema sistema = Sistema.getInstance();
     private IVistaAdminPanel vista;
+    private Admin admin;
 
-    public ControladorAdminPanel(IVistaAdminPanel vista) {
+    public ControladorAdminPanel(Admin adm, IVistaAdminPanel vista) {
         this.vista = vista;
+        this.admin = adm;
     }
 
     public void config() {
@@ -25,5 +28,9 @@ public class ControladorAdminPanel {
         ArrayList<Partida> partidas = sistema.getPartidas();
         // Create config interface
         new AdminMonitor(partidas).setVisible(true);
+    }
+
+    public void salir() {
+        Sistema.getInstance().logoutAdmin(admin);
     }
 }

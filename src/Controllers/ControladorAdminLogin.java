@@ -17,11 +17,11 @@ public class ControladorAdminLogin {
         Admin admin = sistema.loginAdmin(u, p);
 
         if (admin == null) {
-            vista.mostrarError("Usuario o contraseña incorrectos");
+            vista.mostrarError("No se pudo loguear.");
         } else {
             vista.salir();
             // Creación de interfaz de administrador
-            new AdminPanel(null, false).setVisible(true);
+            new AdminPanel(null, false, admin).setVisible(true);
         }
     }
 }

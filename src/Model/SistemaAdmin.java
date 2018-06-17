@@ -6,16 +6,23 @@ class SistemaAdmin {
 
     //==================  Attributes  ==================//
     private ArrayList<Admin> administradores = new ArrayList();
+    private ArrayList<Admin> logueados = new ArrayList();
 
     //==================  Methods  ==================//
     public Admin loginAdmin(String user, String pass) {
+
+        Admin adm = null;
+
         for (Admin a : administradores) {
             if (a.getUsuario().equalsIgnoreCase(user) && a.getContrasena().equals(pass)) {
 
-                return a;
+                if (!logueados.contains(a)) {
+                    logueados.add(a);
+                    adm = a;
+                }
             }
         }
-        return null;
+        return adm;
     }
 
     public boolean registrarAdmin(Admin a) {
@@ -31,6 +38,12 @@ class SistemaAdmin {
             return true;
         }
         return false;
+    }
+
+    public void logoutAdmin(Admin a) {
+        if (logueados.contains(a)) {
+            logueados.remove(a);
+        }
     }
 
 }
