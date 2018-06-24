@@ -3,10 +3,10 @@ package Views;
 import Controllers.ControladorAdminConfig;
 import Model.Partida;
 import java.awt.Color;
-import Controllers.IVistaAdminConfig;
 import Model.Sistema;
+import Controllers.VistaAdminConfig;
 
-public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig {
+public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig {
 
     private ControladorAdminConfig controlador;
 
@@ -39,6 +39,8 @@ public class AdminConfig extends javax.swing.JFrame implements IVistaAdminConfig
         btnTam = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(286, 320));
+        setMinimumSize(new java.awt.Dimension(286, 320));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

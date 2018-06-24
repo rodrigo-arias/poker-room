@@ -1,7 +1,5 @@
 package Model;
 
-import Controllers.ControladorAdminMonitor;
-import Controllers.ControladorJugadorPartida;
 import java.util.ArrayList;
 import java.util.Observer;
 
@@ -38,6 +36,10 @@ public class Sistema {
 
     public Admin loginAdmin(String user, String pass) {
         return sa.loginAdmin(user, pass);
+    }
+
+    public void logoutAdmin(Admin a) {
+        sa.logoutAdmin(a);
     }
 
     //==================  Sis. Partida  ==================//

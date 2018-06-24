@@ -2,7 +2,6 @@ package Views;
 
 import Controllers.ControladorJugadorPartida;
 import Model.Participante;
-import Controllers.IVistaJugadorPartida;
 import Model.Apuesta;
 import Model.Carta;
 import Model.Jugador;
@@ -11,8 +10,9 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import Controllers.VistaJugadorPartida;
 
-public class JugadorPartida extends javax.swing.JDialog implements IVistaJugadorPartida {
+public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorPartida {
 
     private ControladorJugadorPartida controlador;
 
@@ -22,15 +22,62 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         controlador = new ControladorJugadorPartida(p, this);
         this.setTitle("Poker Moons - Partida de " + p.getJugador().getNombre());
 
-        mostrarMensajeEspera(p);
-        actualizarParticipantes(p);
-        actualizarCartas(p);
+        showMensajeEspera(p);
+        updateParticipantes(p);
+        updateCartas(p);
     }
 
     @Override
-    public void iniciarPartida(Participante p) {
-        cambiarVisibilidad(true);
-        lblMensaje.setText("");
+    public void partidaIniciar(Participante p) {
+        displayLabels(true);
+        showMessage("");
+    }
+
+    @Override
+    public void partidaFinalizar(Participante participante) {
+        if (participante.equals(participante.getPartida().getManoActual().getGanador())) {
+            displayLabels(false);
+            showMessage("La partida ha finalizado, solo quedas tú");
+        }
+        exit();
+    }
+
+    @Override
+    public void manoIniciar(Participante p) {
+        displayLabels(true);
+        showMessage("");
+        updateParticipantes(p);
+        showPozo(p.getPartida().getPozo());
+        displayButtons(true);
+        btnPagar.setEnabled(false);
+    }
+
+    @Override
+    public void manoFinalizar(Participante p) {
+        clearParticipantes();
+
+        // Actualizar datos del jugador actual
+        String nomActual = p.getJugador().getNombre();
+        String saldoActual = "$" + Integer.toString(p.getJugador().getSaldo());
+
+        String[] options = {"Jugar", "Salir"};
+
+        int retry = JOptionPane.showOptionDialog(
+                null,
+                "La mano terminó, ¿quieres jugar de nuevo " + nomActual + "?",
+                "Poker Moons",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (retry == JOptionPane.YES_OPTION) {
+            controlador.jugarOtraMano();
+        } else {
+            controlador.jugarOtraMano();
+            exit();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -64,6 +111,8 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 0));
+        setMaximumSize(new java.awt.Dimension(790, 410));
+        setMinimumSize(new java.awt.Dimension(790, 410));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -209,28 +258,31 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-        lblMensaje.setText("Pagaste, espera el resultado");
+        showMessage("Pagaste, espera el resultado");
+        displayButtons(false);
         controlador.pagar();
-        mostrarBotones(false);
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        salir();
+        controlador.salir();
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        salir();
+        controlador.salir();
+        dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         int apuesta = (Integer) spinnerApuesta.getValue();
         controlador.apostar(apuesta);
-        mostrarBotones(false);
+        displayButtons(false);
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
-        cambiarVisibilidad(false);
-        lblMensaje.setText("Pasaste, espera que termine la mano");
+        showMessage("Pasaste, espera que termine la mano");
+        displayLabels(false);
+        displayButtons(false);
         controlador.pasar();
     }//GEN-LAST:event_btnPasarActionPerformed
 
@@ -261,59 +313,24 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
     private javax.swing.JSpinner spinnerApuesta;
     // End of variables declaration//GEN-END:variables
 
-    private void salir() {
+    private void exit() {
         controlador.salir();
         dispose();
     }
 
-    public void mostrarBotones(boolean state) {
-        btnApostar.setEnabled(state);
-        btnPagar.setEnabled(state);
-        btnPasar.setEnabled(state);
-    }
-
-    public void cambiarVisibilidad(boolean state) {
-        btnApostar.setVisible(state);
-        btnPagar.setVisible(state);
-        btnPasar.setVisible(state);
-        btnSalir.setVisible(state);
-        lblCarta1.setVisible(state);
-        lblCarta4.setVisible(state);
-        lblCarta5.setVisible(state);
-        lblCarta2.setVisible(state);
-        lblCarta3.setVisible(state);
-        lblJugador1.setVisible(state);
-        lblJugador2.setVisible(state);
-        lblJugador3.setVisible(state);
-        lblJugador4.setVisible(state);
-        lblJugador5.setVisible(state);
-        lblPozo.setVisible(state);
-        lblSaldo1.setVisible(state);
-        lblSaldo2.setVisible(state);
-        lblSaldo3.setVisible(state);
-        lblSaldo4.setVisible(state);
-        lblSaldo5.setVisible(state);
-        spinnerApuesta.setVisible(state);
-    }
-
     @Override
-    public void mostrarError(String msg) {
-        lblMensaje.setText(msg);
-    }
-
-    @Override
-    public void actualizarParticipantes(Participante p) {
+    public void updateParticipantes(Participante p) {
         int num = 2;
         int apuestaMax = Integer.MAX_VALUE;
 
-        limpiarDatos();
+        clearParticipantes();
 
         // Actualizar datos del jugador actual y el pozo
         String nomActual = p.getJugador().getNombre();
         String saldoActual = "$" + Integer.toString(p.getJugador().getSaldo());
 
-        mostrarDatosJugador(nomActual, saldoActual, 1);
-        mostrarPozo(p.getPartida().getPozo());
+        showJugador(nomActual, saldoActual, 1);
+        showPozo(p.getPartida().getPozo());
 
         // Actualizo los datos del resto de los jugadores
         for (Jugador j : p.getPartida().getJugadores()) {
@@ -327,18 +344,18 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
                 String nom = j.getNombre();
                 String saldo = "$" + Integer.toString(j.getSaldo());
 
-                mostrarDatosJugador(nom, saldo, num);
+                showJugador(nom, saldo, num);
 
                 num++;
             }
         }
 
         // Apostar hasta el saldo del que tiene menos
-        actualizarApuestaMax(apuestaMax);
+        updateApuestaMax(apuestaMax);
     }
 
     @Override
-    public void actualizarCartas(Participante p) {
+    public void updateCartas(Participante p) {
         if (p.getCartas().size() == 5) {
 
             int pos = 1;
@@ -347,24 +364,29 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
 
                 switch (pos) {
                     case 1:
-                        mostrarCarta(lblCarta1, getImagenURL(c));
+                        showCarta(lblCarta1, getImagenURL(c));
                         break;
                     case 2:
-                        mostrarCarta(lblCarta2, getImagenURL(c));
+                        showCarta(lblCarta2, getImagenURL(c));
                         break;
                     case 3:
-                        mostrarCarta(lblCarta3, getImagenURL(c));
+                        showCarta(lblCarta3, getImagenURL(c));
                         break;
                     case 4:
-                        mostrarCarta(lblCarta4, getImagenURL(c));
+                        showCarta(lblCarta4, getImagenURL(c));
                         break;
                     case 5:
-                        mostrarCarta(lblCarta5, getImagenURL(c));
+                        showCarta(lblCarta5, getImagenURL(c));
                         break;
                 }
                 pos++;
             }
         }
+    }
+
+    public void updateApuestaMax(int max) {
+        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
+        spinnerApuesta.setModel(model);
     }
 
     public URL getImagenURL(Carta c) {
@@ -375,17 +397,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         }
     }
 
-    public void mostrarMensajeEspera(Participante p) {
-        int tam = p.getPartida().getTam();
-        int jug = p.getPartida().getJugadores().size();
-
-        if (tam - jug > 0) {
-            cambiarVisibilidad(false);
-            lblMensaje.setText("Esperando inicio del juego, faltan " + (tam - jug) + " de " + tam + " jugadores");
-        }
-    }
-
-    private void limpiarDatos() {
+    private void clearParticipantes() {
         lblJugador1.setText("");
         lblJugador2.setText("");
         lblJugador3.setText("");
@@ -398,7 +410,7 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         lblSaldo5.setText("");
     }
 
-    public void mostrarDatosJugador(String nom, String saldo, int num) {
+    public void showJugador(String nom, String saldo, int num) {
 
         switch (num) {
             case 1:
@@ -423,54 +435,25 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         }
     }
 
-    public void mostrarPozo(int pozo) {
+    public void showPozo(int pozo) {
         lblPozo.setText("Pozo: $" + Integer.toString(pozo));
     }
 
-    public void actualizarApuestaMax(int max) {
-        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
-        spinnerApuesta.setModel(model);
-    }
-
-    public void mostrarCarta(javax.swing.JLabel label, URL url) {
-        if (url != null) {
-            label.setIcon(new ImageIcon(url));
-        } else {
-            label.setText("No se pudo cargar la imagen");
-        }
+    @Override
+    public void showPago(Participante p) {
+        updateParticipantes(p);
+        showPozo(p.getPartida().getPozo() + p.getPartida().getManoActual().getPozo());
     }
 
     @Override
-    public void finalizarPartida(Participante participante) {
-        if (participante.equals(participante.getPartida().getManoActual().getGanador())) {
-            cambiarVisibilidad(false);
-            lblMensaje.setText("La partida ha finalizado, solo quedas tú");
-        }
-        salir();
+    public void showSaldoInsuficiente() {
+        JOptionPane.showMessageDialog(this, "Saldo insuficiente");
+        exit();
     }
 
     @Override
-    public void mostrarApuesta(Participante p) {
-
-        actualizarParticipantes(p);
-        cambiarVisibilidad(true);
-
-        Apuesta a = p.getPartida().getManoActual().getApuesta();
-        mostrarPozo(p.getPartida().getPozo() + a.getValor());
-
-        if (!p.equals(a.getApostador())) {
-            lblMensaje.setText(a.getApostador().getJugador().getNombre() + " aposto $" + a.getValor() + " ¿pagas o pasas?");
-        } else {
-            lblMensaje.setText("Espera la respuesta de los otros jugadores");
-        }
-        btnPagar.setEnabled(true);
-        btnApostar.setEnabled(false);
-        spinnerApuesta.setEnabled(false);
-    }
-
-    @Override
-    public void mostrarGanador(Participante p) {
-        cambiarVisibilidad(false);
+    public void showGanador(Participante p) {
+        displayLabels(false);
         Mano m = p.getPartida().getManoActual();
 
         lblJugador1.setVisible(true);
@@ -480,69 +463,96 @@ public class JugadorPartida extends javax.swing.JDialog implements IVistaJugador
         if (m.getPagaron().contains(p)) {
 
             if (p.equals(m.getGanador())) {
-                lblMensaje.setText("Ganaste la mano!");
+                showMessage("Ganaste la mano!");
             } else {
-                lblMensaje.setText(m.getApuesta().getApostador().getJugador().getNombre() + " gano la mano");
+                showMessage(m.getApuesta().getApostador().getJugador().getNombre() + " gano la mano");
             }
 
             // Muestra la carta ganadora
             if (m.getCartaGanadora() != null) {
                 lblCarta3.setVisible(true);
-                mostrarCarta(lblCarta3, getImagenURL(m.getCartaGanadora()));
+                showCarta(lblCarta3, getImagenURL(m.getCartaGanadora()));
             }
         } else {
             // Si no pagó, solo sabe que termino la mano
-            lblMensaje.setText("La mano ha finalizado");
+            showMessage("La mano ha finalizado");
         }
     }
 
     @Override
-    public void finalizarMano(Participante p) {
-        limpiarDatos();
+    public void showApuesta(Participante p) {
 
-        // Actualizar datos del jugador actual
-        String nomActual = p.getJugador().getNombre();
-        String saldoActual = "$" + Integer.toString(p.getJugador().getSaldo());
+        updateParticipantes(p);
+        displayLabels(true);
+        displayButtons(true);
 
-        String[] options = {"Jugar", "Salir"};
+        Apuesta a = p.getPartida().getManoActual().getApuesta();
+        showPozo(p.getPartida().getPozo() + a.getValor());
 
-        int retry = JOptionPane.showOptionDialog(
-                null,
-                "La mano terminó, ¿quieres jugar de nuevo " + nomActual + "?",
-                "Poker Moons",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                options,
-                options[0]);
+        if (!p.equals(a.getApostador())) {
+            showMessage(a.getApostador().getJugador().getNombre() + " aposto $" + a.getValor() + " ¿pagas o pasas?");
 
-        if (retry == JOptionPane.YES_OPTION) {
-            controlador.jugarOtraMano();
+            btnApostar.setEnabled(false);
+
         } else {
-            controlador.jugarOtraMano();
-            salir();
+            showMessage("Espera la respuesta de los otros jugadores");
+
+            displayButtons(false);
+            btnSalir.setEnabled(true);
+            btnSalir.setVisible(true);
+        }
+    }
+
+    public void showMensajeEspera(Participante p) {
+        int tam = p.getPartida().getTam();
+        int jug = p.getPartida().getJugadores().size();
+
+        if (tam - jug > 0) {
+            displayLabels(false);
+            showMessage("Esperando inicio del juego, faltan " + (tam - jug) + " de " + tam + " jugadores");
         }
     }
 
     @Override
-    public void mostrarSaldoInsuficiente() {
-        JOptionPane.showMessageDialog(this, "Saldo insuficiente");
-        salir();
+    public void showMessage(String msg) {
+        lblMensaje.setText(msg);
     }
 
-    @Override
-    public void otraMano(Participante p) {
-        cambiarVisibilidad(true);
-        lblMensaje.setText("");
-        actualizarParticipantes(p);
-        mostrarPozo(p.getPartida().getPozo());
-        mostrarBotones(true);
-        btnPagar.setEnabled(false);
+    public void showCarta(javax.swing.JLabel label, URL url) {
+        if (url != null) {
+            label.setIcon(new ImageIcon(url));
+        } else {
+            label.setText("No se pudo cargar la imagen");
+        }
     }
 
-    @Override
-    public void mostrarPago(Participante p) {
-        actualizarParticipantes(p);
-        mostrarPozo(p.getPartida().getPozo() + p.getPartida().getManoActual().getPozo());
+    public void displayButtons(boolean state) {
+        btnApostar.setEnabled(state);
+        btnPagar.setEnabled(state);
+        btnPasar.setEnabled(state);
+        btnApostar.setVisible(state);
+        btnPagar.setVisible(state);
+        btnPasar.setVisible(state);
+        btnSalir.setVisible(state);
+    }
+
+    public void displayLabels(boolean state) {
+        lblCarta1.setVisible(state);
+        lblCarta4.setVisible(state);
+        lblCarta5.setVisible(state);
+        lblCarta2.setVisible(state);
+        lblCarta3.setVisible(state);
+        lblJugador1.setVisible(state);
+        lblJugador2.setVisible(state);
+        lblJugador3.setVisible(state);
+        lblJugador4.setVisible(state);
+        lblJugador5.setVisible(state);
+        lblPozo.setVisible(state);
+        lblSaldo1.setVisible(state);
+        lblSaldo2.setVisible(state);
+        lblSaldo3.setVisible(state);
+        lblSaldo4.setVisible(state);
+        lblSaldo5.setVisible(state);
+        spinnerApuesta.setVisible(state);
     }
 }

@@ -9,11 +9,11 @@ import java.util.Observer;
 
 public class ControladorJugadorPartida implements Observer {
 
-    private IVistaJugadorPartida vista;
+    private VistaJugadorPartida vista;
     private Participante participante;
 
     //==================  Constructor  ==================//
-    public ControladorJugadorPartida(Participante participante, IVistaJugadorPartida vista) {
+    public ControladorJugadorPartida(Participante participante, VistaJugadorPartida vista) {
         this.vista = vista;
         this.participante = participante;
         Sistema.getInstance().observarPartida(participante.getPartida(), this);
@@ -27,11 +27,11 @@ public class ControladorJugadorPartida implements Observer {
     @Override
     public void update(Observable o, Object evento) {
         if (evento.equals(Partida.Eventos.cambiaronParticipantes)) {
-            vista.actualizarParticipantes(participante);
+            vista.updateParticipantes(participante);
         }
 
         if (evento.equals(Partida.Eventos.inicioPartida)) {
-            vista.iniciarPartida(participante);
+            vista.partidaIniciar(participante);
         }
 
         if (evento.equals(Partida.Eventos.inicioMano)) {
@@ -39,39 +39,39 @@ public class ControladorJugadorPartida implements Observer {
         }
 
         if (evento.equals(Mano.Eventos.cartasRepartidas)) {
-            vista.actualizarCartas(participante);
+            vista.updateCartas(participante);
         }
 
         if (evento.equals(Partida.Eventos.finalizoPartida)) {
-            vista.finalizarPartida(participante);
+            vista.partidaFinalizar(participante);
         }
 
         if (evento.equals(Mano.Eventos.hayApuesta)) {
-            vista.mostrarApuesta(participante);
+            vista.showApuesta(participante);
         }
 
         if (evento.equals(Mano.Eventos.alguienPago)) {
-            vista.mostrarPago(participante);
+            vista.showPago(participante);
         }
 
         if (evento.equals(Mano.Eventos.hayGanador)) {
-            vista.mostrarGanador(participante);
+            vista.showGanador(participante);
         }
 
         if (evento.equals(Partida.Eventos.finalizoMano)) {
             if (participante.getPartida().getJugadores().contains(participante.getJugador())) {
-                vista.finalizarMano(participante);
+                vista.manoFinalizar(participante);
             }
         }
 
         if (evento.equals(Partida.Eventos.saldoInsuficiente)) {
             if (!participante.getPartida().getJugadores().contains(participante.getJugador())) {
-                vista.mostrarSaldoInsuficiente();
+                vista.showSaldoInsuficiente();
             }
         }
 
         if (evento.equals(Partida.Eventos.otraMano)) {
-            vista.otraMano(participante);
+            vista.manoIniciar(participante);
         }
     }
 
@@ -81,7 +81,7 @@ public class ControladorJugadorPartida implements Observer {
 
     public void apostar(int apuesta) {
         if (!participante.getPartida().accion(participante, Mano.Accion.aposto, apuesta)) {
-            vista.mostrarError("No puedes apostar esa cantidad");
+            vista.showMessage("No puedes apostar esa cantidad");
         }
     }
 

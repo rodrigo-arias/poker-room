@@ -1,6 +1,6 @@
 package Controllers;
 
-public interface IVistaJugadorLogin {
+public interface VistaJugadorLogin {
 
     public void mostrarError(String msg);
 

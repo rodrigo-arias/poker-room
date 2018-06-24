@@ -9,11 +9,11 @@ import java.util.Observer;
 
 public class ControladorAdminMonitor implements Observer {
 
-    private IVistaAdminMonitor vista;
+    private VistaAdminMonitor vista;
     private ArrayList<Partida> partidas;
 
     //==================  Constructor  ==================//
-    public ControladorAdminMonitor(ArrayList<Partida> partidas, IVistaAdminMonitor vista) {
+    public ControladorAdminMonitor(ArrayList<Partida> partidas, VistaAdminMonitor vista) {
         this.vista = vista;
         this.partidas = partidas;
         Sistema.getInstance().observarPartidas(this);

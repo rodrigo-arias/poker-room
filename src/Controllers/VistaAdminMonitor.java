@@ -1,6 +1,6 @@
 package Controllers;
 
-public interface IVistaAdminMonitor {
+public interface VistaAdminMonitor {
 
     public void actualizar();
 }

@@ -1,6 +1,6 @@
 package Controllers;
 
-public interface IVistaAdminLogin {
+public interface VistaAdminLogin {
 
     public void mostrarError(String msg);
 

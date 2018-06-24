@@ -1,6 +1,6 @@
 package Controllers;
 
-public interface IVistaAdminConfig {
+public interface VistaAdminConfig {
 
     public void mostrarMensaje(int code);
 

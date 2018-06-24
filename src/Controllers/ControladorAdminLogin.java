@@ -7,9 +7,9 @@ import Views.AdminPanel;
 public class ControladorAdminLogin {
 
     private Sistema sistema = Sistema.getInstance();
-    private IVistaAdminLogin vista;
+    private VistaAdminLogin vista;
 
-    public ControladorAdminLogin(IVistaAdminLogin vista) {
+    public ControladorAdminLogin(VistaAdminLogin vista) {
         this.vista = vista;
     }
 
@@ -17,11 +17,11 @@ public class ControladorAdminLogin {
         Admin admin = sistema.loginAdmin(u, p);
 
         if (admin == null) {
-            vista.mostrarError("Usuario o contraseña incorrectos");
+            vista.mostrarError("No se pudo loguear.");
         } else {
             vista.salir();
             // Creación de interfaz de administrador
-            new AdminPanel(null, false).setVisible(true);
+            new AdminPanel(null, false, admin).setVisible(true);
         }
     }
 }

@@ -1,6 +1,6 @@
 package Controllers;
 
-public interface IVistaAdminPanel {
+public interface VistaAdminPanel {
 
     public void salir();
 }

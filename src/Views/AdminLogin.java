@@ -3,9 +3,9 @@ package Views;
 import Controllers.ControladorAdminLogin;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import Controllers.IVistaAdminLogin;
+import Controllers.VistaAdminLogin;
 
-public class AdminLogin extends javax.swing.JDialog implements IVistaAdminLogin {
+public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
 
     private ControladorAdminLogin controlador;
     private Color grey = new Color(51, 57, 64);
@@ -42,9 +42,10 @@ public class AdminLogin extends javax.swing.JDialog implements IVistaAdminLogin 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(340, 340));
+        setMaximumSize(new java.awt.Dimension(312, 340));
+        setMinimumSize(new java.awt.Dimension(312, 340));
         setName("dialogLogin"); // NOI18N
-        setSize(new java.awt.Dimension(340, 340));
+        setSize(new java.awt.Dimension(312, 340));
 
         Administrator.setBackground(new java.awt.Color(42, 42, 49));
         Administrator.setMaximumSize(new java.awt.Dimension(340, 340));
@@ -116,23 +117,23 @@ public class AdminLogin extends javax.swing.JDialog implements IVistaAdminLogin 
         AdministratorLayout.setHorizontalGroup(
             AdministratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdministratorLayout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
                 .addGroup(AdministratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(fieldPass, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
-                .addGap(90, 90, 90))
+                    .addComponent(fieldNombre))
+                .addGap(48, 48, 48))
         );
         AdministratorLayout.setVerticalGroup(
             AdministratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdministratorLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(50, 50, 50)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(50, 50, 50)
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,7 +143,7 @@ public class AdminLogin extends javax.swing.JDialog implements IVistaAdminLogin 
                 .addComponent(fieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(13, 13, 13)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -153,14 +154,16 @@ public class AdminLogin extends javax.swing.JDialog implements IVistaAdminLogin 
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Administrator, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Administrator, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(400, 422));
+        setSize(new java.awt.Dimension(312, 422));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

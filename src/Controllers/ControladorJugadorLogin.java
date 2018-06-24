@@ -7,9 +7,9 @@ import Views.JugadorPartida;
 public class ControladorJugadorLogin {
 
     private Sistema sistema = Sistema.getInstance();
-    private IVistaJugadorLogin vista;
+    private VistaJugadorLogin vista;
 
-    public ControladorJugadorLogin(IVistaJugadorLogin vista) {
+    public ControladorJugadorLogin(VistaJugadorLogin vista) {
         this.vista = vista;
     }
 

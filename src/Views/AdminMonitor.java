@@ -4,11 +4,11 @@ import Controllers.ControladorAdminMonitor;
 import Model.Partida;
 import Model.TableMonitor;
 import java.util.ArrayList;
-import Controllers.IVistaAdminMonitor;
 import Model.Sistema;
 import Model.TableJugando;
+import Controllers.VistaAdminMonitor;
 
-public class AdminMonitor extends javax.swing.JFrame implements IVistaAdminMonitor {
+public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonitor {
 
     private ControladorAdminMonitor controlador;
     TableMonitor modelMonitor;
@@ -36,6 +36,8 @@ public class AdminMonitor extends javax.swing.JFrame implements IVistaAdminMonit
         lblTitle1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(500, 441));
+        setMinimumSize(new java.awt.Dimension(500, 441));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -111,7 +113,7 @@ public class AdminMonitor extends javax.swing.JFrame implements IVistaAdminMonit
             .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(600, 0, 500, 463);
+        setBounds(600, 0, 500, 441);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableMonitorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMonitorMouseClicked
