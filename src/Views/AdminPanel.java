@@ -124,7 +124,7 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
             .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 310, 280, 265);
+        setBounds(0, 310, 280, 287);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
