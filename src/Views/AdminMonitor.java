@@ -45,7 +45,9 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
         });
 
         panelBack.setBackground(new java.awt.Color(42, 42, 49));
-        panelBack.setPreferredSize(new java.awt.Dimension(500, 520));
+        panelBack.setMaximumSize(new java.awt.Dimension(500, 441));
+        panelBack.setMinimumSize(new java.awt.Dimension(500, 441));
+        panelBack.setPreferredSize(new java.awt.Dimension(500, 441));
 
         lblTitle2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblTitle2.setForeground(new java.awt.Color(153, 153, 153));
@@ -110,10 +112,10 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(600, 0, 500, 441);
+        setBounds(600, 0, 500, 463);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableMonitorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMonitorMouseClicked

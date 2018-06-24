@@ -42,15 +42,17 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(312, 340));
-        setMinimumSize(new java.awt.Dimension(312, 340));
+        setMaximumSize(new java.awt.Dimension(312, 362));
+        setMinimumSize(new java.awt.Dimension(312, 362));
         setName("dialogLogin"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(312, 362));
         setSize(new java.awt.Dimension(312, 340));
 
         panelBack.setBackground(new java.awt.Color(42, 42, 49));
-        panelBack.setMaximumSize(new java.awt.Dimension(340, 340));
-        panelBack.setMinimumSize(new java.awt.Dimension(340, 340));
-        panelBack.setPreferredSize(new java.awt.Dimension(340, 340));
+        panelBack.setMaximumSize(new java.awt.Dimension(312, 362));
+        panelBack.setMinimumSize(new java.awt.Dimension(312, 362));
+        panelBack.setPreferredSize(new java.awt.Dimension(312, 362));
+        panelBack.setSize(new java.awt.Dimension(312, 362));
 
         lblNombre.setBackground(new java.awt.Color(255, 255, 255));
         lblNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -126,14 +128,14 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
         panelBackLayout.setVerticalGroup(
             panelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBackLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,7 +147,7 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
 
         fieldPass.getAccessibleContext().setAccessibleDescription("");
@@ -154,14 +156,14 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(312, 422));
+        setSize(new java.awt.Dimension(312, 384));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -42,6 +42,8 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
         });
 
         panelBack.setBackground(new java.awt.Color(42, 42, 49));
+        panelBack.setMaximumSize(new java.awt.Dimension(280, 265));
+        panelBack.setMinimumSize(new java.awt.Dimension(280, 265));
 
         lblTitulo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(153, 153, 153));
@@ -117,11 +119,11 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBounds(0, 310, 280, 287);

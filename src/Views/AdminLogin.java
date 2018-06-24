@@ -42,15 +42,15 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(312, 340));
-        setMinimumSize(new java.awt.Dimension(312, 340));
+        setMaximumSize(new java.awt.Dimension(312, 362));
+        setMinimumSize(new java.awt.Dimension(312, 362));
         setName("dialogLogin"); // NOI18N
-        setSize(new java.awt.Dimension(312, 340));
+        setSize(new java.awt.Dimension(312, 362));
 
         Administrator.setBackground(new java.awt.Color(42, 42, 49));
-        Administrator.setMaximumSize(new java.awt.Dimension(340, 340));
-        Administrator.setMinimumSize(new java.awt.Dimension(340, 340));
-        Administrator.setPreferredSize(new java.awt.Dimension(340, 340));
+        Administrator.setMaximumSize(new java.awt.Dimension(312, 362));
+        Administrator.setMinimumSize(new java.awt.Dimension(312, 362));
+        Administrator.setPreferredSize(new java.awt.Dimension(312, 362));
 
         lblNombre.setBackground(new java.awt.Color(255, 255, 255));
         lblNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -133,7 +133,7 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
             .addGroup(AdministratorLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,7 +145,7 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
 
         fieldPass.getAccessibleContext().setAccessibleDescription("");
@@ -160,10 +160,10 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Administrator, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(312, 422));
+        setSize(new java.awt.Dimension(312, 384));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
