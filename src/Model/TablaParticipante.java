@@ -2,12 +2,12 @@ package Model;
 
 import javax.swing.table.AbstractTableModel;
 
-public class TableJugando extends AbstractTableModel {
+public class TablaParticipante extends AbstractTableModel {
 
     private String[] columnNames = {"#", "Nombre", "Total apostado", "Saldo inicial", "Total ganado"};
     private final Partida partida;
 
-    public TableJugando(Partida partida) {
+    public TablaParticipante(Partida partida) {
         this.partida = partida;
     }
 
@@ -40,9 +40,9 @@ public class TableJugando extends AbstractTableModel {
             // Get valores
             int id = rowIndex + 1;
             String nombre = j.getNombre();
-            int totalApostado = this.partida.getTotalApostado(j);
+            int totalApostado = this.partida.totalApostadoJugador(j);
             int saldoInicial = this.partida.getSaldosIniciales().get(rowIndex);
-            int totalGanado = this.partida.getTotalGanado(j, this.partida);
+            int totalGanado = this.partida.totalGanado(j, this.partida);
 
             switch (columnIndex) {
                 case 0:

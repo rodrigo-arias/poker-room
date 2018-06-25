@@ -13,22 +13,22 @@ public class ControladorAdminMonitor implements Observer {
     private ArrayList<Partida> partidas;
 
     //==================  Constructor  ==================//
-    public ControladorAdminMonitor(ArrayList<Partida> partidas, VistaAdminMonitor vista) {
-        this.vista = vista;
-        this.partidas = partidas;
-        Sistema.getInstance().observarPartidas(this);
+    public ControladorAdminMonitor(ArrayList<Partida> p, VistaAdminMonitor v) {
+        this.vista = v;
+        this.partidas = p;
+        Sistema.instancia().observarPartidas(this);
     }
 
     @Override
     public void update(Observable o, Object evento) {
-        if (evento.equals(Partida.Eventos.cambiaronParticipantes)
+        if (evento.equals(Partida.Eventos.actualizar)
                 || evento.equals(SistemaPartida.Eventos.partidaActualizada)) {
-            vista.actualizar();
+            vista.actualizarPartidas();
         }
 
         if (evento.equals(SistemaPartida.Eventos.partidaNueva)) {
-            Sistema.getInstance().observarNuevaPartida(this);
-            vista.actualizar();
+            Sistema.instancia().observarNuevaPartida(this);
+            vista.actualizarPartidas();
         }
     }
 }

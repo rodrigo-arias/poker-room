@@ -13,7 +13,7 @@ public class Index {
     }
 
     private static void cargarDatos() {
-        Sistema s = Sistema.getInstance();
+        Sistema s = Sistema.instancia();
 
         //===================  Partidas  ===================//
         s.setBase(10);

@@ -13,7 +13,7 @@ public class Sistema {
     //==================  Singleton  ==================//
     private static Sistema instance = new Sistema();
 
-    public static Sistema getInstance() {
+    public static Sistema instancia() {
         return instance;
     }
 
@@ -25,8 +25,8 @@ public class Sistema {
         return sj.registrarJugador(j);
     }
 
-    public Participante loginJugador(String user, String pass) {
-        return sj.loginJugador(user, pass);
+    public Participante ingresarJugador(String u, String p) {
+        return sj.ingresarJugador(u, p);
     }
 
     //===================  Sis. Admin  ===================//
@@ -34,12 +34,12 @@ public class Sistema {
         return sa.registrarAdmin(a);
     }
 
-    public Admin loginAdmin(String user, String pass) {
-        return sa.loginAdmin(user, pass);
+    public Admin ingresarAdmin(String u, String p) {
+        return sa.ingresarAdmin(u, p);
     }
 
-    public void logoutAdmin(Admin a) {
-        sa.logoutAdmin(a);
+    public void salirAdmin(Admin a) {
+        sa.salirAdmin(a);
     }
 
     //==================  Sis. Partida  ==================//

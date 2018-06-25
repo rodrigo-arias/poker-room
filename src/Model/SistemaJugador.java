@@ -8,12 +8,12 @@ class SistemaJugador {
     private ArrayList<Jugador> jugadores = new ArrayList();
 
     //==================  Methods  ==================//
-    public Participante loginJugador(String user, String pass) {
+    public Participante ingresarJugador(String user, String pass) {
 
         for (Jugador j : jugadores) {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 
-                Partida p = Sistema.getInstance().getProximaPartida();
+                Partida p = Sistema.instancia().getProximaPartida();
 
                 return p.agregarJugador(j);
             }

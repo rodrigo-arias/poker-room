@@ -11,17 +11,19 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
     private ControladorAdminConfig controlador;
 
     public AdminConfig(Partida proxPartida) {
-        initComponents();
         controlador = new ControladorAdminConfig(this);
 
+        //===============  Initial  ===============//
+        initComponents();
         this.setTitle("Poker Moons");
+        spinnerTam.setValue(proxPartida.getTam());
+        fieldBase.setText(Integer.toString(proxPartida.getBase()));
+
+        //===============  Styles  ================//
         btnTam.setBorder(null);
         btnTam.setOpaque(true);
         btnBase.setBorder(null);
         btnBase.setOpaque(true);
-
-        spinnerTam.setValue(proxPartida.getTam());
-        fieldBase.setText(Integer.toString(proxPartida.getBase()));
     }
 
     @SuppressWarnings("unchecked")
@@ -151,31 +153,7 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaseActionPerformed
-
-        String txtBase = fieldBase.getText();
-
-        if (txtBase != "" && esInteger(txtBase)) {
-
-            int base = Integer.parseInt(txtBase);
-
-            if (base > 0) {
-                int ret = controlador.actualizarBase(base);
-
-                switch (ret) {
-                    case 1:
-                        mostrarMensaje(2);
-                        break;
-                    case 2:
-                        mostrarMensaje(3);
-                        break;
-                    default:
-                        mostrarMensaje(1);
-                        break;
-                }
-            } else {
-                mostrarMensaje(1);
-            }
-        }
+        cambiarBase();
     }//GEN-LAST:event_btnBaseActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -183,14 +161,7 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
     }//GEN-LAST:event_formWindowClosed
 
     private void btnTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamActionPerformed
-        int tam = (Integer) spinnerTam.getValue();
-        int ret = controlador.actualizarTam(tam);
-
-        if (ret == 1) {
-            mostrarMensaje(4);
-        } else if (ret == 2) {
-            mostrarMensaje(5);
-        }
+        cambiarTam();
     }//GEN-LAST:event_btnTamActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,7 +186,7 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
     }
 
     @Override
-    public void mostrarMensaje(int code) {
+    public void mensaje(int code) {
         String msg = "";
         Color color = new Color(53, 175, 110);
 
@@ -243,9 +214,47 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
 
     @Override
     public void actualizar() {
-        Partida proxPartida = Sistema.getInstance().getProximaPartida();
+        Partida proxPartida = Sistema.instancia().getProximaPartida();
 
         spinnerTam.setValue(proxPartida.getTam());
         fieldBase.setText(Integer.toString(proxPartida.getBase()));
+    }
+
+    public void cambiarBase() {
+        String txtBase = fieldBase.getText();
+
+        if (txtBase != "" && esInteger(txtBase)) {
+
+            int base = Integer.parseInt(txtBase);
+
+            if (base > 0) {
+                int ret = controlador.actualizarBase(base);
+
+                switch (ret) {
+                    case 1:
+                        mensaje(2);
+                        break;
+                    case 2:
+                        mensaje(3);
+                        break;
+                    default:
+                        mensaje(1);
+                        break;
+                }
+            } else {
+                mensaje(1);
+            }
+        }
+    }
+
+    public void cambiarTam() {
+        int tam = (Integer) spinnerTam.getValue();
+        int ret = controlador.actualizarTam(tam);
+
+        if (ret == 1) {
+            mensaje(4);
+        } else if (ret == 2) {
+            mensaje(5);
+        }
     }
 }

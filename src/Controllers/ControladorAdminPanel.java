@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class ControladorAdminPanel {
 
-    private Sistema sistema = Sistema.getInstance();
+    private Sistema sistema = Sistema.instancia();
     private VistaAdminPanel vista;
     private Admin admin;
 
-    public ControladorAdminPanel(Admin adm, VistaAdminPanel vista) {
-        this.vista = vista;
-        this.admin = adm;
+    public ControladorAdminPanel(Admin a, VistaAdminPanel v) {
+        this.vista = v;
+        this.admin = a;
     }
 
     public void config() {
@@ -31,6 +31,6 @@ public class ControladorAdminPanel {
     }
 
     public void salir() {
-        Sistema.getInstance().logoutAdmin(admin);
+        Sistema.instancia().salirAdmin(admin);
     }
 }

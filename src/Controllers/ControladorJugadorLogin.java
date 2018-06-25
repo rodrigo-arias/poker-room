@@ -6,18 +6,18 @@ import Views.JugadorPartida;
 
 public class ControladorJugadorLogin {
 
-    private Sistema sistema = Sistema.getInstance();
+    private Sistema sistema = Sistema.instancia();
     private VistaJugadorLogin vista;
 
     public ControladorJugadorLogin(VistaJugadorLogin vista) {
         this.vista = vista;
     }
 
-    public void login(String u, String p) {
-        Participante ppte = sistema.loginJugador(u, p);
+    public void ingresar(String u, String p) {
+        Participante ppte = sistema.ingresarJugador(u, p);
 
         if (ppte == null) {
-            vista.mostrarError("Usuario o contraseña incorrectos");
+            vista.mensaje("Usuario o contraseña incorrectos");
         } else {
             vista.salir();
             // Creación de interfaz de jugador

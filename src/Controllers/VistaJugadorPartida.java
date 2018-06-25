@@ -4,25 +4,35 @@ import Model.Participante;
 
 public interface VistaJugadorPartida {
 
-    public void partidaIniciar(Participante ppte);
+    public void mensaje(String msg);
 
-    public void partidaFinalizar(Participante participante);
+    public void apostar();
 
-    public void manoIniciar(Participante participante);
+    public void pasar();
 
-    public void manoFinalizar(Participante participante);
+    public void pagar();
 
-    public void updateParticipantes(Participante ppte);
+    public void salir();
 
-    public void updateCartas(Participante p);
+    public void iniciar(Participante p);
 
-    public void showApuesta(Participante participante);
+    public void finalizar(Participante p);
 
-    public void showGanador(Participante participante);
+    //-------------------------------------
+    public void actualizarParticipantes(Participante p);
 
-    public void showSaldoInsuficiente();
+    public void actualizarCartas(Participante p);
 
-    public void showPago(Participante participante);
+    public void actualizarPozo(int p);
 
-    public void showMessage(String msg);
+    //-------------------------------------
+    public void manoIniciar(Participante p);
+
+    public void manoFinalizar(Participante p);
+
+    public void responder(Participante p);
+
+    public void ganador(Participante p);
+
+    public void saldoInsuficiente();
 }

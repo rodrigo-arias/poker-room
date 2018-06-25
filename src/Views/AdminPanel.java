@@ -13,10 +13,13 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
 
     public AdminPanel(java.awt.Frame parent, boolean modal, Admin admin) {
         super(parent, modal);
-        initComponents();
         controlador = new ControladorAdminPanel(admin, this);
+
+        //===============  Initial  ===============//
+        initComponents();
         this.setTitle("Admin - " + admin.getNombre());
 
+        //===============  Styles  ================//
         btnConfig.setBorder(null);
         btnConfig.setOpaque(true);
         btnMonitor.setBorder(null);

@@ -41,8 +41,8 @@ public class Participante implements Observer {
     //==================  Methods  ==================//
     @Override
     public void update(Observable o, Object evento) {
-        if (evento.equals(Partida.Eventos.inicioMano)) {
-            this.partida.participar(this);
+        if (evento.equals(Partida.Eventos.jugarMano)) {
+            this.partida.jugarMano(this);
         }
     }
 

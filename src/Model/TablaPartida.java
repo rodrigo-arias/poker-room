@@ -5,7 +5,7 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
-public class TableMonitor extends AbstractTableModel {
+public class TablaPartida extends AbstractTableModel {
 
     private String[] columnNames = {"#", "Inicio", "Jugando", "Total apostado", "Manos jugadas"};
 
@@ -16,7 +16,7 @@ public class TableMonitor extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return Sistema.getInstance().getPartidasActivas().size();
+        return Sistema.instancia().getPartidasActivas().size();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TableMonitor extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ArrayList<Partida> activas = Sistema.getInstance().getPartidasActivas();
+        ArrayList<Partida> activas = Sistema.instancia().getPartidasActivas();
 
         if (activas.size() > 0) {
 
@@ -42,7 +42,7 @@ public class TableMonitor extends AbstractTableModel {
                 case 2:
                     return partida.getJugadores().size();
                 case 3:
-                    return partida.getTotalApostado();
+                    return partida.totalApostado();
                 case 4:
                     return partida.getManos().size();
             }

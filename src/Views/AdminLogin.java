@@ -14,17 +14,18 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
 
     public AdminLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
         controlador = new ControladorAdminLogin(this);
+
+        //===============  Initial  ===============//
+        initComponents();
         this.setTitle("Poker Moons");
 
-        //===============  Additional styles  ===============//
+        //===============  Styles  ================//
         fieldNombre.setBackground(grey);
         fieldPass.setBackground(grey);
 
-        btnLogin.setBorder(null);
-        btnLogin.setOpaque(true);
-
+        btnIngresar.setBorder(null);
+        btnIngresar.setOpaque(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -36,13 +37,12 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
         fieldNombre = new javax.swing.JTextField();
         lblPass = new javax.swing.JLabel();
         fieldPass = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
         lblLogo = new javax.swing.JLabel();
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(312, 362));
         setMinimumSize(new java.awt.Dimension(312, 362));
         setName("dialogLogin"); // NOI18N
         setSize(new java.awt.Dimension(312, 362));
@@ -80,28 +80,28 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
             }
         });
 
-        btnLogin.setBackground(new java.awt.Color(231, 66, 124));
-        btnLogin.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Log In");
-        btnLogin.setBorder(null);
-        btnLogin.setSize(new java.awt.Dimension(83, 30));
-        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnIngresar.setBackground(new java.awt.Color(231, 66, 124));
+        btnIngresar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setText("Log In");
+        btnIngresar.setBorder(null);
+        btnIngresar.setSize(new java.awt.Dimension(83, 30));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLoginMouseExited(evt);
+                btnIngresarMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLoginMouseEntered(evt);
+                btnIngresarMouseEntered(evt);
             }
         });
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
-        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnLoginKeyPressed(evt);
+                btnIngresarKeyPressed(evt);
             }
         });
 
@@ -124,7 +124,7 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
                     .addComponent(fieldPass, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(fieldNombre))
                 .addGap(48, 48, 48))
         );
@@ -144,7 +144,7 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
 
@@ -155,12 +155,12 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Administrator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setSize(new java.awt.Dimension(312, 384));
@@ -171,27 +171,27 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPassActionPerformed
 
-    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+    private void btnIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIngresarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            login();
+            ingresar();
         }
-    }//GEN-LAST:event_btnLoginKeyPressed
+    }//GEN-LAST:event_btnIngresarKeyPressed
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        login();
-    }//GEN-LAST:event_btnLoginActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        ingresar();
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-        btnLogin.setBackground(pink);
-    }//GEN-LAST:event_btnLoginMouseEntered
+    private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
+        btnIngresar.setBackground(pink);
+    }//GEN-LAST:event_btnIngresarMouseEntered
 
-    private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
-        btnLogin.setBackground(lightPink);
-    }//GEN-LAST:event_btnLoginMouseExited
+    private void btnIngresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseExited
+        btnIngresar.setBackground(lightPink);
+    }//GEN-LAST:event_btnIngresarMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Administrator;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JTextField fieldNombre;
     private javax.swing.JPasswordField fieldPass;
     private javax.swing.JLabel lblLogo;
@@ -200,21 +200,22 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
     private javax.swing.JLabel lblPass;
     // End of variables declaration//GEN-END:variables
 
-    private void login() {
+    @Override
+    public void ingresar() {
         String u = fieldNombre.getText();
         String p = new String(fieldPass.getPassword());
-        controlador.login(u, p);
+        controlador.ingresar(u, p);
     }
 
     @Override
-    public void mostrarError(String msg) {
+    public void mensaje(String msg) {
         lblMensaje.setText(msg);
         lblMensaje.setForeground(Color.red);
     }
 
     @Override
     public void salir() {
-        lblMensaje.setText("");
+        mensaje("");
         dispose();
     }
 }

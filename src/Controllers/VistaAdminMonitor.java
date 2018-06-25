@@ -2,5 +2,7 @@ package Controllers;
 
 public interface VistaAdminMonitor {
 
-    public void actualizar();
+    public void actualizarPartidas();
+
+    public void actualizarParticipantes();
 }

@@ -6,18 +6,18 @@ import Views.AdminPanel;
 
 public class ControladorAdminLogin {
 
-    private Sistema sistema = Sistema.getInstance();
+    private Sistema sistema = Sistema.instancia();
     private VistaAdminLogin vista;
 
     public ControladorAdminLogin(VistaAdminLogin vista) {
         this.vista = vista;
     }
 
-    public void login(String u, String p) {
-        Admin admin = sistema.loginAdmin(u, p);
+    public void ingresar(String u, String p) {
+        Admin admin = sistema.ingresarAdmin(u, p);
 
         if (admin == null) {
-            vista.mostrarError("No se pudo loguear.");
+            vista.mensaje("No se pudo loguear.");
         } else {
             vista.salir();
             // Creación de interfaz de administrador

@@ -2,24 +2,25 @@ package Views;
 
 import Controllers.ControladorAdminMonitor;
 import Model.Partida;
-import Model.TableMonitor;
+import Model.TablaPartida;
 import java.util.ArrayList;
 import Model.Sistema;
-import Model.TableJugando;
+import Model.TablaParticipante;
 import Controllers.VistaAdminMonitor;
 
 public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonitor {
 
     private ControladorAdminMonitor controlador;
-    TableMonitor modelMonitor;
-    TableJugando modelJugando;
+    TablaPartida modelPartida;
+    TablaParticipante modelParticipantes;
 
-    public AdminMonitor(ArrayList<Partida> partidas) {
+    public AdminMonitor(ArrayList<Partida> p) {
+        controlador = new ControladorAdminMonitor(p, this);
+
+        //===============  Initial  ===============//
         initComponents();
-        controlador = new ControladorAdminMonitor(partidas, this);
-        modelMonitor = (TableMonitor) tableMonitor.getModel();
-        modelJugando = (TableJugando) tableJugando.getModel();
-
+        modelPartida = (TablaPartida) tablaPartida.getModel();
+        modelParticipantes = (TablaParticipante) tablaParticipante.getModel();
         this.setTitle("Poker Moons");
     }
 
@@ -29,14 +30,13 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
 
         panelBack = new javax.swing.JPanel();
         lblTitle2 = new javax.swing.JLabel();
-        paneMonitor = new javax.swing.JScrollPane();
-        tableMonitor = new javax.swing.JTable();
-        paneJugando = new javax.swing.JScrollPane();
-        tableJugando = new javax.swing.JTable();
+        panePartida = new javax.swing.JScrollPane();
+        tablaPartida = new javax.swing.JTable();
+        paneParticipante = new javax.swing.JScrollPane();
+        tablaParticipante = new javax.swing.JTable();
         lblTitle1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 441));
         setMinimumSize(new java.awt.Dimension(500, 441));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -54,19 +54,19 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
         lblTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle2.setText("Detalle de Partida");
 
-        paneMonitor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        panePartida.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        tableMonitor.setModel(new Model.TableMonitor());
-        tableMonitor.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaPartida.setModel(new Model.TablaPartida());
+        tablaPartida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMonitorMouseClicked(evt);
+                tablaPartidaMouseClicked(evt);
             }
         });
-        paneMonitor.setViewportView(tableMonitor);
+        panePartida.setViewportView(tablaPartida);
 
-        tableJugando.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        tableJugando.setModel(new Model.TableJugando(null));
-        paneJugando.setViewportView(tableJugando);
+        tablaParticipante.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        tablaParticipante.setModel(new Model.TablaParticipante(null));
+        paneParticipante.setViewportView(tablaParticipante);
 
         lblTitle1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblTitle1.setForeground(new java.awt.Color(153, 153, 153));
@@ -86,8 +86,8 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
                         .addGap(30, 30, 30)
                         .addGroup(panelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(paneJugando, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(paneMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                            .addComponent(paneParticipante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(panePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
         );
         panelBackLayout.setVerticalGroup(
@@ -96,11 +96,11 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
                 .addGap(30, 30, 30)
                 .addComponent(lblTitle1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paneMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panePartida, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(lblTitle2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(paneJugando, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paneParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
@@ -118,13 +118,9 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
         setBounds(600, 0, 500, 463);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableMonitorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMonitorMouseClicked
-
-        int id = (Integer) modelMonitor.getValueAt(tableMonitor.getSelectedRow(), 0);
-        Partida partida = Sistema.getInstance().getPartidaId(id);
-        tableJugando.setModel(new TableJugando(partida));
-        modelJugando.fireTableDataChanged();
-    }//GEN-LAST:event_tableMonitorMouseClicked
+    private void tablaPartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPartidaMouseClicked
+        actualizarParticipantes();
+    }//GEN-LAST:event_tablaPartidaMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
@@ -133,11 +129,11 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblTitle1;
     private javax.swing.JLabel lblTitle2;
-    private javax.swing.JScrollPane paneJugando;
-    private javax.swing.JScrollPane paneMonitor;
+    private javax.swing.JScrollPane paneParticipante;
+    private javax.swing.JScrollPane panePartida;
     private javax.swing.JPanel panelBack;
-    private javax.swing.JTable tableJugando;
-    private javax.swing.JTable tableMonitor;
+    private javax.swing.JTable tablaParticipante;
+    private javax.swing.JTable tablaPartida;
     // End of variables declaration//GEN-END:variables
 
     public boolean esInteger(String input) {
@@ -150,7 +146,16 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
     }
 
     @Override
-    public void actualizar() {
-        modelMonitor.fireTableDataChanged();
+    public void actualizarPartidas() {
+        modelPartida.fireTableDataChanged();
+    }
+
+    @Override
+    public void actualizarParticipantes() {
+        int id = (Integer) modelPartida.getValueAt(tablaPartida.getSelectedRow(), 0);
+
+        Partida partida = Sistema.instancia().getPartidaId(id);
+        tablaParticipante.setModel(new TablaParticipante(partida));
+        modelParticipantes.fireTableDataChanged();
     }
 }

@@ -14,17 +14,17 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
 
     public JugadorLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
         controlador = new ControladorJugadorLogin(this);
+
+        //===============  Initial  ===============//
+        initComponents();
         this.setTitle("Poker Moons");
 
-        //===============  Additional styles  ===============//
+        //===============  Styles  ================//
         fieldNombre.setBackground(grey);
         fieldPass.setBackground(grey);
-
-        btnLogin.setBorder(null);
-        btnLogin.setOpaque(true);
-
+        btnIngresar.setBorder(null);
+        btnIngresar.setOpaque(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -36,16 +36,14 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
         fieldNombre = new javax.swing.JTextField();
         lblPass = new javax.swing.JLabel();
         fieldPass = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
         lblLogo = new javax.swing.JLabel();
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(312, 362));
         setMinimumSize(new java.awt.Dimension(312, 362));
         setName("dialogLogin"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(312, 362));
         setSize(new java.awt.Dimension(312, 340));
 
         panelBack.setBackground(new java.awt.Color(42, 42, 49));
@@ -82,28 +80,28 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
             }
         });
 
-        btnLogin.setBackground(new java.awt.Color(0, 183, 254));
-        btnLogin.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Log In");
-        btnLogin.setBorder(null);
-        btnLogin.setSize(new java.awt.Dimension(83, 30));
-        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnIngresar.setBackground(new java.awt.Color(0, 183, 254));
+        btnIngresar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setText("Log In");
+        btnIngresar.setBorder(null);
+        btnIngresar.setSize(new java.awt.Dimension(83, 30));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLoginMouseExited(evt);
+                btnIngresarMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLoginMouseEntered(evt);
+                btnIngresarMouseEntered(evt);
             }
         });
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
-        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnLoginKeyPressed(evt);
+                btnIngresarKeyPressed(evt);
             }
         });
 
@@ -122,7 +120,7 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
                 .addGap(48, 48, 48)
                 .addGroup(panelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPass, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +144,7 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
 
@@ -168,29 +166,29 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
     }// </editor-fold>//GEN-END:initComponents
 
     private void fieldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPassActionPerformed
-        login();
+        ingresar();
     }//GEN-LAST:event_fieldPassActionPerformed
 
-    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+    private void btnIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIngresarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            login();
+            ingresar();
         }
-    }//GEN-LAST:event_btnLoginKeyPressed
+    }//GEN-LAST:event_btnIngresarKeyPressed
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        login();
-    }//GEN-LAST:event_btnLoginActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        ingresar();
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-        btnLogin.setBackground(blue);
-    }//GEN-LAST:event_btnLoginMouseEntered
+    private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
+        btnIngresar.setBackground(blue);
+    }//GEN-LAST:event_btnIngresarMouseEntered
 
-    private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
-        btnLogin.setBackground(lightBlue);
-    }//GEN-LAST:event_btnLoginMouseExited
+    private void btnIngresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseExited
+        btnIngresar.setBackground(lightBlue);
+    }//GEN-LAST:event_btnIngresarMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JTextField fieldNombre;
     private javax.swing.JPasswordField fieldPass;
     private javax.swing.JLabel lblLogo;
@@ -200,21 +198,22 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
     private javax.swing.JPanel panelBack;
     // End of variables declaration//GEN-END:variables
 
-    private void login() {
-        String user = fieldNombre.getText();
-        String pass = new String(fieldPass.getPassword());
-        controlador.login(user, pass);
+    @Override
+    public void ingresar() {
+        String u = fieldNombre.getText();
+        String p = new String(fieldPass.getPassword());
+        controlador.ingresar(u, p);
     }
 
     @Override
-    public void mostrarError(String msg) {
+    public void mensaje(String msg) {
         lblMensaje.setText(msg);
         lblMensaje.setForeground(Color.red);
     }
 
     @Override
     public void salir() {
-        lblMensaje.setText("");
+        mensaje("");
         dispose();
     }
 }

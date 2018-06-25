@@ -15,8 +15,11 @@ public class Launcher extends javax.swing.JDialog {
     public Launcher(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        //===============  Initial  ===============//
         this.setTitle("Poker Moons");
 
+        //===============  Styles  ================//
         btnLoginJugador.setBorder(null);
         btnLoginJugador.setOpaque(true);
         btnLoginAdmin.setBorder(null);

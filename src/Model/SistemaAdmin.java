@@ -9,7 +9,7 @@ class SistemaAdmin {
     private ArrayList<Admin> logueados = new ArrayList();
 
     //==================  Methods  ==================//
-    public Admin loginAdmin(String user, String pass) {
+    public Admin ingresarAdmin(String user, String pass) {
 
         Admin adm = null;
 
@@ -40,7 +40,7 @@ class SistemaAdmin {
         return false;
     }
 
-    public void logoutAdmin(Admin a) {
+    public void salirAdmin(Admin a) {
         if (logueados.contains(a)) {
             logueados.remove(a);
         }

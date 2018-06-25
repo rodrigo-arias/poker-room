@@ -13,21 +13,7 @@ public class Mano extends Observable {
     private ArrayList<Participante> pagaron;
     private int respuesta;
     private int pozo;
-    private Carta cartaGanadora;
-
-    public enum Accion {
-        paso,
-        pago,
-        aposto,
-        salio;
-    }
-
-    public enum Eventos {
-        cartasRepartidas,
-        hayApuesta,
-        hayGanador,
-        alguienPago;
-    }
+    private Carta carta;
 
     //==================  Constructor  ==================//
     public Mano() {
@@ -39,7 +25,7 @@ public class Mano extends Observable {
         this.pasaron = new ArrayList<>();
         this.respuesta = 0;
         this.pozo = 0;
-        this.cartaGanadora = null;
+        this.carta = null;
     }
 
     //==================  Properties  =================//
@@ -64,43 +50,23 @@ public class Mano extends Observable {
     }
 
     public Carta getCartaGanadora() {
-        return cartaGanadora;
+        return carta;
     }
 
     //==================  Methods  ==================//
-    public void repartirCartas(Participante p) {
-        p.setCartas(this.mazo.repartir(5));
-        avisar(Eventos.cartasRepartidas);
-    }
-
-    public void avisar(Eventos evento) {
-        setChanged();
-        notifyObservers(evento);
-    }
-
-    public void retirarParticipante(Participante p) {
-        if (this.jugando.contains(p)) {
-            jugando.remove(p);
-        }
-    }
-
-    public boolean accion(Participante p, Accion accion, int apuesta) {
-
-        switch (accion) {
-            case salio:
-                retirarParticipante(p);
+    public boolean accion(Participante p, Partida.Accion a, int m) {
+        switch (a) {
+            case salir:
+                salir(p);
                 break;
-            case aposto:
-                hayApuesta(p, apuesta);
-                respuesta++;
+            case apostar:
+                apostar(p, m);
                 break;
-            case paso:
-                this.pasaron.add(p);
-                respuesta++;
+            case pasar:
+                pasar(p);
                 break;
-            case pago:
-                alguienPago(p, apuesta);
-                respuesta++;
+            case pagar:
+                pagar(p, m);
                 break;
         }
         return evaluarMano();
@@ -109,16 +75,15 @@ public class Mano extends Observable {
     public boolean evaluarMano() {
         if (respuesta == jugando.size()) {
             if (jugando.size() == pasaron.size()) {
-                this.ganador = null;
+                ganador = null;
             } else {
                 if (pagaron.size() == 1) {
-                    this.ganador = pagaron.get(0);
-                    this.cartaGanadora = pagaron.get(0).mejorCarta();
+                    ganador = pagaron.get(0);
+                    carta = pagaron.get(0).mejorCarta();
                 } else {
                     compararCartas();
                 }
             }
-            avisar(Eventos.hayGanador);
             return true;
         }
         return false;
@@ -134,32 +99,43 @@ public class Mano extends Observable {
                 mejor = pagaron.get(i);
             }
         }
-        this.ganador = mejor;
-        this.cartaGanadora = mejor.mejorCarta();
+        ganador = mejor;
+        carta = mejor.mejorCarta();
     }
 
-    private void hayApuesta(Participante p, int valor) {
-        this.apuesta = new Apuesta(p, valor);
+    //===============================================//
+    public void repartir(Participante p) {
+        p.setCartas(this.mazo.repartir(5));
+    }
+
+    void jugar(Participante p) {
+        jugando.add(p);
+    }
+
+    private void apostar(Participante p, int valor) {
+        apuesta = new Apuesta(p, valor);
 
         // Agregó a la lista de pagadores a quien apostó y reinicio las respuestas
-        this.pagaron.add(p);
-        this.pasaron = new ArrayList<>();
-        this.respuesta = 0;
-        this.pozo += valor;
-        avisar(Eventos.hayApuesta);
+        pagaron.add(p);
+        pasaron = new ArrayList<>();
+        respuesta = 1;
+        pozo += valor;
     }
 
-    public void agregarParticipante(Participante p) {
-        this.jugando.add(p);
+    private void pasar(Participante p) {
+        respuesta++;
+        pasaron.add(p);
     }
 
-    private void alguienPago(Participante p, int valor) {
-        this.pagaron.add(p);
-        this.pozo += this.apuesta.getValor();
-
-        // Paga el valor de la apuesta actual
-        p.jugador.restarSaldo(this.getApuesta().getValor());
-        avisar(Eventos.alguienPago);
+    private void pagar(Participante p, int m) {
+        respuesta++;
+        pagaron.add(p);
+        pozo += apuesta.getValor();
     }
 
+    public void salir(Participante p) {
+        if (jugando.contains(p)) {
+            jugando.remove(p);
+        }
+    }
 }
