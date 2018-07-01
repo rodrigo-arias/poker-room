@@ -70,12 +70,12 @@ public class Sistema extends Observable {
     }
 
     //----------------------------------------------------//
-    protected ArrayList<Partida> partidasTodas() {
-        return sp.getPartidas();
-    }
-
     protected ArrayList<Partida> partidasActivas() {
         return sp.partidasActivas();
+    }
+
+    public ArrayList<Partida> partidasTodas() {
+        return sp.getPartidas();
     }
 
     public Partida partidaById(int id) {
