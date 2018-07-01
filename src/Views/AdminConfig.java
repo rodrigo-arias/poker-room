@@ -214,7 +214,7 @@ public class AdminConfig extends javax.swing.JFrame implements VistaAdminConfig 
 
     @Override
     public void actualizar() {
-        Partida proxPartida = Sistema.instancia().getProximaPartida();
+        Partida proxPartida = Sistema.instancia().proximaPartida();
 
         spinnerTam.setValue(proxPartida.getTam());
         fieldBase.setText(Integer.toString(proxPartida.getBase()));

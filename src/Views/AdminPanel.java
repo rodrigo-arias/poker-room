@@ -13,7 +13,7 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
 
     public AdminPanel(java.awt.Frame parent, boolean modal, Admin admin) {
         super(parent, modal);
-        controlador = new ControladorAdminPanel(admin, this);
+        controlador = new ControladorAdminPanel(admin);
 
         //===============  Initial  ===============//
         initComponents();
@@ -161,8 +161,7 @@ public class AdminPanel extends javax.swing.JDialog implements VistaAdminPanel {
     }//GEN-LAST:event_btnConfigMouseExited
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controlador.salir();
-        dispose();
+        salir();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

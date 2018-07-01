@@ -1,31 +1,31 @@
 package Controllers;
 
 import Model.Sistema;
-import Model.SistemaPartida;
 import java.util.Observable;
 import java.util.Observer;
 
 public class ControladorAdminConfig implements Observer {
 
+    private Sistema sistema = Sistema.instancia();
     private VistaAdminConfig vista;
 
     //==================  Constructor  ==================//
     public ControladorAdminConfig(VistaAdminConfig vista) {
         this.vista = vista;
-        Sistema.instancia().observarPartidas(this);
+        this.sistema.addObserver(this);
     }
 
     public int actualizarTam(int tam) {
-        return Sistema.instancia().actualizarDefaultTam(tam);
+        return sistema.inicialTam(tam);
     }
 
     public int actualizarBase(int base) {
-        return Sistema.instancia().actualizarDefaultBase(base);
+        return sistema.inicialBase(base);
     }
 
     @Override
     public void update(Observable o, Object evento) {
-        if (evento.equals(SistemaPartida.Eventos.partidaActualizada)) {
+        if (evento.equals(Sistema.Eventos.partidaActualizada)) {
             vista.actualizar();
         }
     }

@@ -1,9 +1,8 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-public class Mano extends Observable {
+public class Mano {
 
     private Mazo mazo;
     private Apuesta apuesta;
@@ -54,7 +53,7 @@ public class Mano extends Observable {
     }
 
     //==================  Methods  ==================//
-    public boolean accion(Participante p, Partida.Accion a, int m) {
+    public boolean procesar(Participante p, Partida.Accion a, int m) {
         switch (a) {
             case salir:
                 salir(p);
@@ -137,5 +136,25 @@ public class Mano extends Observable {
         if (jugando.contains(p)) {
             jugando.remove(p);
         }
+    }
+
+    public void salir(Jugador j) {
+        Participante b = null;
+        for (Participante p : jugando) {
+            if (p.getJugador().equals(j)) {
+                b = p;
+            }
+        }
+        if (b != null) {
+            jugando.remove(b);
+        }
+    }
+
+    public boolean jugando(Participante p) {
+        return jugando.contains(p) && !pasaron.contains(p);
+    }
+
+    public boolean apuesta() {
+        return apuesta != null;
     }
 }

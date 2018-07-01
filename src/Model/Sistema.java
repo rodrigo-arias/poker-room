@@ -1,23 +1,33 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Observer;
+import java.util.Observable;
 
-public class Sistema {
+public class Sistema extends Observable {
 
     //==================  Attributes  ==================//
+    private static Sistema instancia = new Sistema();
     private SistemaJugador sj = new SistemaJugador();
     private SistemaAdmin sa = new SistemaAdmin();
     private SistemaPartida sp = new SistemaPartida();
 
-    //==================  Singleton  ==================//
-    private static Sistema instance = new Sistema();
+    public enum Eventos {
+        partidaNueva,
+        partidaActualizada,
+        jugadorActualizado;
+    }
 
+    //==================  Singleton  ==================//
     public static Sistema instancia() {
-        return instance;
+        return instancia;
     }
 
     private Sistema() {
+    }
+
+    protected void avisar(Eventos evento) {
+        setChanged();
+        notifyObservers(evento);
     }
 
     //==================  Sis. Jugador  ==================//
@@ -47,50 +57,28 @@ public class Sistema {
         sp.crearProximaPartida();
     }
 
-    public Partida getProximaPartida() {
+    public Partida proximaPartida() {
         return sp.getProximaPartida();
     }
 
-    public void setBase(int base) {
-        sp.setBase(base);
+    public int inicialBase(int base) {
+        return sp.inicialBase(base);
     }
 
-    public void setTam(int tam) {
-        sp.setTam(tam);
-    }
-
-    public int actualizarDefaultBase(int base) {
-        return sp.actualizarDefaultBase(base);
-    }
-
-    public int actualizarDefaultTam(int tam) {
-        return sp.actualizarDefaultTam(tam);
+    public int inicialTam(int tam) {
+        return sp.inicialTam(tam);
     }
 
     //----------------------------------------------------//
-    public ArrayList<Partida> getPartidas() {
+    protected ArrayList<Partida> partidasTodas() {
         return sp.getPartidas();
     }
 
-    public ArrayList<Partida> getPartidasActivas() {
-        return sp.getPartidasActivas();
+    protected ArrayList<Partida> partidasActivas() {
+        return sp.partidasActivas();
     }
 
-    public Partida getPartidaId(int id) {
-        return sp.getPartidaId(id);
-    }
-    //----------------------------------------------------//
-
-    public void observarPartidas(Observer o) {
-        sp.observarPartidas(o);
-    }
-
-    public void observarNuevaPartida(Observer o) {
-        sp.observarNuevaPartida(o);
-    }
-
-    //----------------------------------------------------//
-    public void observarPartida(Partida p, Observer o) {
-        sp.observarPartida(p, o);
+    public Partida partidaById(int id) {
+        return sp.partidaById(id);
     }
 }

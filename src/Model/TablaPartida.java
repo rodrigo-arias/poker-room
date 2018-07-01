@@ -16,7 +16,7 @@ public class TablaPartida extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return Sistema.instancia().getPartidasActivas().size();
+        return Sistema.instancia().partidasActivas().size();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TablaPartida extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ArrayList<Partida> activas = Sistema.instancia().getPartidasActivas();
+        ArrayList<Partida> activas = Sistema.instancia().partidasActivas();
 
         if (activas.size() > 0) {
 

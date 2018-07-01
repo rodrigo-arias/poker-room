@@ -37,6 +37,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     public void pasar() {
         mensaje("Pasaste, espera que termine la mano");
         mostrarInfo(false);
+        habilitarAcciones("esperar");
         controlador.pasar();
     }
 
@@ -348,14 +349,13 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     @Override
     public void saldoInsuficiente() {
         JOptionPane.showMessageDialog(this, "Saldo insuficiente");
-        salir();
+        dispose();
     }
 
     @Override
-    public void ganador(Participante p) {
+    public void ganador(Participante p, Mano m) {
         mostrarInfo(false);
         mostrarAcciones(false);
-        Mano m = p.getPartida().getManoActual();
 
         // Si el jugador pago puede ver quien ganó
         if (m.getPagaron().contains(p)) {
@@ -363,7 +363,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
             if (p.equals(m.getGanador())) {
                 mensaje("Ganaste la mano!");
             } else {
-                mensaje(m.getApuesta().getApostador().getJugador().getNombre() + " gano la mano");
+                mensaje(m.getGanador().getJugador().getNombre() + " gano la mano");
             }
 
             // Muestra la carta ganadora
@@ -379,7 +379,10 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
 
     @Override
     public void responder(Participante p) {
-        Apuesta a = p.getPartida().getManoActual().getApuesta();
+        mostrarInfo(true);
+        habilitarAcciones("responder");
+
+        Apuesta a = p.getPartida().getMano().getApuesta();
         actualizarPozo(p.getPartida().getPozo() + a.getValor());
 
         if (!p.equals(a.getApostador())) {
@@ -548,7 +551,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
                 break;
             case "iniciar":
                 btnApostar.setEnabled(true);
-                btnPasar.setEnabled(false);
+                btnPasar.setEnabled(true);
                 btnPagar.setEnabled(false);
                 break;
         }

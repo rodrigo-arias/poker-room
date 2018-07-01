@@ -1,88 +1,103 @@
 package Controllers;
 
+import Model.Mano;
 import Model.Participante;
 import Model.Partida;
+import Model.Sistema;
 import java.util.Observable;
 import java.util.Observer;
 
 public class ControladorJugadorPartida implements Observer {
 
-    private VistaJugadorPartida v;
-    private Participante p;
+    private Sistema sistema = Sistema.instancia();
+    private VistaJugadorPartida vista;
+    private Participante ppte;
+    private Partida partida;
 
     //==================  Constructor  ==================//
     public ControladorJugadorPartida(Participante p, VistaJugadorPartida v) {
-        this.v = v;
-        this.p = p;
-        p.getPartida().addObserver(this);
+        this.vista = v;
+        this.ppte = p;
+        this.partida = p.getPartida();
 
-        if (this.p.getPartida().isActiva()) {
-            this.p.getPartida().getManoActual().addObserver(this);
-        }
+        partida.addObserver(this);
+        sistema.addObserver(this);
     }
 
     //==================  Properties  =================//
     public void apostar(int apuesta) {
-        if (apuesta > p.getPartida().apuestaMaxima()) {
-            v.mensaje("No puedes apostar esa cantidad");
+        if (apuesta > partida.apuestaMaxima()) {
+            vista.mensaje("No puedes apostar esa cantidad");
         } else {
-            p.getPartida().accion(p, Partida.Accion.apostar, apuesta);
+            partida.apostar(ppte, Partida.Accion.apostar, apuesta);
         }
     }
 
     public void pasar() {
-        p.getPartida().accion(p, Partida.Accion.pasar, 0);
+        partida.pasar(ppte, Partida.Accion.pasar);
     }
 
     public void pagar() {
-        p.getPartida().accion(p, Partida.Accion.pagar, 0);
+        partida.pagar(ppte, Partida.Accion.pagar);
     }
 
     public void jugar() {
-        p.getPartida().jugarOtraMano();
+        partida.jugarOtraMano();
     }
 
     public void salir() {
-        p.getPartida().deleteObserver(this);
-        p.getPartida().accion(p, Partida.Accion.salir, 0);
+        partida.deleteObserver(this);
+        sistema.deleteObserver(this);
+        partida.salir(ppte, Partida.Accion.salir);
     }
 
     @Override
     public void update(Observable o, Object e) {
         //===============  General ===============//
         if (e.equals(Partida.Eventos.actualizar)) {
-            v.actualizarParticipantes(p);
+            vista.actualizarParticipantes(ppte);
         }
         if (e.equals(Partida.Eventos.iniciar)) {
-            v.iniciar(p);
+            vista.iniciar(ppte);
         }
         if (e.equals(Partida.Eventos.finalizar)) {
-            v.finalizar(p);
+            partida.deleteObserver(this);
+            sistema.deleteObserver(this);
+            vista.finalizar(ppte);
         }
         if (e.equals(Partida.Eventos.iniciarMano)) {
-            v.manoIniciar(p);
+            vista.manoIniciar(ppte);
         }
         if (e.equals(Partida.Eventos.finalizarMano)) {
-            if (p.getPartida().getJugadores().contains(p.getJugador())) {
-                v.manoFinalizar(p);
+            if (partida.getJugadores().contains(ppte.getJugador())) {
+                vista.manoFinalizar(ppte);
             }
+        }
+
+        if (e.equals(Sistema.Eventos.jugadorActualizado)) {
+            vista.actualizarParticipantes(ppte);
         }
 
         //========================================//
         if (e.equals(Partida.Eventos.saldoInsuficiente)) {
-            if (!p.getPartida().getJugadores().contains(p.getJugador())) {
-                v.saldoInsuficiente();
+            if (!partida.jugando(ppte)) {
+                partida.deleteObserver(this);
+                sistema.deleteObserver(this);
+                vista.saldoInsuficiente();
             }
         }
         if (e.equals(Partida.Eventos.responder)) {
-            v.responder(p);
+            if (partida.jugandoMano(ppte) && partida.getMano().apuesta()) {
+                vista.responder(ppte);
+            }
         }
         if (e.equals(Partida.Eventos.ganador)) {
-            v.ganador(p);
+            Mano mano = partida.getMano();
+            vista.ganador(ppte, mano);
         }
 
         if (e.equals(Partida.Eventos.retry)) {
-            v.manoIniciar(p);
+            vista.manoIniciar(ppte);
         }
     }
 }

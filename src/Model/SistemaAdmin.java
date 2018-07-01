@@ -25,6 +25,12 @@ class SistemaAdmin {
         return adm;
     }
 
+    public void salirAdmin(Admin a) {
+        if (logueados.contains(a)) {
+            logueados.remove(a);
+        }
+    }
+
     public boolean registrarAdmin(Admin a) {
 
         if (!administradores.contains(a)) {
@@ -39,11 +45,4 @@ class SistemaAdmin {
         }
         return false;
     }
-
-    public void salirAdmin(Admin a) {
-        if (logueados.contains(a)) {
-            logueados.remove(a);
-        }
-    }
-
 }

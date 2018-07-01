@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.Mano;
 import Model.Participante;
 
 public interface VistaJugadorPartida {
@@ -32,7 +33,7 @@ public interface VistaJugadorPartida {
 
     public void responder(Participante p);
 
-    public void ganador(Participante p);
+    public void ganador(Participante p, Mano m);
 
     public void saldoInsuficiente();
 }

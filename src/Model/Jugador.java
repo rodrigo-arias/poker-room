@@ -58,9 +58,11 @@ public class Jugador {
 
     public void restarSaldo(int base) {
         this.saldo = this.saldo - base;
+        Sistema.instancia().avisar(Sistema.Eventos.jugadorActualizado);
     }
 
     void sumarSaldo(int pozo) {
         this.saldo = this.saldo + pozo;
+        Sistema.instancia().avisar(Sistema.Eventos.jugadorActualizado);
     }
 }

@@ -11,13 +11,13 @@ public class Partida extends Observable {
     private int tam;
     private int pozo;
     private int base;
+    private Mano mano;
     private LocalDateTime inicio;
     private ArrayList<Jugador> jugadores;
     private ArrayList<Mano> manos;
-    private boolean activa;
-    private Mano manoActual;
     private int respuestas;
-    ArrayList<Integer> saldosIniciales = new ArrayList<>();
+    ArrayList<Integer> saldos = new ArrayList<>();
+    boolean activa = false;
 
     public enum Eventos {
         actualizar,
@@ -45,11 +45,10 @@ public class Partida extends Observable {
         this.tam = tam;
         this.pozo = 0;
         this.base = base;
+        this.mano = null;
         this.inicio = null;
         this.jugadores = new ArrayList();
         this.manos = new ArrayList();
-        this.activa = false;
-        this.manoActual = null;
     }
 
     //==================  Properties  =================//
@@ -97,16 +96,12 @@ public class Partida extends Observable {
         return manos;
     }
 
-    public Mano getManoActual() {
-        return manoActual;
-    }
-
-    public boolean isActiva() {
-        return activa;
+    public Mano getMano() {
+        return mano;
     }
 
     public ArrayList<Integer> getSaldosIniciales() {
-        return saldosIniciales;
+        return saldos;
     }
 
     //==================  Methods  ==================//
@@ -118,18 +113,18 @@ public class Partida extends Observable {
     public Participante agregarJugador(Jugador j) {
         Participante p = null;
 
-        // No se encuentra en la prox. partida, y tiene saldo de apuesta base x cant. de jugadores
-        if (!this.getJugadores().contains(j) && j.getSaldo() >= this.getBase() * this.getTam()) {
+        // No se encuentra en la prox. partida, y tiene saldo mayor a apuesta base x cant. de jugadores
+        if (!jugadores.contains(j) && j.getSaldo() >= base * tam) {
 
             // Jugador válido, creo el participante y agrego el jugador a la próxima partida
             p = new Participante(j, this);
             jugadores.add(j);
-            this.saldosIniciales.add(j.getSaldo());
+            saldos.add(j.getSaldo());
 
-            if (this.jugadores.size() == this.tam) {
+            if (jugadores.size() == tam) {
                 // Se completaron los participante, creo una nueva partida e inicio la actual
                 Sistema.instancia().crearProximaPartida();
-                this.iniciar();
+                iniciar();
             }
         }
         return p;
@@ -138,10 +133,11 @@ public class Partida extends Observable {
     public void quitarJugador(Participante p) {
 
         jugadores.remove(p.getJugador());
+        this.deleteObserver(p);
 
-        if (this.jugadores.size() == 1) {
+        if (jugadores.size() == 1) {
             // Queda un solo jugador, se termina la partida
-            this.finalizar();
+            finalizar();
         } else {
             avisar(Eventos.actualizar);
         }
@@ -149,77 +145,53 @@ public class Partida extends Observable {
     }
 
     public void iniciar() {
-        this.inicio = LocalDateTime.now();
-        this.activa = true;
+        inicio = LocalDateTime.now();
 
         avisar(Eventos.iniciar);
         iniciarMano();
+        activa = true;
     }
 
     private void finalizar() {
-        this.activa = false;
-        this.jugadores.clear();
         avisar(Eventos.finalizar);
+        jugadores.clear();
+        activa = false;
     }
 
     public void iniciarMano() {
-        this.manoActual = new Mano();
-        this.manos.add(manoActual);
+        mano = new Mano();
+        manos.add(mano);
         avisar(Eventos.jugarMano);
         avisar(Eventos.iniciarMano);
     }
 
     public void jugarMano(Participante p) {
         // Se agrega a la partida y se le reparten las cartas
-        manoActual.jugar(p);
-        manoActual.repartir(p);
+        mano.jugar(p);
+        mano.repartir(p);
 
         // Paga apuesta base y se conforma el pozo
         p.getJugador().restarSaldo(base);
-        this.pozo += base;
-        avisar(Eventos.actualizar);
-    }
-    //===============================================//
-
-    public void accion(Participante p, Accion a, int m) {
-
-        // Si aposto o pago, le quito al saldo el valor de la apuesta y actualizo
-        if (a == Accion.apostar || a == Accion.pagar) {
-            p.jugador.restarSaldo(m);
-            avisar(Eventos.actualizar);
-        }
-
-        if (a == Accion.salir) {
-            quitarJugador(p);
-        }
-
-        if (manoActual.accion(p, a, m)) {
-            // Si hay un ganador actualizo el pozo y el saldo del ganador
-            if (manoActual.getGanador() != null) {
-                manoActual.getGanador().getJugador().sumarSaldo(manoActual.getPozo() + this.pozo);
-                this.pozo = 0;
-            } else {
-                this.pozo += this.manoActual.getPozo();
-            }
-            avisar(Eventos.ganador);
-            finalizarMano();
-        } else {
-            avisar(Eventos.actualizar);
-            avisar(Eventos.responder);
-        }
+        pozo += base;
     }
 
     public void finalizarMano() {
+        ArrayList<Jugador> sinSaldo = new ArrayList();
 
         // Quito a los jugadores que no tienen saldo suficiente;
-        for (Jugador j : this.jugadores) {
-            if (j.getSaldo() <= this.getBase()) {
-                jugadores.remove(j);
-                avisar(Eventos.saldoInsuficiente);
+        for (Jugador j : jugadores) {
+            if (j.getSaldo() <= base) {
+                sinSaldo.add(j);
             }
         }
 
-        this.respuestas = 0;
+        for (Jugador j : sinSaldo) {
+            jugadores.remove(j);
+            mano.salir(j);
+            avisar(Eventos.saldoInsuficiente);
+        }
+
+        respuestas = 0;
         avisar(Eventos.finalizarMano);
     }
 
@@ -227,14 +199,77 @@ public class Partida extends Observable {
         respuestas++;
 
         // Si ya todos respondieron
-        if (respuestas == this.getJugadores().size()) {
+        if (respuestas == jugadores.size()) {
             if (respuestas > 1) {
                 iniciarMano();
                 avisar(Eventos.retry);
             } else {
-                this.finalizar();
+                finalizar();
             }
         }
+    }
+
+    public boolean jugandoMano(Participante p) {
+        return mano.jugando(p);
+    }
+
+    public boolean jugando(Participante p) {
+        return jugadores.contains(p.jugador);
+    }
+    //===============================================//
+
+    public void salir(Participante p, Accion a) {
+        quitarJugador(p);
+
+        if (mano.procesar(p, Accion.salir, 0)) {
+            ganador();
+        } else {
+            avisar(Eventos.actualizar);
+        }
+    }
+
+    public void apostar(Participante p, Accion a, int m) {
+        p.jugador.restarSaldo(m);
+
+        if (mano.procesar(p, a, m)) {
+            ganador();
+        } else {
+            avisar(Eventos.actualizar);
+            avisar(Eventos.responder);
+        }
+    }
+
+    public void pasar(Participante p, Accion a) {
+        if (mano.procesar(p, a, 0)) {
+            ganador();
+        } else {
+            avisar(Eventos.actualizar);
+            avisar(Eventos.responder);
+        }
+    }
+
+    public void pagar(Participante p, Accion a) {
+        p.jugador.restarSaldo(mano.getApuesta().getValor());
+
+        if (mano.procesar(p, a, 0)) {
+            ganador();
+        } else {
+            avisar(Eventos.actualizar);
+            avisar(Eventos.responder);
+        }
+    }
+
+    public void ganador() {
+        // Si hay un ganador actualizo el pozo y el saldo del ganador
+        if (mano.getGanador() != null) {
+            mano.getGanador().getJugador().sumarSaldo(mano.getPozo() + pozo);
+            pozo = 0;
+        } else {
+            pozo += mano.getPozo();
+        }
+
+        avisar(Eventos.ganador);
+        finalizarMano();
     }
 
     //==================  Monitor  ==================//
@@ -250,7 +285,7 @@ public class Partida extends Observable {
 
     public int totalApostadoJugador(Jugador j) {
         int totalApostado = 0;
-        for (Mano m : this.manos) {
+        for (Mano m : manos) {
 
             ArrayList<Participante> pagaron = m.getPagaron();
 
@@ -268,7 +303,7 @@ public class Partida extends Observable {
         boolean aposto = false;
 
         // Me fijo si fue uno de los que apostó
-        for (Mano m : this.manos) {
+        for (Mano m : manos) {
             ArrayList<Participante> pagaron = m.getPagaron();
 
             for (Participante ppte : pagaron) {

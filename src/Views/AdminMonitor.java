@@ -15,7 +15,7 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
     TablaParticipante modelParticipantes;
 
     public AdminMonitor(ArrayList<Partida> p) {
-        controlador = new ControladorAdminMonitor(p, this);
+        controlador = new ControladorAdminMonitor(this);
 
         //===============  Initial  ===============//
         initComponents();
@@ -154,7 +154,7 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
     public void actualizarParticipantes() {
         int id = (Integer) modelPartida.getValueAt(tablaPartida.getSelectedRow(), 0);
 
-        Partida partida = Sistema.instancia().getPartidaId(id);
+        Partida partida = Sistema.instancia().partidaById(id);
         tablaParticipante.setModel(new TablaParticipante(partida));
         modelParticipantes.fireTableDataChanged();
     }

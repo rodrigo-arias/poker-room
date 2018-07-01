@@ -17,7 +17,7 @@ public class ControladorAdminLogin {
         Admin admin = sistema.ingresarAdmin(u, p);
 
         if (admin == null) {
-            vista.mensaje("No se pudo loguear.");
+            vista.mensaje("No se pudo loguear");
         } else {
             vista.salir();
             // Creación de interfaz de administrador

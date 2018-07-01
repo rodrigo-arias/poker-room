@@ -40,9 +40,16 @@ public class Participante implements Observer {
 
     //==================  Methods  ==================//
     @Override
-    public void update(Observable o, Object evento) {
-        if (evento.equals(Partida.Eventos.jugarMano)) {
+    public void update(Observable o, Object e) {
+
+        if (e.equals(Partida.Eventos.jugarMano)) {
             this.partida.jugarMano(this);
+        }
+
+        if (e.equals(Partida.Eventos.saldoInsuficiente)) {
+            if (!partida.jugando(this)) {
+                partida.deleteObserver(this);
+            }
         }
     }
 

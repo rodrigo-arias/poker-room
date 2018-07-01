@@ -13,7 +13,7 @@ class SistemaJugador {
         for (Jugador j : jugadores) {
             if (j.getUsuario().equalsIgnoreCase(user) && j.getContrasena().equals(pass)) {
 
-                Partida p = Sistema.instancia().getProximaPartida();
+                Partida p = Sistema.instancia().proximaPartida();
 
                 return p.agregarJugador(j);
             }
