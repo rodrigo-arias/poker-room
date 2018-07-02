@@ -7,8 +7,8 @@ public class SistemaPartida {
     //==================  Attributes  ==================//
     private ArrayList<Partida> partidas = new ArrayList();
     private Partida proximaPartida;
-    private int inicialTam = 2;
-    private int inicialBase = 10;
+    private int inicialTam = 4;
+    private int inicialBase = 2;
     private int ultimoId = 0;
 
     //==================  Properties  ==================//

@@ -214,7 +214,7 @@ public class Partida extends Observable {
     }
 
     public boolean jugando(Participante p) {
-        return jugadores.contains(p.jugador);
+        return jugadores.contains(p.getJugador());
     }
     //===============================================//
 
@@ -229,7 +229,7 @@ public class Partida extends Observable {
     }
 
     public void apostar(Participante p, Accion a, int m) {
-        p.jugador.restarSaldo(m);
+        p.getJugador().restarSaldo(m);
 
         if (mano.procesar(p, a, m)) {
             ganador();
@@ -249,7 +249,7 @@ public class Partida extends Observable {
     }
 
     public void pagar(Participante p, Accion a) {
-        p.jugador.restarSaldo(mano.getApuesta().getValor());
+        p.getJugador().restarSaldo(mano.getApuesta().getValor());
 
         if (mano.procesar(p, a, 0)) {
             ganador();

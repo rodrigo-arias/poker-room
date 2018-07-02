@@ -13,8 +13,6 @@ public class Index {
 
         //===================  Partidas  ===================//
         sistema.crearProximaPartida();
-        sistema.proximaPartida().setBase(10);
-        sistema.proximaPartida().setTam(3);
 
         //==================  Jugadores  ==================//
         sistema.registrarJugador(new Jugador("a", "a", "Ana", 350));

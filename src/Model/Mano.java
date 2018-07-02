@@ -12,7 +12,7 @@ public class Mano {
     private ArrayList<Participante> pagaron;
     private int respuesta;
     private int pozo;
-    private Carta carta;
+    private ArrayList<Carta> ganadoras;
 
     //==================  Constructor  ==================//
     public Mano() {
@@ -24,7 +24,7 @@ public class Mano {
         this.pasaron = new ArrayList<>();
         this.respuesta = 0;
         this.pozo = 0;
-        this.carta = null;
+        this.ganadoras = new ArrayList<>();
     }
 
     //==================  Properties  =================//
@@ -48,8 +48,8 @@ public class Mano {
         return pagaron;
     }
 
-    public Carta getCartaGanadora() {
-        return carta;
+    public ArrayList<Carta> getGanadoras() {
+        return ganadoras;
     }
 
     //==================  Methods  ==================//
@@ -78,9 +78,10 @@ public class Mano {
             } else {
                 if (pagaron.size() == 1) {
                     ganador = pagaron.get(0);
-                    carta = pagaron.get(0).mejorCarta();
+                    cartasGanadoras();
+
                 } else {
-                    compararCartas();
+                    evaluarGanador();
                 }
             }
             return true;
@@ -88,23 +89,66 @@ public class Mano {
         return false;
     }
 
-    private void compararCartas() {
+    private void evaluarGanador() {
         Participante mejor = pagaron.get(0);
 
         for (int i = 1; i < pagaron.size(); i++) {
 
-            // Ganador es el que tiene la mejor carta entre las mejores de cada participante
-            if (pagaron.get(0).mejorCarta().compareTo(pagaron.get(i).mejorCarta()) > 0) {
-                mejor = pagaron.get(i);
+            Participante otro = pagaron.get(i);
+
+            // Defino mejor figura y carta de los dos participantes a comparar
+            Figura mejorFigura = mejor.getFigura();
+            Figura otraFigura = pagaron.get(i).getFigura();
+            Carta mejorCarta = mejor.mejorCarta();
+            Carta otraCarta = pagaron.get(i).mejorCarta();
+
+            // Los dos tienen figura, las comparo
+            if (mejorFigura != null && otraFigura != null) {
+                int comparacion = mejorFigura.compareTo(otraFigura);
+
+                // El otro tiene la mejor figura
+                if (comparacion > 0) {
+                    mejor = pagaron.get(i);
+                } else if (comparacion == 0) {
+                    // Los dos tienen la misma figura, comparo internamente el tipo
+                    if (mejorFigura.compareInternal(otraFigura) > 0) {
+                        mejor = pagaron.get(i);
+                    }
+                }
+
+            } else if (mejorFigura != null && otraFigura == null) {
+                // El mejor es el único que tiene figura
+
+            } else if (mejorFigura == null && otraFigura != null) {
+                // El otro es el único que tiene figura
+                mejor = otro;
+
+            } else {
+                // Ninguno tiene figura, define la carta mas alta
+                if (mejorCarta.compareTo(otraCarta) > 0) {
+                    mejor = otro;
+                }
             }
         }
         ganador = mejor;
-        carta = mejor.mejorCarta();
+        cartasGanadoras();
+    }
+
+    private void cartasGanadoras() {
+        if (ganador != null) {
+            if (ganador.getFigura() != null) {
+                ganadoras = ganador.getFigura().getConjunto();
+            } else {
+                ganadoras.add(ganador.mejorCarta());
+            }
+        }
     }
 
     //===============================================//
     public void repartir(Participante p) {
         p.setCartas(this.mazo.repartir(5));
+        p.ordenarCartas();
+        p.mejorFigura();
     }
 
     void jugar(Participante p) {

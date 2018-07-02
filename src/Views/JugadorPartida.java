@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import Controllers.VistaJugadorPartida;
+import java.util.ArrayList;
 
 public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorPartida {
 
@@ -357,19 +358,32 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         mostrarInfo(false);
         mostrarAcciones(false);
 
+        Participante ganador = m.getGanador();
+
         // Si el jugador pago puede ver quien ganó
         if (m.getPagaron().contains(p)) {
 
-            if (p.equals(m.getGanador())) {
-                mensaje("Ganaste la mano!");
-            } else {
-                mensaje(m.getGanador().getJugador().getNombre() + " gano la mano");
-            }
+            mostrarCartas(m.getGanadoras());
 
+            // Si se ganó con una figura
+            if (ganador.getFigura() != null) {
+
+                if (p.equals(ganador)) {
+                    mensaje("Ganaste la mano con " + ganador.getFigura().nombre());
+                } else {
+                    mensaje(ganador.getJugador().getNombre() + " gano la mano con " + ganador.getFigura().nombre());
+                }
+            } else {
+
+                if (p.equals(ganador)) {
+                    mensaje("Ganaste la mano con la carta mas alta");
+                } else {
+                    mensaje(ganador.getJugador().getNombre() + " gano la mano con la carta mas alta");
+                }
+            }
             // Muestra la carta ganadora
-            if (m.getCartaGanadora() != null) {
-                lblCarta3.setVisible(true);
-                mostrarCarta(lblCarta3, rutaImagen(m.getCartaGanadora()));
+            if (m.getGanadoras() != null) {
+
             }
         } else {
             // Si no pagó, solo sabe que termino la mano
@@ -462,6 +476,30 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         }
     }
 
+    public void mostrarCartas(ArrayList<Carta> cartas) {
+
+        for (int i = 0; i < cartas.size(); i++) {
+
+            switch (i) {
+                case 0:
+                    mostrarCarta(lblCarta1, rutaImagen(cartas.get(i)));
+                    break;
+                case 1:
+                    mostrarCarta(lblCarta2, rutaImagen(cartas.get(i)));
+                    break;
+                case 2:
+                    mostrarCarta(lblCarta3, rutaImagen(cartas.get(i)));
+                    break;
+                case 3:
+                    mostrarCarta(lblCarta4, rutaImagen(cartas.get(i)));
+                    break;
+                case 4:
+                    mostrarCarta(lblCarta5, rutaImagen(cartas.get(i)));
+                    break;
+            }
+        }
+    }
+
     @Override
     public void actualizarPozo(int pozo) {
         lblPozo.setText("Pozo: $" + Integer.toString(pozo));
@@ -495,6 +533,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     public void mostrarCarta(javax.swing.JLabel label, URL url) {
         if (url != null) {
             label.setIcon(new ImageIcon(url));
+            label.setVisible(true);
         } else {
             label.setText("No se pudo cargar la imagen");
         }

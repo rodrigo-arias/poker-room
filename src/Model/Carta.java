@@ -5,7 +5,7 @@ public class Carta implements Comparable {
     //==================  Attributes  ==================//
     private int numero;
     private String source;
-    private Palo palo;
+    public Palo palo;
 
     public enum Palo {
         Corazon(4),
@@ -20,8 +20,9 @@ public class Carta implements Comparable {
         }
 
         public int getValor() {
-            return valor;
+            return this.valor;
         }
+
     }
 
     //=================  Constructor  ================//
@@ -40,10 +41,6 @@ public class Carta implements Comparable {
         return source;
     }
 
-//    public int compareTo(Crucero element) {
-//        Crucero other = element;
-//        return this.nombre.compareTo(other.nombre);
-//    }
     @Override
     public int compareTo(Object o) {
         Carta otra = (Carta) o;
