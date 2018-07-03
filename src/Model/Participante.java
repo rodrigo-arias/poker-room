@@ -95,7 +95,6 @@ public class Participante implements Observer {
         for (int i = 0; i < cartas.size(); i++) {
             for (int j = 0; j < cartas.size(); j++) {
                 if (cartas.get(i).compareTo(cartas.get(j)) > 0) {
-
                     Collections.swap(cartas, i, j);
                 }
             }

@@ -25,24 +25,51 @@ public abstract class Figura {
         this.conjunto = figura;
     }
 
+    public abstract String getNombre();
+
+    public abstract int getJerarquia();
+
     //==================  Methods  ==================//
     public abstract boolean valido();
-
-    public abstract String nombre();
-
-    public abstract int jerarquia();
 
     public abstract int compareInternal(Object o);
 
     public int compareTo(Object o) {
         Figura otra = (Figura) o;
 
-        if (this.jerarquia() > otra.jerarquia()) {
+        if (this.getJerarquia() > otra.getJerarquia()) {
             return -1;
-        } else if (this.jerarquia() < otra.jerarquia()) {
+        } else if (this.getJerarquia() < otra.getJerarquia()) {
             return 1;
         } else {
-            return 0;
+            if (this.compareInternal(o) > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
+    }
+
+    public Carta mejorCarta(ArrayList<Carta> cartas) {
+        Carta mejor = cartas.get(0);
+
+        for (int i = 1; i < cartas.size(); i++) {
+            if (mejor.compareTo(cartas.get(i)) > 0) {
+                mejor = cartas.get(i);
+            }
+        }
+        return mejor;
+    }
+
+    public ArrayList<Carta> cartasRestantes(ArrayList<Carta> mano, ArrayList<Carta> conjunto) {
+        ArrayList<Carta> aux = new ArrayList();
+
+        for (Carta c : mano) {
+            if (!conjunto.contains(c)) {
+                aux.add(c);
+            }
+        }
+
+        return aux;
     }
 }

@@ -26,7 +26,6 @@ public class Par extends Figura {
                 figura.add(mano.get(i + 1));
 
                 numero = actual;
-
             }
         }
 
@@ -34,12 +33,12 @@ public class Par extends Figura {
     }
 
     @Override
-    public String nombre() {
-        return "Par";
+    public String getNombre() {
+        return "par";
     }
 
     @Override
-    public int jerarquia() {
+    public int getJerarquia() {
         return 1;
     }
 
@@ -57,8 +56,8 @@ public class Par extends Figura {
         } else {
 
             // Tienen par del mismo número, define la carta mas alta del resto
-            ArrayList<Carta> restoCartasActual = restoCartas(this.getMano(), this.getConjunto());
-            ArrayList<Carta> restoCartasOtro = restoCartas(otro.getMano(), otro.getMano());
+            ArrayList<Carta> restoCartasActual = cartasRestantes(this.getMano(), this.getConjunto());
+            ArrayList<Carta> restoCartasOtro = cartasRestantes(otro.getMano(), otro.getMano());
 
             // Obtengo las mejores cartas que no forman la figura
             Carta mejorCartaActual = mejorCarta(restoCartasActual);
@@ -70,28 +69,5 @@ public class Par extends Figura {
                 return 1;
             }
         }
-    }
-
-    public Carta mejorCarta(ArrayList<Carta> cartas) {
-        Carta mejor = cartas.get(0);
-
-        for (int i = 1; i < cartas.size(); i++) {
-            if (mejor.compareTo(cartas.get(i)) > 0) {
-                mejor = cartas.get(i);
-            }
-        }
-        return mejor;
-    }
-
-    public ArrayList<Carta> restoCartas(ArrayList<Carta> mano, ArrayList<Carta> conjunto) {
-        ArrayList<Carta> aux = new ArrayList();
-
-        for (Carta c : mano) {
-            if (!conjunto.contains(c)) {
-                aux.add(c);
-            }
-        }
-
-        return aux;
     }
 }

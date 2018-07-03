@@ -81,4 +81,10 @@ public class Sistema extends Observable {
     public Partida partidaById(int id) {
         return sp.partidaById(id);
     }
+    //----------------------------------------------------//
+
+    public void registrarFigura(Figura figura) {
+        sp.registrarFigura(figura);
+    }
+
 }

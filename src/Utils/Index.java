@@ -14,6 +14,10 @@ public class Index {
         //===================  Partidas  ===================//
         sistema.crearProximaPartida();
 
+        //===================  Figuras  ===================//
+        //sistema.registrarFigura(new Par());
+        //sistema.registrarFigura(new DoblePar());
+        //sistema.registrarFigura(new Color());
         //==================  Jugadores  ==================//
         sistema.registrarJugador(new Jugador("a", "a", "Ana", 350));
         sistema.registrarJugador(new Jugador("b", "b", "Beatriz", 100));

@@ -29,12 +29,12 @@ public class Color extends Figura {
     }
 
     @Override
-    public String nombre() {
-        return "Color";
+    public String getNombre() {
+        return "color";
     }
 
     @Override
-    public int jerarquia() {
+    public int getJerarquia() {
         return 3;
     }
 

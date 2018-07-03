@@ -104,16 +104,11 @@ public class Mano {
 
             // Los dos tienen figura, las comparo
             if (mejorFigura != null && otraFigura != null) {
-                int comparacion = mejorFigura.compareTo(otraFigura);
+                //int comparacion = mejorFigura.compareTo(otraFigura);
 
                 // El otro tiene la mejor figura
-                if (comparacion > 0) {
+                if (mejorFigura.compareTo(otraFigura) > 0) {
                     mejor = pagaron.get(i);
-                } else if (comparacion == 0) {
-                    // Los dos tienen la misma figura, comparo internamente el tipo
-                    if (mejorFigura.compareInternal(otraFigura) > 0) {
-                        mejor = pagaron.get(i);
-                    }
                 }
 
             } else if (mejorFigura != null && otraFigura == null) {

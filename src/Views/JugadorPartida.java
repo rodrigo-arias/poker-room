@@ -45,6 +45,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     @Override
     public void pagar() {
         mensaje("Pagaste, espera el resultado");
+        habilitarAcciones("esperar");
         controlador.pagar();
     }
 
@@ -317,6 +318,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         habilitarAcciones("iniciar");
         actualizarParticipantes(p);
         actualizarCartas(p);
+        mostrarFigura(p);
     }
 
     @Override
@@ -369,9 +371,9 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
             if (ganador.getFigura() != null) {
 
                 if (p.equals(ganador)) {
-                    mensaje("Ganaste la mano con " + ganador.getFigura().nombre());
+                    mensaje("Ganaste la mano con " + ganador.getFigura().getNombre());
                 } else {
-                    mensaje(ganador.getJugador().getNombre() + " gano la mano con " + ganador.getFigura().nombre());
+                    mensaje(ganador.getJugador().getNombre() + " gano la mano con " + ganador.getFigura().getNombre());
                 }
             } else {
 
@@ -397,9 +399,10 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         habilitarAcciones("responder");
 
         Apuesta a = p.getPartida().getMano().getApuesta();
+        Mano m = p.getPartida().getMano();
         actualizarPozo(p.getPartida().getPozo() + a.getValor());
 
-        if (!p.equals(a.getApostador())) {
+        if (!p.equals(a.getApostador()) && !m.getPagaron().contains(p)) {
             mensaje(a.getApostador().getJugador().getNombre() + " aposto $" + a.getValor() + " ¿pagas o pasas?");
             habilitarAcciones("responder");
 
@@ -448,6 +451,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
 
     @Override
     public void actualizarCartas(Participante p) {
+
         if (p.getCartas().size() == 5) {
 
             int i = 1;
@@ -536,6 +540,12 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
             label.setVisible(true);
         } else {
             label.setText("No se pudo cargar la imagen");
+        }
+    }
+
+    public void mostrarFigura(Participante p) {
+        if (p.getFigura() != null) {
+            mensaje("Tienes " + p.getFigura().getNombre() + "!!");
         }
     }
 

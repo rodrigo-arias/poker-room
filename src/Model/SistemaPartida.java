@@ -10,6 +10,7 @@ public class SistemaPartida {
     private int inicialTam = 4;
     private int inicialBase = 2;
     private int ultimoId = 0;
+    private ArrayList<Figura> figuras = new ArrayList();
 
     //==================  Properties  ==================//
     public ArrayList<Partida> getPartidas() {
@@ -80,6 +81,12 @@ public class SistemaPartida {
             }
         }
         return null;
+    }
+
+    public void registrarFigura(Figura figura) {
+        if (!figuras.contains(figura)) {
+            figuras.add(figura);
+        }
     }
     //===============================================//
 }
