@@ -1,7 +1,10 @@
 package Utils;
 
 import Model.Admin;
+import Model.Color;
+import Model.DoblePar;
 import Model.Jugador;
+import Model.Par;
 import Model.Sistema;
 import Views.Launcher;
 
@@ -15,9 +18,10 @@ public class Index {
         sistema.crearProximaPartida();
 
         //===================  Figuras  ===================//
-        //sistema.registrarFigura(new Par());
-        //sistema.registrarFigura(new DoblePar());
-        //sistema.registrarFigura(new Color());
+        sistema.registrarFigura(new Par());
+        sistema.registrarFigura(new DoblePar());
+        sistema.registrarFigura(new Color());
+
         //==================  Jugadores  ==================//
         sistema.registrarJugador(new Jugador("a", "a", "Ana", 350));
         sistema.registrarJugador(new Jugador("b", "b", "Beatriz", 100));

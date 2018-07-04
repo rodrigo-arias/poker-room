@@ -29,6 +29,8 @@ public abstract class Figura {
 
     public abstract int getJerarquia();
 
+    public abstract Figura crearNueva();
+
     //==================  Methods  ==================//
     public abstract boolean valido();
 
@@ -69,7 +71,6 @@ public abstract class Figura {
                 aux.add(c);
             }
         }
-
         return aux;
     }
 }

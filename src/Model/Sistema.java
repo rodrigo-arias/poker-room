@@ -69,6 +69,10 @@ public class Sistema extends Observable {
         return sp.inicialTam(tam);
     }
 
+    public void mejorFigura(Participante p) {
+        sp.mejorFigura(p);
+    }
+
     //----------------------------------------------------//
     protected ArrayList<Partida> partidasActivas() {
         return sp.partidasActivas();

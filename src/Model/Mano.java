@@ -143,7 +143,7 @@ public class Mano {
     public void repartir(Participante p) {
         p.setCartas(this.mazo.repartir(5));
         p.ordenarCartas();
-        p.mejorFigura();
+        Sistema.instancia().mejorFigura(p);
     }
 
     void jugar(Participante p) {

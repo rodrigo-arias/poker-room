@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Par extends Figura {
 
-    public Par(ArrayList<Carta> cartas) {
-        super.setMano(cartas);
-    }
-
     @Override
     public boolean valido() {
         int numero = 0;
@@ -69,5 +65,10 @@ public class Par extends Figura {
                 return 1;
             }
         }
+    }
+
+    @Override
+    public Figura crearNueva() {
+        return new Par();
     }
 }

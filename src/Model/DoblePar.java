@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class DoblePar extends Figura {
 
-    public DoblePar(ArrayList<Carta> cartas) {
-        super.setMano(cartas);
-    }
-
     @Override
     public boolean valido() {
         int pares = 0;
@@ -34,7 +30,7 @@ public class DoblePar extends Figura {
 
     @Override
     public String getNombre() {
-        return "poble Par";
+        return "poble par";
     }
 
     @Override
@@ -47,8 +43,8 @@ public class DoblePar extends Figura {
         DoblePar otro = (DoblePar) o;
 
         // Obtengo el número de los pares mas altos
-        int parAltoActual = this.getConjunto().get(this.getConjunto().size()).getValor();
-        int parAltoOtro = otro.getConjunto().get(otro.getConjunto().size()).getValor();
+        int parAltoActual = this.getConjunto().get(this.getConjunto().size() - 1).getValor();
+        int parAltoOtro = otro.getConjunto().get(otro.getConjunto().size() - 1).getValor();
 
         if (parAltoActual > parAltoOtro) {
             return -1;
@@ -81,5 +77,10 @@ public class DoblePar extends Figura {
             }
 
         }
+    }
+
+    @Override
+    public Figura crearNueva() {
+        return new DoblePar();
     }
 }

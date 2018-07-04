@@ -34,6 +34,10 @@ public class Participante implements Observer {
         return figura;
     }
 
+    public void setFigura(Figura figura) {
+        this.figura = figura;
+    }
+
     //==================  Constructor  ==================//
     public Participante(Jugador jugador, Partida partida) {
         this.cartas = new ArrayList(5);
@@ -69,25 +73,6 @@ public class Participante implements Observer {
             }
         }
         return mejor;
-    }
-
-    public void mejorFigura() {
-
-        Par par = new Par(cartas);
-        DoblePar doblepar = new DoblePar(cartas);
-        Color color = new Color(cartas);
-
-        if (par.valido()) {
-            this.figura = par;
-        }
-
-        if (figura == par && doblepar.valido()) {
-            this.figura = doblepar;
-        }
-
-        if (color.valido()) {
-            this.figura = color;
-        }
     }
 
     public void ordenarCartas() {

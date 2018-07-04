@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Color extends Figura {
 
-    public Color(ArrayList<Carta> cartas) {
-        super.setMano(cartas);
-    }
-
     @Override
     public boolean valido() {
         boolean color = true;
@@ -24,7 +20,6 @@ public class Color extends Figura {
                 }
             }
         }
-
         return color;
     }
 
@@ -50,5 +45,10 @@ public class Color extends Figura {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public Figura crearNueva() {
+        return new Color();
     }
 }

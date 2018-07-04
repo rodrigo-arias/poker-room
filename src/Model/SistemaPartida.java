@@ -7,7 +7,7 @@ public class SistemaPartida {
     //==================  Attributes  ==================//
     private ArrayList<Partida> partidas = new ArrayList();
     private Partida proximaPartida;
-    private int inicialTam = 4;
+    private int inicialTam = 3;
     private int inicialBase = 2;
     private int ultimoId = 0;
     private ArrayList<Figura> figuras = new ArrayList();
@@ -81,6 +81,24 @@ public class SistemaPartida {
             }
         }
         return null;
+    }
+    //===============================================//
+
+    public void mejorFigura(Participante p) {
+        for (Figura f : figuras) {
+
+            // Creo una figura del mismo tipo con las cartas del participante para evaluar
+            Figura nueva = f.crearNueva();
+            nueva.setMano(p.getCartas());
+
+            if (nueva.valido()) {
+
+                // Si no tenía figura registrada o la actual es mejor
+                if (p.getFigura() == null || p.getFigura().getJerarquia() < f.getJerarquia()) {
+                    p.setFigura(nueva);
+                }
+            }
+        }
     }
 
     public void registrarFigura(Figura figura) {
