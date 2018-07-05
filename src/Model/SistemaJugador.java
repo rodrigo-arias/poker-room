@@ -35,4 +35,10 @@ class SistemaJugador {
         }
         return false;
     }
+
+    public void cargarJugadores(ArrayList<Jugador> lista) {
+        for (Jugador j : lista) {
+            registrarJugador(j);
+        }
+    }
 }

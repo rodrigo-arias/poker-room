@@ -1,18 +1,23 @@
 package Utils;
 
+import Persistence.MapeadorJugador;
 import Model.Admin;
 import Model.Color;
 import Model.DoblePar;
-import Model.Jugador;
 import Model.Par;
 import Model.Sistema;
+import Persistence.BaseDatos;
+import Persistence.Persistencia;
 import Views.Launcher;
 
 public class Index {
 
     public static void main(String[] args) {
 
+        //==================  Attributes  ==================//
         Sistema sistema = Sistema.instancia();
+        Persistencia persistencia = Persistencia.instancia();
+        BaseDatos db = BaseDatos.instancia();
 
         //===================  Partidas  ===================//
         sistema.crearProximaPartida();
@@ -23,16 +28,8 @@ public class Index {
         sistema.registrarFigura(new Color());
 
         //==================  Jugadores  ==================//
-        sistema.registrarJugador(new Jugador("a", "a", "Ana", 350));
-        sistema.registrarJugador(new Jugador("b", "b", "Beatriz", 100));
-        sistema.registrarJugador(new Jugador("c", "c", "Carlos", 200));
-        sistema.registrarJugador(new Jugador("d", "d", "Daniel", 50));
-        sistema.registrarJugador(new Jugador("e", "e", "Esteban", 150));
-
-        sistema.registrarJugador(new Jugador("carolina03", "carolina1234", "Carolina", 150));
-        sistema.registrarJugador(new Jugador("gonza05", "gg05", "Gonzalo Gomez", 200));
-        sistema.registrarJugador(new Jugador("juan27", "juanpa01", "Juan Martinez", 250));
-        sistema.registrarJugador(new Jugador("estebanN", "esteban12", "Esteban Mas", 90));
+        sistema.cargarJugadores(persistencia.all(new MapeadorJugador()));
+        db.close();
 
         //===================  Admins  ====================//
         sistema.registrarAdmin(new Admin("r", "r", "Rodrigo"));

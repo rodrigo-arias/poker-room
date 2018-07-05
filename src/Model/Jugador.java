@@ -7,6 +7,7 @@ public class Jugador {
     private String contrasena;
     private String nombre;
     private int saldo;
+    private int Oid;
 
     //=================  Constructor  ================//
     public Jugador(String usuario, String contrasena, String nombre, int saldo) {
@@ -14,6 +15,9 @@ public class Jugador {
         this.contrasena = contrasena;
         this.nombre = nombre;
         this.saldo = saldo;
+    }
+
+    public Jugador() {
     }
 
     //==================  Properties  =================//
@@ -47,6 +51,26 @@ public class Jugador {
 
     public void setSaldo(int saldo) {
         this.saldo = saldo;
+    }
+
+    public int getOid() {
+        return Oid;
+    }
+
+    public void setOid(int Oid) {
+        this.Oid = Oid;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     //==================  Methods  ==================//

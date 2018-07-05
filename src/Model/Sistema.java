@@ -39,6 +39,10 @@ public class Sistema extends Observable {
         return sj.ingresarJugador(u, p);
     }
 
+    public void cargarJugadores(ArrayList<Jugador> lista) {
+        sj.cargarJugadores(lista);
+    }
+
     //===================  Sis. Admin  ===================//
     public boolean registrarAdmin(Admin a) {
         return sa.registrarAdmin(a);
