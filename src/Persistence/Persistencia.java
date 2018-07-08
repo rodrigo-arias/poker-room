@@ -77,7 +77,7 @@ public class Persistencia {
         }
     }
 
-    public ArrayList<Jugador> all(Mapeador map) {
+    public ArrayList<Object> all(Mapeador map) {
         return search(map, null);
     }
 

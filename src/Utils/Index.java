@@ -7,6 +7,7 @@ import Model.DoblePar;
 import Model.Par;
 import Model.Sistema;
 import Persistence.BaseDatos;
+import Persistence.MapeadorPartida;
 import Persistence.Persistencia;
 import Views.Launcher;
 
@@ -20,6 +21,7 @@ public class Index {
         BaseDatos db = BaseDatos.instancia();
 
         //===================  Partidas  ===================//
+        sistema.cargarPartidas(persistencia.all(new MapeadorPartida()));
         sistema.crearProximaPartida();
 
         //===================  Figuras  ===================//
@@ -29,7 +31,6 @@ public class Index {
 
         //==================  Jugadores  ==================//
         sistema.cargarJugadores(persistencia.all(new MapeadorJugador()));
-        db.close();
 
         //===================  Admins  ====================//
         sistema.registrarAdmin(new Admin("r", "r", "Rodrigo"));

@@ -152,9 +152,9 @@ public class AdminMonitor extends javax.swing.JFrame implements VistaAdminMonito
 
     @Override
     public void actualizarParticipantes() {
-        int id = (Integer) modelPartida.getValueAt(tablaPartida.getSelectedRow(), 0);
+        int index = tablaPartida.getSelectedRow();
 
-        Partida partida = Sistema.instancia().partidaById(id);
+        Partida partida = Sistema.instancia().partidaByIndex(index);
         tablaParticipante.setModel(new TablaParticipante(partida));
         modelParticipantes.fireTableDataChanged();
     }

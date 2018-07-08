@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class TablaPartida extends AbstractTableModel {
 
-    private String[] columnNames = {"#", "Inicio", "Jugando", "Total apostado", "Manos jugadas"};
+    private String[] columnNames = {"Inicio", "Jugando", "Total apostado", "Manos jugadas"};
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -16,35 +16,33 @@ public class TablaPartida extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return Sistema.instancia().partidasActivas().size();
+        return Sistema.instancia().partidasTodas().size();
     }
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ArrayList<Partida> activas = Sistema.instancia().partidasActivas();
+        ArrayList<Partida> partidas = Sistema.instancia().partidasTodas();
+        Partida partida = partidas.get(rowIndex);
 
-        if (activas.size() > 0) {
+        if (partidas.size() > 0 && partida.getInicio() != null) {
 
-            Partida partida = activas.get(rowIndex);
             DateTimeFormatter formato = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
 
             switch (columnIndex) {
                 case 0:
-                    return partida.getId();
-                case 1:
                     return partida.getInicio().format(formato);
+                case 1:
+                    return Sistema.instancia().participantesPartida(partida).size();
                 case 2:
-                    return partida.getJugadores().size();
+                    return partida.getApostado();
                 case 3:
-                    return partida.totalApostado();
-                case 4:
-                    return partida.getManos().size();
+                    return partida.getCantManos();
             }
         }
         return null;
@@ -54,14 +52,12 @@ public class TablaPartida extends AbstractTableModel {
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return int.class;
-            case 1:
                 return String.class;
+            case 1:
+                return int.class;
             case 2:
                 return int.class;
             case 3:
-                return int.class;
-            case 4:
                 return int.class;
         }
         return null;

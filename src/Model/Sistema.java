@@ -10,6 +10,7 @@ public class Sistema extends Observable {
     private SistemaJugador sj = new SistemaJugador();
     private SistemaAdmin sa = new SistemaAdmin();
     private SistemaPartida sp = new SistemaPartida();
+    private SistemaParticipante ss = new SistemaParticipante();
 
     public enum Eventos {
         partidaNueva,
@@ -39,8 +40,12 @@ public class Sistema extends Observable {
         return sj.ingresarJugador(u, p);
     }
 
-    public void cargarJugadores(ArrayList<Jugador> lista) {
+    public void cargarJugadores(ArrayList<Object> lista) {
         sj.cargarJugadores(lista);
+    }
+
+    protected void actualizarJugador(Jugador j) {
+        sj.actualizarJugador(j);
     }
 
     //===================  Sis. Admin  ===================//
@@ -54,6 +59,15 @@ public class Sistema extends Observable {
 
     public void salirAdmin(Admin a) {
         sa.salirAdmin(a);
+    }
+
+    //================  Sis. Participante  ===============//
+    public ArrayList<Participante> participantesPartida(Partida p) {
+        return ss.participantesPartida(p);
+    }
+
+    public void registrarParticipante(Participante p) {
+        ss.registrarParticipante(p);
     }
 
     //==================  Sis. Partida  ==================//
@@ -77,6 +91,14 @@ public class Sistema extends Observable {
         sp.mejorFigura(p);
     }
 
+    protected void guardarPartida(Partida p) {
+        sp.guardarPartida(p);
+    }
+
+    public void cargarPartidas(ArrayList<Object> lista) {
+        sp.cargarPartidas(lista);
+    }
+
     //----------------------------------------------------//
     protected ArrayList<Partida> partidasActivas() {
         return sp.partidasActivas();
@@ -86,8 +108,8 @@ public class Sistema extends Observable {
         return sp.getPartidas();
     }
 
-    public Partida partidaById(int id) {
-        return sp.partidaById(id);
+    public Partida partidaByIndex(int index) {
+        return sp.partidaByIndex(index);
     }
     //----------------------------------------------------//
 

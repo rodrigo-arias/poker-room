@@ -3,11 +3,11 @@ package Model;
 public class Jugador {
 
     //==================  Attributes  ==================//
+    private int oid;
     private String usuario;
     private String contrasena;
     private String nombre;
     private int saldo;
-    private int Oid;
 
     //=================  Constructor  ================//
     public Jugador(String usuario, String contrasena, String nombre, int saldo) {
@@ -54,11 +54,11 @@ public class Jugador {
     }
 
     public int getOid() {
-        return Oid;
+        return oid;
     }
 
     public void setOid(int Oid) {
-        this.Oid = Oid;
+        this.oid = Oid;
     }
 
     public void setUsuario(String usuario) {
@@ -83,10 +83,12 @@ public class Jugador {
     public void restarSaldo(int base) {
         this.saldo = this.saldo - base;
         Sistema.instancia().avisar(Sistema.Eventos.jugadorActualizado);
+        Sistema.instancia().actualizarJugador(this);
     }
 
     void sumarSaldo(int pozo) {
         this.saldo = this.saldo + pozo;
         Sistema.instancia().avisar(Sistema.Eventos.jugadorActualizado);
+        Sistema.instancia().actualizarJugador(this);
     }
 }

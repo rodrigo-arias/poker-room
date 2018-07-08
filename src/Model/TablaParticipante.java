@@ -1,10 +1,11 @@
 package Model;
 
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 public class TablaParticipante extends AbstractTableModel {
 
-    private String[] columnNames = {"#", "Nombre", "Total apostado", "Saldo inicial", "Total ganado"};
+    private String[] columnNames = {"Nombre", "Saldo inicial", "Total apostado", "Total ganado"};
     private final Partida partida;
 
     public TablaParticipante(Partida partida) {
@@ -18,8 +19,8 @@ public class TablaParticipante extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (this.partida != null) {
-            return this.partida.getJugadores().size();
+        if (partida != null && Sistema.instancia().participantesPartida(partida) != null) {
+            return Sistema.instancia().participantesPartida(partida).size();
         } else {
             return 0;
         }
@@ -27,34 +28,31 @@ public class TablaParticipante extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        if (this.partida != null && this.partida.getJugadores().size() > 0) {
+        if (partida != null) {
 
-            Jugador j = this.partida.getJugadores().get(rowIndex);
+            ArrayList<Participante> aux = Sistema.instancia().participantesPartida(partida);
 
-            // Get valores
-            int id = rowIndex + 1;
-            String nombre = j.getNombre();
-            int totalApostado = this.partida.totalApostadoJugador(j);
-            int saldoInicial = this.partida.getSaldosIniciales().get(rowIndex);
-            int totalGanado = this.partida.totalGanado(j, this.partida);
+            if (aux.size() > 0 && partida.getInicio() != null) {
+                Participante p = aux.get(rowIndex);
 
-            switch (columnIndex) {
-                case 0:
-                    return id;
-                case 1:
-                    return nombre;
-                case 2:
-                    return totalApostado;
-                case 3:
-                    return saldoInicial;
-                case 4:
-                    return totalGanado;
+                if (p != null) {
+                    switch (columnIndex) {
+                        case 0:
+                            return p.getNombre();
+                        case 1:
+                            return p.getInicial();
+                        case 2:
+                            return p.getApostado();
+                        case 3:
+                            return p.getGanado();
+                    }
+                }
             }
         }
         return null;
@@ -64,14 +62,12 @@ public class TablaParticipante extends AbstractTableModel {
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return int.class;
-            case 1:
                 return String.class;
+            case 1:
+                return int.class;
             case 2:
                 return int.class;
             case 3:
-                return int.class;
-            case 4:
                 return int.class;
         }
         return null;

@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import Controllers.VistaJugadorPartida;
+import Model.Partida;
 import java.util.ArrayList;
 
 public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorPartida {
@@ -400,7 +401,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
 
         Apuesta a = p.getPartida().getMano().getApuesta();
         Mano m = p.getPartida().getMano();
-        actualizarPozo(p.getPartida().getPozo() + a.getValor());
+        actualizarPozo(p.getPartida());
 
         if (!p.equals(a.getApostador()) && !m.getPagaron().contains(p)) {
             mensaje(a.getApostador().getJugador().getNombre() + " aposto $" + a.getValor() + " ¿pagas o pasas?");
@@ -425,7 +426,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         String saldoActual = "$" + Integer.toString(p.getJugador().getSaldo());
 
         actualizarParticipante(nomActual, saldoActual, 1);
-        actualizarPozo(p.getPartida().getPozo());
+        actualizarPozo(p.getPartida());
 
         // Actualizo los datos del resto de los jugadores
         for (Jugador j : p.getPartida().getJugadores()) {
@@ -505,7 +506,12 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     }
 
     @Override
-    public void actualizarPozo(int pozo) {
+    public void actualizarPozo(Partida p) {
+        int pozo = p.getPozo();
+
+        if (p.getMano() != null && p.getMano().getApuesta() != null) {
+            pozo = p.getPozo() + p.getMano().getPozo();
+        }
         lblPozo.setText("Pozo: $" + Integer.toString(pozo));
     }
 

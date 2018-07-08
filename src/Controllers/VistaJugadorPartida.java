@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Mano;
 import Model.Participante;
+import Model.Partida;
 
 public interface VistaJugadorPartida {
 
@@ -24,7 +25,7 @@ public interface VistaJugadorPartida {
 
     public void actualizarCartas(Participante p);
 
-    public void actualizarPozo(int p);
+    public void actualizarPozo(Partida p);
 
     //-------------------------------------
     public void manoIniciar(Participante p);

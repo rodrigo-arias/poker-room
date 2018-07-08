@@ -1,5 +1,7 @@
 package Model;
 
+import Persistence.MapeadorPartida;
+import Persistence.Persistencia;
 import java.util.ArrayList;
 
 public class SistemaPartida {
@@ -9,7 +11,6 @@ public class SistemaPartida {
     private Partida proximaPartida;
     private int inicialTam = 3;
     private int inicialBase = 2;
-    private int ultimoId = 0;
     private ArrayList<Figura> figuras = new ArrayList();
 
     //==================  Properties  ==================//
@@ -23,8 +24,7 @@ public class SistemaPartida {
 
     //==================  Methods  ==================//
     public void crearProximaPartida() {
-        ultimoId++;
-        proximaPartida = new Partida(ultimoId, inicialTam, inicialBase);
+        proximaPartida = new Partida(inicialTam, inicialBase);
         partidas.add(proximaPartida);
         Sistema.instancia().avisar(Sistema.Eventos.partidaNueva);
     }
@@ -74,16 +74,15 @@ public class SistemaPartida {
         return aux;
     }
 
-    public Partida partidaById(int id) {
-        for (Partida p : partidas) {
-            if (p.getId() == id) {
-                return p;
-            }
+    public Partida partidaByIndex(int index) {
+        if (index >= 0) {
+            return partidas.get(index);
+        } else {
+            return null;
         }
-        return null;
     }
-    //===============================================//
 
+    //===============================================//
     public void mejorFigura(Participante p) {
         for (Figura f : figuras) {
 
@@ -106,5 +105,18 @@ public class SistemaPartida {
             figuras.add(figura);
         }
     }
-    //===============================================//
+
+    //=================  Persistence ==================//
+    public void guardarPartida(Partida p) {
+        MapeadorPartida mp = new MapeadorPartida(p, Sistema.instancia().participantesPartida(p));
+        Persistencia.instancia().save(mp);
+    }
+
+    void cargarPartidas(ArrayList<Object> lista) {
+        if (!lista.isEmpty()) {
+            for (Object o : lista) {
+                partidas.add((Partida) o);
+            }
+        }
+    }
 }

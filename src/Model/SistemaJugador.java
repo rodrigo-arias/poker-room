@@ -1,5 +1,7 @@
 package Model;
 
+import Persistence.MapeadorJugador;
+import Persistence.Persistencia;
 import java.util.ArrayList;
 
 class SistemaJugador {
@@ -7,7 +9,7 @@ class SistemaJugador {
     //==================  Attributes  ==================//
     private ArrayList<Jugador> jugadores = new ArrayList();
 
-    //==================  Methods  ==================//
+    //===================  Methods  ===================//
     public Participante ingresarJugador(String user, String pass) {
 
         for (Jugador j : jugadores) {
@@ -36,9 +38,17 @@ class SistemaJugador {
         return false;
     }
 
-    public void cargarJugadores(ArrayList<Jugador> lista) {
-        for (Jugador j : lista) {
-            registrarJugador(j);
+    //=================  Persistence ==================//
+    public void cargarJugadores(ArrayList<Object> lista) {
+        if (!lista.isEmpty()) {
+            for (Object o : lista) {
+                registrarJugador((Jugador) o);
+            }
         }
+    }
+
+    public void actualizarJugador(Jugador j) {
+        MapeadorJugador mj = new MapeadorJugador(j);
+        Persistencia.instancia().save(mj);
     }
 }

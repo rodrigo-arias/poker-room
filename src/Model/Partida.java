@@ -7,7 +7,7 @@ import java.util.Observable;
 public class Partida extends Observable {
 
     //==================  Attributes  ==================//
-    private int id;
+    private int oid;
     private int tam;
     private int pozo;
     private int base;
@@ -16,8 +16,9 @@ public class Partida extends Observable {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Mano> manos;
     private int respuestas;
-    ArrayList<Integer> saldos = new ArrayList<>();
     boolean activa = false;
+    private int cantManos;
+    private int apostado;
 
     public enum Eventos {
         actualizar,
@@ -40,8 +41,10 @@ public class Partida extends Observable {
     }
 
     //==================  Constructor  =================//
-    public Partida(int id, int tam, int base) {
-        this.id = id;
+    public Partida() {
+    }
+
+    public Partida(int tam, int base) {
         this.tam = tam;
         this.pozo = 0;
         this.base = base;
@@ -52,12 +55,12 @@ public class Partida extends Observable {
     }
 
     //==================  Properties  =================//
-    public int getId() {
-        return id;
+    public int getOid() {
+        return oid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOid(int id) {
+        this.oid = id;
     }
 
     public void setTam(int tam) {
@@ -100,8 +103,28 @@ public class Partida extends Observable {
         return mano;
     }
 
-    public ArrayList<Integer> getSaldosIniciales() {
-        return saldos;
+    public void setPozo(int pozo) {
+        this.pozo = pozo;
+    }
+
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public int getCantManos() {
+        return cantManos;
+    }
+
+    public void setCantManos(int cantManos) {
+        this.cantManos = cantManos;
+    }
+
+    public int getApostado() {
+        return apostado;
+    }
+
+    public void setApostado(int apostado) {
+        this.apostado = apostado;
     }
 
     //==================  Methods  ==================//
@@ -119,7 +142,9 @@ public class Partida extends Observable {
             // Jugador válido, creo el participante y agrego el jugador a la próxima partida
             p = new Participante(j, this);
             jugadores.add(j);
-            saldos.add(j.getSaldo());
+            p.setInicial(p.getJugador().getSaldo());
+
+            Sistema.instancia().registrarParticipante(p);
 
             if (jugadores.size() == tam) {
                 // Se completaron los participante, creo una nueva partida e inicio la actual
@@ -161,6 +186,8 @@ public class Partida extends Observable {
     public void iniciarMano() {
         mano = new Mano();
         manos.add(mano);
+        cantManos++;
+
         avisar(Eventos.jugarMano);
         avisar(Eventos.iniciarMano);
     }
@@ -192,6 +219,7 @@ public class Partida extends Observable {
         }
 
         respuestas = 0;
+        guardar();
         avisar(Eventos.finalizarMano);
     }
 
@@ -221,15 +249,20 @@ public class Partida extends Observable {
     public void salir(Participante p, Accion a) {
         quitarJugador(p);
 
-        if (mano.procesar(p, Accion.salir, 0)) {
-            ganador();
-        } else {
-            avisar(Eventos.actualizar);
+        if (mano != null) {
+            if (mano.procesar(p, Accion.salir, 0)) {
+                ganador();
+            } else {
+                avisar(Eventos.actualizar);
+            }
         }
     }
 
     public void apostar(Participante p, Accion a, int m) {
+        // Resto el saldo al jugador y sumo saldos apostados al participante
         p.getJugador().restarSaldo(m);
+        p.setApostado(p.getApostado() + m);
+        apostado += m;
 
         if (mano.procesar(p, a, m)) {
             ganador();
@@ -249,7 +282,12 @@ public class Partida extends Observable {
     }
 
     public void pagar(Participante p, Accion a) {
-        p.getJugador().restarSaldo(mano.getApuesta().getValor());
+        int m = mano.getApuesta().getValor();
+
+        // Resto el saldo al jugador y sumo saldos apostados al participante
+        p.getJugador().restarSaldo(m);
+        p.setApostado(p.getApostado() + m);
+        apostado += m;
 
         if (mano.procesar(p, a, 0)) {
             ganador();
@@ -262,7 +300,13 @@ public class Partida extends Observable {
     public void ganador() {
         // Si hay un ganador actualizo el pozo y el saldo del ganador
         if (mano.getGanador() != null) {
-            mano.getGanador().getJugador().sumarSaldo(mano.getPozo() + pozo);
+            Participante g = mano.getGanador();
+
+            // Sumo saldo al jugador y total ganado al participante
+            int ganado = mano.getPozo() - mano.getApuesta().getValor();
+
+            g.getJugador().sumarSaldo(ganado);
+            g.setGanado(ganado);
             pozo = 0;
         } else {
             pozo += mano.getPozo();
@@ -270,73 +314,6 @@ public class Partida extends Observable {
 
         avisar(Eventos.ganador);
         finalizarMano();
-    }
-
-    //==================  Monitor  ==================//
-    public int totalApostado() {
-        int total = 0;
-        for (Mano m : manos) {
-            if (m.getApuesta() != null) {
-                total += m.getApuesta().getValor();
-            }
-        }
-        return total;
-    }
-
-    public int totalApostadoJugador(Jugador j) {
-        int totalApostado = 0;
-        for (Mano m : manos) {
-
-            ArrayList<Participante> pagaron = m.getPagaron();
-
-            for (Participante p : pagaron) {
-                if (p.getJugador().equals(j)) {
-                    totalApostado += m.getApuesta().getValor();
-                }
-            }
-        }
-        return totalApostado;
-    }
-
-    public int totalGanado(Jugador j, Partida p) {
-        int totalGanado = 0;
-        boolean aposto = false;
-
-        // Me fijo si fue uno de los que apostó
-        for (Mano m : manos) {
-            ArrayList<Participante> pagaron = m.getPagaron();
-
-            for (Participante ppte : pagaron) {
-                if (ppte.getJugador().equals(j)) {
-                    aposto = true;
-                }
-            }
-
-            // Si apostó
-            if (aposto) {
-                int apuesta = m.getApuesta().getValor();
-
-                // Si no ganó la banca
-                if (m.getGanador() != null) {
-
-                    // Si ganó él
-                    if (m.getGanador().getJugador().equals(j)) {
-                        totalGanado += apuesta;
-                        totalGanado += (p.base * (p.getJugadores().size() - 1));
-                    } else {
-                        totalGanado -= apuesta;
-                        totalGanado -= p.base;
-                    }
-                } else {
-                    totalGanado -= apuesta;
-                    totalGanado -= p.base;
-                }
-            } else {
-                totalGanado -= p.base;
-            }
-            aposto = false;
-        }
-        return totalGanado;
     }
 
     public int apuestaMaxima() {
@@ -348,5 +325,10 @@ public class Partida extends Observable {
             }
         }
         return max;
+    }
+
+    //=================  Persistence ==================//
+    private void guardar() {
+        Sistema.instancia().guardarPartida(this);
     }
 }
