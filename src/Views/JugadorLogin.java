@@ -4,6 +4,7 @@ import Controllers.ControladorJugadorLogin;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import Controllers.VistaJugadorLogin;
+import Model.Participante;
 
 public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLogin {
 
@@ -198,7 +199,6 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
     private javax.swing.JPanel panelBack;
     // End of variables declaration//GEN-END:variables
 
-    @Override
     public void ingresar() {
         String u = fieldNombre.getText();
         String p = new String(fieldPass.getPassword());
@@ -215,5 +215,10 @@ public class JugadorLogin extends javax.swing.JDialog implements VistaJugadorLog
     public void salir() {
         mensaje("");
         dispose();
+    }
+
+    @Override
+    public void partida(Participante ppte) {
+        new JugadorPartida(null, false, ppte).setVisible(true);
     }
 }

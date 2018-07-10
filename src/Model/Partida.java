@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Observable;
 
-public class Partida extends Observable {
+public class Partida extends Observable implements Runnable {
 
     //==================  Attributes  ==================//
     private int oid;
@@ -19,6 +19,10 @@ public class Partida extends Observable {
     boolean activa = false;
     private int cantManos;
     private int apostado;
+    private Thread hilo;
+    private boolean corriendo;
+    private int time = 1;
+    private int limite = 10;
 
     public enum Eventos {
         actualizar,
@@ -30,7 +34,8 @@ public class Partida extends Observable {
         saldoInsuficiente,
         responder,
         ganador,
-        retry;
+        retry,
+        timeout;
     }
 
     public enum Accion {
@@ -127,6 +132,14 @@ public class Partida extends Observable {
         this.apostado = apostado;
     }
 
+    public int getTime() {
+        return time;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
     //==================  Methods  ==================//
     public void avisar(Eventos evento) {
         setChanged();
@@ -205,6 +218,11 @@ public class Partida extends Observable {
     public void finalizarMano() {
         ArrayList<Jugador> sinSaldo = new ArrayList();
 
+        // Finalizo el timeout si está corriendo
+        if (corriendo) {
+            pararTimeout();
+        }
+
         // Quito a los jugadores que no tienen saldo suficiente;
         for (Jugador j : jugadores) {
             if (j.getSaldo() <= base) {
@@ -269,6 +287,9 @@ public class Partida extends Observable {
         } else {
             avisar(Eventos.actualizar);
             avisar(Eventos.responder);
+
+            // Comienza el timeout para responder
+            iniciarTimeout();
         }
     }
 
@@ -330,5 +351,44 @@ public class Partida extends Observable {
     //=================  Persistence ==================//
     private void guardar() {
         Sistema.instancia().guardarPartida(this);
+    }
+
+    //====================  Hilos =====================//
+    @Override
+    public void run() {
+        for (; time <= limite && corriendo; time++) {
+            avisar(Eventos.timeout);
+            try {
+                Thread.currentThread().sleep(1000);
+            } catch (InterruptedException ex) {
+            }
+        }
+        pausarTimeout();
+    }
+
+    public void iniciarTimeout() {
+        if (!corriendo) {
+            hilo = new Thread(this);
+            corriendo = true;
+            hilo.start();
+        }
+    }
+
+    public void pararTimeout() {
+        if (pausarTimeout()) {
+            time = 0;
+        }
+    }
+
+    public boolean pausarTimeout() {
+        if (corriendo) {
+            corriendo = false;
+            hilo.interrupt();
+
+            mano.forzarRespuestas();
+
+            return true;
+        }
+        return false;
     }
 }

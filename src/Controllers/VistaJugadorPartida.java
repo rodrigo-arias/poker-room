@@ -37,4 +37,6 @@ public interface VistaJugadorPartida {
     public void ganador(Participante p, Mano m);
 
     public void saldoInsuficiente();
+
+    public void timeOut(Participante p);
 }

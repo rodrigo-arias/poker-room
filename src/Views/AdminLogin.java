@@ -125,7 +125,7 @@ public class AdminLogin extends javax.swing.JDialog implements VistaAdminLogin {
                     .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fieldNombre))
+                    .addComponent(fieldNombre, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(48, 48, 48))
         );
         AdministratorLayout.setVerticalGroup(

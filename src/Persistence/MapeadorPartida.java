@@ -53,25 +53,39 @@ public class MapeadorPartida implements Mapeador {
     }
 
     private void insertParticipante(ArrayList<String> sqls) {
+        int nro = 1;
 
         for (Participante p : pptes) {
-            sqls.add("INSERT INTO Participante VALUES (" + getOid() + ",'"
+            sqls.add("INSERT INTO Participante VALUES (" + getOid() + ","
+                    + nro + ",'"
                     + p.getNombre() + "',"
                     + p.getInicial() + ","
                     + p.getApostado() + ","
                     + p.getGanado() + ")"
             );
+            nro++;
+        }
+    }
+
+    private void updateParticipante(ArrayList<String> sqls) {
+
+        for (Participante p : pptes) {
+            sqls.add("UPDATE Participante SET nombre='" + p.getNombre()
+                    + "', inicial=" + p.getInicial()
+                    + ",apostado=" + p.getApostado()
+                    + ",ganado=" + p.getGanado()
+                    + " WHERE oid= " + p.getOid());
         }
     }
 
     @Override
     public ArrayList<String> getSqlUpdate() {
         ArrayList<String> sqls = new ArrayList();
-        sqls.add("UPDATE Partida set inicio='" + partida.getInicio()
+        sqls.add("UPDATE Partida SET inicio='" + partida.getInicio()
                 + "',total_apostado=" + partida.getApostado()
                 + ",manos=" + partida.getCantManos()
-                + " where oid=" + getOid());
-        insertParticipante(sqls);
+                + " WHERE oid=" + getOid());
+        updateParticipante(sqls);
         return sqls;
     }
 

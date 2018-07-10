@@ -1,10 +1,12 @@
 package Controllers;
 
-public interface VistaJugadorLogin {
+import Model.Participante;
 
-    public void ingresar();
+public interface VistaJugadorLogin {
 
     public void mensaje(String msg);
 
     public void salir();
+
+    public void partida(Participante p);
 }

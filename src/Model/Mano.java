@@ -52,6 +52,10 @@ public class Mano {
         return ganadoras;
     }
 
+    public ArrayList<Participante> getPasaron() {
+        return pasaron;
+    }
+
     //==================  Methods  ==================//
     public boolean procesar(Participante p, Partida.Accion a, int m) {
         switch (a) {
@@ -195,5 +199,13 @@ public class Mano {
 
     public boolean apuesta() {
         return apuesta != null;
+    }
+
+    public void forzarRespuestas() {
+        for (Participante p : jugando) {
+            if (!pagaron.contains(p) || !pasaron.contains(p)) {
+                p.getPartida().pasar(p, Partida.Accion.pasar);
+            }
+        }
     }
 }

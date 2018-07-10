@@ -61,6 +61,10 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         lblMensaje.setText(msg);
     }
 
+    public void timeout(String msg) {
+        lblTimeout.setText(msg);
+    }
+
     @Override
     public void iniciar(Participante p) {
         reiniciar();
@@ -97,6 +101,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         btnPagar = new javax.swing.JButton();
         btnApostar = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
+        lblTimeout = new javax.swing.JLabel();
         lblMensaje = new javax.swing.JLabel();
         lblCarta1 = new javax.swing.JLabel();
         lblCarta4 = new javax.swing.JLabel();
@@ -160,6 +165,12 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
             }
         });
         panelBack.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 100, 30));
+
+        lblTimeout.setBackground(new java.awt.Color(255, 255, 255));
+        lblTimeout.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        lblTimeout.setForeground(new java.awt.Color(255, 255, 255));
+        lblTimeout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelBack.add(lblTimeout, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 440, 22));
 
         lblMensaje.setBackground(new java.awt.Color(255, 255, 255));
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -307,6 +318,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
     private javax.swing.JLabel lblSaldo3;
     private javax.swing.JLabel lblSaldo4;
     private javax.swing.JLabel lblSaldo5;
+    private javax.swing.JLabel lblTimeout;
     private javax.swing.JPanel panelBack;
     private javax.swing.JSpinner spinnerApuesta;
     // End of variables declaration//GEN-END:variables
@@ -629,6 +641,7 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
         mostrarInfo(true);
         mostrarAcciones(false);
         mensaje("");
+        timeout("");
     }
 
     public URL rutaImagen(Carta c) {
@@ -636,6 +649,23 @@ public class JugadorPartida extends javax.swing.JDialog implements VistaJugadorP
             return JugadorPartida.class.getResource(c.getSource());
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public void timeOut(Participante ppte) {
+        Partida p = ppte.getPartida();
+        Mano m = p.getMano();
+        Apuesta a = m.getApuesta();
+
+        if (a != null) {
+            if (a.getApostador().equals(ppte)
+                    || m.getPagaron().contains(ppte)
+                    || m.getPasaron().contains(ppte)) {
+                timeout("");
+            } else {
+                timeout("Tiempo para la respuesta: " + (p.getLimite() - p.getTime()));
+            }
         }
     }
 }

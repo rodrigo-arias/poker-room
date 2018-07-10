@@ -99,5 +99,9 @@ public class ControladorJugadorPartida implements Observer {
         if (e.equals(Partida.Eventos.retry)) {
             vista.manoIniciar(ppte);
         }
+
+        if (e.equals(Partida.Eventos.timeout)) {
+            vista.timeOut(ppte);
+        }
     }
 }

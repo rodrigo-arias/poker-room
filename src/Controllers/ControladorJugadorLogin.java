@@ -2,7 +2,6 @@ package Controllers;
 
 import Model.Participante;
 import Model.Sistema;
-import Views.JugadorPartida;
 
 public class ControladorJugadorLogin {
 
@@ -17,11 +16,10 @@ public class ControladorJugadorLogin {
         Participante ppte = sistema.ingresarJugador(u, p);
 
         if (ppte == null) {
-            vista.mensaje("Usuario o contraseña incorrectos");
+            vista.mensaje("Usuario o contrasena incorrectos");
         } else {
             vista.salir();
-            // Creación de interfaz de jugador
-            new JugadorPartida(null, false, ppte).setVisible(true);
+            vista.partida(ppte);
         }
     }
 }
